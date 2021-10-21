@@ -262,6 +262,8 @@ func readAddrSpec(r io.Reader) (*AddrSpec, error) {
 		return nil, err
 	}
 
+	fmt.Println("addrType:", addrType)
+
 	// Handle on a per type basis
 	switch addrType[0] {
 	case ipv4Address:
@@ -283,6 +285,8 @@ func readAddrSpec(r io.Reader) (*AddrSpec, error) {
 			return nil, err
 		}
 		addrLen := int(addrType[0])
+
+		fmt.Println("fqdnAddress addrLen:", addrLen)
 		fqdn := make([]byte, addrLen)
 		if _, err := io.ReadAtLeast(r, fqdn, addrLen); err != nil {
 			return nil, err

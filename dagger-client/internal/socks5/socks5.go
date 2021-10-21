@@ -124,10 +124,12 @@ func (s *Server) ServeConn(conn net.Conn) error {
 
 	// Read the version byte
 	version := []byte{0}
+
 	if _, err := bufConn.Read(version); err != nil {
 		s.config.Logger.Printf("[ERR] socks: Failed to get version byte: %v", err)
 		return err
 	}
+	fmt.Println("version", version)
 
 	// Ensure we are compatible
 	if version[0] != socks5Version {
@@ -158,8 +160,17 @@ func (s *Server) ServeConn(conn net.Conn) error {
 		request.RemoteAddr = &AddrSpec{IP: client.IP, Port: client.Port}
 	}
 
+	// bufConn.Reset(conn)
+	// tmp := make([]byte, bufConn.Size()-1)
+	// _, err = bufConn.Read(tmp)
+	// if err != nil {
+	// 	s.config.Logger.Printf("[ERR] read: %v", err)
+	// 	return err
+	// }
+	// fmt.Println("tmp:", string(tmp))
+
 	// Process the client request
-	fmt.Println("request:", request.DestAddr.FQDN)
+	fmt.Println("request:", request.DestAddr.FQDN, string(version), conn)
 	if err := s.handleRequest(request, conn); err != nil {
 		err = fmt.Errorf("Failed to handle request: %v", err)
 		s.config.Logger.Printf("[ERR] socks: %v", err)

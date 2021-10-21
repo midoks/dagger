@@ -16,3 +16,4 @@
 dagger-client/vendor
 dagger-server/vendor
 dagger-server/dagger-server
+dagger-client/dagger-client
