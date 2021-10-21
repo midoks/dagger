@@ -142,12 +142,16 @@ func (s *Server) handleRequest(req *Request, conn conn) error {
 	// Switch on the command
 	switch req.Command {
 	case ConnectCommand:
+		fmt.Println("handleRequest ConnectCommand")
 		return s.handleConnect(ctx, conn, req)
 	case BindCommand:
+		fmt.Println("handleRequest handleBind")
 		return s.handleBind(ctx, conn, req)
 	case AssociateCommand:
+		fmt.Println("handleRequest AssociateCommand")
 		return s.handleAssociate(ctx, conn, req)
 	default:
+		fmt.Println("handleRequest default")
 		if err := sendReply(conn, commandNotSupported, nil); err != nil {
 			return fmt.Errorf("Failed to send reply: %v", err)
 		}
@@ -303,6 +307,13 @@ func readAddrSpec(r io.Reader) (*AddrSpec, error) {
 		return nil, err
 	}
 	d.Port = (int(port[0]) << 8) | int(port[1])
+
+	// Read the tmp
+	// tmp := []byte{0, 0, 0, 0, 0}
+	// if _, err := io.ReadAtLeast(r, tmp, len(tmp)); err != nil {
+	// 	fmt.Println("ddd:tmp err:", err)
+	// 	return nil, err
+	// }
 
 	return d, nil
 }
