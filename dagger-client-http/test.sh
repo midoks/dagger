@@ -1,0 +1,1 @@
+/usr/local/Cellar/curl/7.79.1/bin/curl --proxy 127.0.0.1:8080 https://www.baidu.com
