@@ -7,6 +7,7 @@
 
 import Cocoa
 import Carbon
+import SystemConfiguration
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate,NSUserNotificationCenterDelegate {
@@ -17,6 +18,24 @@ class AppDelegate: NSObject, NSApplicationDelegate,NSUserNotificationCenterDeleg
     var statusItem: NSStatusItem!
 
 
+    @IBAction func selectGlobalMode(_ sender: NSMenuItem) {
+        
+        
+
+        
+    }
+    
+    
+    @IBAction func showAbout(_ sender: NSMenuItem) {
+        NSApp.orderFrontStandardAboutPanel(sender);
+        NSApp.activate(ignoringOtherApps: true)
+    }
+    
+    
+    
+    
+    
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         

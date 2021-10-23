@@ -32,6 +32,9 @@
                 </menuItem>
                 <menuItem title="Global Mode" id="Tn6-db-hzM">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectGlobalMode:" target="Voe-Tx-rLC" id="spV-MF-flW"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Manual Mode" id="Y1j-gm-M3M">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -55,12 +58,18 @@
                 <menuItem title="Show Logs..." id="dFT-Ip-BR8">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
+                <menuItem title="About" id="2RM-o5-9Z5">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showAbout:" target="Voe-Tx-rLC" id="o97-1C-hWl"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="75l-WX-frz"/>
                 <menuItem title="Quit" id="jLJ-t3-LSn">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="49" y="-189.5"/>
+            <point key="canvasLocation" x="49" y="-178.5"/>
         </menu>
     </objects>
 </document>
