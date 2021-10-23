@@ -85,8 +85,8 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) string {
 	}
 	defer src.Close()
 
-	src.SetDeadline(time.Now().Add(5 * time.Second))
-	dst.SetDeadline(time.Now().Add(5 * time.Second))
+	src.SetDeadline(time.Now().Add(30 * time.Second))
+	dst.SetDeadline(time.Now().Add(30 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
