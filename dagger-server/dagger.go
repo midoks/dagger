@@ -2,14 +2,15 @@ package main
 
 import (
 	"bufio"
+	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
+	// "io/ioutil"
 	"log"
 	"net"
 	"net/http"
-	"os"
+	// "os"
 	"runtime"
 	"sync"
 	"time"
@@ -22,37 +23,21 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//设置websocket
-//CheckOrigin防止跨站点的请求伪造
+func Md5Byte(buf []byte) string {
+	hash := md5.New()
+	hash.Write(buf)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+
+func Md5(s string) string {
+	return Md5Byte([]byte(s))
+}
+
+//websocket
 var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
 		return true
 	},
-}
-
-func httpGet(url []byte) ([]byte, error) {
-	client := &http.Client{}
-	reqest, err := http.NewRequest("GET", string(url), nil) //建立一个请求
-	if err != nil {
-		fmt.Println("Fatal error ", err.Error())
-		os.Exit(0)
-	}
-	//Add 头协议
-	reqest.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-	reqest.Header.Add("Accept-Language", "ja,zh-CN;q=0.8,zh;q=0.6")
-	reqest.Header.Add("Connection", "keep-alive")
-	reqest.Header.Add("Cookie", "设置cookie")
-	reqest.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0")
-	response, err := client.Do(reqest) //提交
-	defer response.Body.Close()
-	// cookies := response.Cookies() //遍历cookies
-	// for _, cookie := range cookies {
-	// fmt.Println("cookie:", cookie)
-	// }
-
-	body, err := ioutil.ReadAll(response.Body)
-
-	return body, err
 }
 
 type SendMsg struct {
@@ -60,33 +45,31 @@ type SendMsg struct {
 	ReqConn string `json:"reqconn"`
 }
 
-func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) string {
+var (
+	list map[string]net.Conn
+)
 
-	// decodeBytes, err := base64.StdEncoding.DecodeString(info.ReqConn)
-	// if err != nil {
-	// 	log.Println("decodeBytes:", err)
-	// }
+func init() {
+	list = make(map[string]net.Conn)
+}
 
-	log.Println("process", &c, &ws, runtime.NumGoroutine())
-	dst, err := net.Dial("tcp", info.Link)
-	if err != nil {
-		log.Println("net.Dial:", err)
-	}
-	defer dst.Close()
+func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) {
 
 	// Now, Hijack the writer to get the underlying net.Conn.
 	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
 	src := ws.UnderlyingConn()
 	reader := bufio.NewReader(src)
-	if err != nil {
-		// http.Error(c, err.Error(), http.StatusInternalServerError)
-		log.Println("Hijack:", err)
-		return "ee"
-	}
 	defer src.Close()
 
-	src.SetDeadline(time.Now().Add(30 * time.Second))
-	dst.SetDeadline(time.Now().Add(30 * time.Second))
+	dst, err := net.Dial("tcp", info.Link)
+	if err != nil {
+		log.Println("net.Dial:", info.Link, err)
+		return
+	}
+	defer dst.Close()
+
+	src.SetDeadline(time.Now().Add(5 * time.Second))
+	dst.SetDeadline(time.Now().Add(5 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
@@ -103,21 +86,19 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) string {
 				return
 			}
 		}
-
 		// Relay: src -> dst
 		io.Copy(dst, src)
 	}()
 
 	go func() {
 		defer wg.Done()
-
 		// Relay: dst -> src
 		io.Copy(src, dst)
 	}()
 
 	wg.Wait()
 
-	return "buf.String()"
+	fmt.Println("oooo...")
 }
 
 //websocket实现
@@ -133,15 +114,17 @@ func network(c *gin.Context) {
 
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("read ws msg:", err)
+			log.Println("read ws msg:", err, message)
 			break
 		}
 
 		res := &SendMsg{}
 		json.Unmarshal(message, &res)
+
 		fmt.Println("res:", res.Link)
 		fmt.Println("receive", mt, string(message))
 
+		log.Println("process", &c, &ws, runtime.NumGoroutine())
 		process(c, ws, res)
 
 		// encodeR := base64.StdEncoding.EncodeToString([]byte(r))
