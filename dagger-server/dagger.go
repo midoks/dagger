@@ -1,20 +1,22 @@
 package main
 
 import (
-	// "encoding/base64"
+	"bufio"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
+	"os"
+	"runtime"
+	"sync"
+	"time"
 	// "net/url"
 	// "bytes"
 	// "strings"
-	"bufio"
-	"io"
-	"os"
-	"sync"
+	// "encoding/base64"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
@@ -65,7 +67,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) string {
 	// 	log.Println("decodeBytes:", err)
 	// }
 
-	// fmt.Println(decodeBytes)
+	log.Println("process", &c, &ws, runtime.NumGoroutine())
 	dst, err := net.Dial("tcp", info.Link)
 	if err != nil {
 		log.Println("net.Dial:", err)
@@ -82,6 +84,9 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) string {
 		return "ee"
 	}
 	defer src.Close()
+
+	src.SetDeadline(time.Now().Add(5 * time.Second))
+	dst.SetDeadline(time.Now().Add(5 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
@@ -125,17 +130,16 @@ func network(c *gin.Context) {
 	defer ws.Close()
 
 	for {
-		//读取ws中的数据
+
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("read", err)
+			log.Println("read ws msg:", err)
 			break
 		}
 
 		res := &SendMsg{}
 		json.Unmarshal(message, &res)
 		fmt.Println("res:", res.Link)
-
 		fmt.Println("receive", mt, string(message))
 
 		process(c, ws, res)
