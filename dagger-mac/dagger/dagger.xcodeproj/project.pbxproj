@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		823CC5BF2725DAC300272DEC /* dagger-helper in Resources */ = {isa = PBXBuildFile; fileRef = 823CC5BE2725DAC300272DEC /* dagger-helper */; };
+		823CC5C72725DCB900272DEC /* ProxyConfHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5C62725DCB900272DEC /* ProxyConfHelper.m */; };
+		823CC5EB2725DDC000272DEC /* GCDWebServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5CD2725DDBF00272DEC /* GCDWebServerResponse.m */; };
+		823CC5EC2725DDC000272DEC /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5D02725DDBF00272DEC /* GCDWebServerRequest.m */; };
+		823CC5ED2725DDC000272DEC /* GCDWebServerFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5D32725DDC000272DEC /* GCDWebServerFunctions.m */; };
+		823CC5EE2725DDC000272DEC /* GCDWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5D42725DDC000272DEC /* GCDWebServer.m */; };
+		823CC5EF2725DDC000272DEC /* GCDWebServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5D52725DDC000272DEC /* GCDWebServerConnection.m */; };
+		823CC5F02725DDC000272DEC /* GCDWebServerErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5DA2725DDC000272DEC /* GCDWebServerErrorResponse.m */; };
+		823CC5F12725DDC000272DEC /* GCDWebServerFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5DC2725DDC000272DEC /* GCDWebServerFileResponse.m */; };
+		823CC5F22725DDC000272DEC /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5DD2725DDC000272DEC /* GCDWebServerDataResponse.m */; };
+		823CC5F32725DDC000272DEC /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5DF2725DDC000272DEC /* GCDWebServerStreamedResponse.m */; };
+		823CC5F42725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E42725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.m */; };
+		823CC5F52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m */; };
+		823CC5F62725DDC000272DEC /* GCDWebServerDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E62725DDC000272DEC /* GCDWebServerDataRequest.m */; };
+		823CC5F72725DDC000272DEC /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E72725DDC000272DEC /* GCDWebServerFileRequest.m */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -15,7 +29,6 @@
 		82E844CE272542AF00F3FF1F /* daggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844CD272542AF00F3FF1F /* daggerTests.m */; };
 		82E844D8272542AF00F3FF1F /* daggerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844D7272542AF00F3FF1F /* daggerUITests.m */; };
 		82E844DA272542AF00F3FF1F /* daggerUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844D9272542AF00F3FF1F /* daggerUITestsLaunchTests.m */; };
-		82E844E92725459600F3FF1F /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 82E844E82725459600F3FF1F /* Icon.icns */; };
 		82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E844EB27254B8E00F3FF1F /* dagger@2x.png */; };
 		82E844F227254D6600F3FF1F /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844F127254D6500F3FF1F /* Preferences.m */; };
 		82E8450D2725A3B900F3FF1F /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 82E844F52725A3B400F3FF1F /* LICENSE.md */; };
@@ -49,6 +62,36 @@
 
 /* Begin PBXFileReference section */
 		823CC5BE2725DAC300272DEC /* dagger-helper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "dagger-helper"; sourceTree = "<group>"; };
+		823CC5C52725DCB900272DEC /* ProxyConfHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyConfHelper.h; sourceTree = "<group>"; };
+		823CC5C62725DCB900272DEC /* ProxyConfHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyConfHelper.m; sourceTree = "<group>"; };
+		823CC5CB2725DDBF00272DEC /* GCDWebServerFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFunctions.h; sourceTree = "<group>"; };
+		823CC5CC2725DDBF00272DEC /* GCDWebServerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerPrivate.h; sourceTree = "<group>"; };
+		823CC5CD2725DDBF00272DEC /* GCDWebServerResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerResponse.m; sourceTree = "<group>"; };
+		823CC5CE2725DDBF00272DEC /* GCDWebServerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerConnection.h; sourceTree = "<group>"; };
+		823CC5CF2725DDBF00272DEC /* GCDWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServer.h; sourceTree = "<group>"; };
+		823CC5D02725DDBF00272DEC /* GCDWebServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerRequest.m; sourceTree = "<group>"; };
+		823CC5D12725DDBF00272DEC /* GCDWebServerHTTPStatusCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerHTTPStatusCodes.h; sourceTree = "<group>"; };
+		823CC5D22725DDC000272DEC /* GCDWebServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerResponse.h; sourceTree = "<group>"; };
+		823CC5D32725DDC000272DEC /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFunctions.m; sourceTree = "<group>"; };
+		823CC5D42725DDC000272DEC /* GCDWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServer.m; sourceTree = "<group>"; };
+		823CC5D52725DDC000272DEC /* GCDWebServerConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerConnection.m; sourceTree = "<group>"; };
+		823CC5D62725DDC000272DEC /* GCDWebServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerRequest.h; sourceTree = "<group>"; };
+		823CC5D82725DDC000272DEC /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileResponse.h; sourceTree = "<group>"; };
+		823CC5D92725DDC000272DEC /* GCDWebServerStreamedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerStreamedResponse.h; sourceTree = "<group>"; };
+		823CC5DA2725DDC000272DEC /* GCDWebServerErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerErrorResponse.m; sourceTree = "<group>"; };
+		823CC5DB2725DDC000272DEC /* GCDWebServerDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataResponse.h; sourceTree = "<group>"; };
+		823CC5DC2725DDC000272DEC /* GCDWebServerFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileResponse.m; sourceTree = "<group>"; };
+		823CC5DD2725DDC000272DEC /* GCDWebServerDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataResponse.m; sourceTree = "<group>"; };
+		823CC5DE2725DDC000272DEC /* GCDWebServerErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerErrorResponse.h; sourceTree = "<group>"; };
+		823CC5DF2725DDC000272DEC /* GCDWebServerStreamedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerStreamedResponse.m; sourceTree = "<group>"; };
+		823CC5E12725DDC000272DEC /* GCDWebServerDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataRequest.h; sourceTree = "<group>"; };
+		823CC5E22725DDC000272DEC /* GCDWebServerMultiPartFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerMultiPartFormRequest.h; sourceTree = "<group>"; };
+		823CC5E32725DDC000272DEC /* GCDWebServerFileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileRequest.h; sourceTree = "<group>"; };
+		823CC5E42725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerURLEncodedFormRequest.m; sourceTree = "<group>"; };
+		823CC5E52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerMultiPartFormRequest.m; sourceTree = "<group>"; };
+		823CC5E62725DDC000272DEC /* GCDWebServerDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataRequest.m; sourceTree = "<group>"; };
+		823CC5E72725DDC000272DEC /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileRequest.m; sourceTree = "<group>"; };
+		823CC5E82725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerURLEncodedFormRequest.h; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,7 +104,6 @@
 		82E844D7272542AF00F3FF1F /* daggerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = daggerUITests.m; sourceTree = "<group>"; };
 		82E844D9272542AF00F3FF1F /* daggerUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = daggerUITestsLaunchTests.m; sourceTree = "<group>"; };
 		82E844E62725442400F3FF1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		82E844E82725459600F3FF1F /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		82E844EB27254B8E00F3FF1F /* dagger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dagger@2x.png"; sourceTree = "<group>"; };
 		82E844F027254D6500F3FF1F /* Preferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		82E844F127254D6500F3FF1F /* Preferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
@@ -108,6 +150,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		823CC5C02725DBF200272DEC /* Servers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Servers;
+			sourceTree = "<group>";
+		};
+		823CC5C42725DCB900272DEC /* ProxyConfHelper */ = {
+			isa = PBXGroup;
+			children = (
+				823CC5C52725DCB900272DEC /* ProxyConfHelper.h */,
+				823CC5C62725DCB900272DEC /* ProxyConfHelper.m */,
+			);
+			path = ProxyConfHelper;
+			sourceTree = "<group>";
+		};
+		823CC5C82725DDBF00272DEC /* GCDWebServer */ = {
+			isa = PBXGroup;
+			children = (
+				823CC5C92725DDBF00272DEC /* GCDWebServer */,
+			);
+			path = GCDWebServer;
+			sourceTree = "<group>";
+		};
+		823CC5C92725DDBF00272DEC /* GCDWebServer */ = {
+			isa = PBXGroup;
+			children = (
+				823CC5CA2725DDBF00272DEC /* Core */,
+				823CC5D72725DDC000272DEC /* Responses */,
+				823CC5E02725DDC000272DEC /* Requests */,
+			);
+			path = GCDWebServer;
+			sourceTree = "<group>";
+		};
+		823CC5CA2725DDBF00272DEC /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				823CC5CB2725DDBF00272DEC /* GCDWebServerFunctions.h */,
+				823CC5CC2725DDBF00272DEC /* GCDWebServerPrivate.h */,
+				823CC5CD2725DDBF00272DEC /* GCDWebServerResponse.m */,
+				823CC5CE2725DDBF00272DEC /* GCDWebServerConnection.h */,
+				823CC5CF2725DDBF00272DEC /* GCDWebServer.h */,
+				823CC5D02725DDBF00272DEC /* GCDWebServerRequest.m */,
+				823CC5D12725DDBF00272DEC /* GCDWebServerHTTPStatusCodes.h */,
+				823CC5D22725DDC000272DEC /* GCDWebServerResponse.h */,
+				823CC5D32725DDC000272DEC /* GCDWebServerFunctions.m */,
+				823CC5D42725DDC000272DEC /* GCDWebServer.m */,
+				823CC5D52725DDC000272DEC /* GCDWebServerConnection.m */,
+				823CC5D62725DDC000272DEC /* GCDWebServerRequest.h */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		823CC5D72725DDC000272DEC /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				823CC5D82725DDC000272DEC /* GCDWebServerFileResponse.h */,
+				823CC5D92725DDC000272DEC /* GCDWebServerStreamedResponse.h */,
+				823CC5DA2725DDC000272DEC /* GCDWebServerErrorResponse.m */,
+				823CC5DB2725DDC000272DEC /* GCDWebServerDataResponse.h */,
+				823CC5DC2725DDC000272DEC /* GCDWebServerFileResponse.m */,
+				823CC5DD2725DDC000272DEC /* GCDWebServerDataResponse.m */,
+				823CC5DE2725DDC000272DEC /* GCDWebServerErrorResponse.h */,
+				823CC5DF2725DDC000272DEC /* GCDWebServerStreamedResponse.m */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		823CC5E02725DDC000272DEC /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				823CC5E12725DDC000272DEC /* GCDWebServerDataRequest.h */,
+				823CC5E22725DDC000272DEC /* GCDWebServerMultiPartFormRequest.h */,
+				823CC5E32725DDC000272DEC /* GCDWebServerFileRequest.h */,
+				823CC5E42725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.m */,
+				823CC5E52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m */,
+				823CC5E62725DDC000272DEC /* GCDWebServerDataRequest.m */,
+				823CC5E72725DDC000272DEC /* GCDWebServerFileRequest.m */,
+				823CC5E82725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.h */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		82E844AE272542A400F3FF1F = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +256,7 @@
 		82E844B9272542A500F3FF1F /* dagger */ = {
 			isa = PBXGroup;
 			children = (
+				823CC5C02725DBF200272DEC /* Servers */,
 				82E844F32725A3B400F3FF1F /* Util */,
 				82E844ED27254BAB00F3FF1F /* Preferences */,
 				82E844E72725459600F3FF1F /* Resources */,
@@ -166,7 +292,6 @@
 			children = (
 				823CC5BE2725DAC300272DEC /* dagger-helper */,
 				82E844EB27254B8E00F3FF1F /* dagger@2x.png */,
-				82E844E82725459600F3FF1F /* Icon.icns */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -192,6 +317,8 @@
 		82E844F32725A3B400F3FF1F /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				823CC5C82725DDBF00272DEC /* GCDWebServer */,
+				823CC5C42725DCB900272DEC /* ProxyConfHelper */,
 				82E844F42725A3B400F3FF1F /* MASPreferences */,
 			);
 			path = Util;
@@ -325,7 +452,6 @@
 				823CC5BF2725DAC300272DEC /* dagger-helper in Resources */,
 				82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */,
 				82E8451B2725A53200F3FF1F /* PreferencesGeneral.xib in Resources */,
-				82E844E92725459600F3FF1F /* Icon.icns in Resources */,
 				82E845252725A67000F3FF1F /* PreferencesInterfaces.xib in Resources */,
 				82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */,
 				82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */,
@@ -357,10 +483,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				823CC5EF2725DDC000272DEC /* GCDWebServerConnection.m in Sources */,
+				823CC5F42725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.m in Sources */,
+				823CC5F62725DDC000272DEC /* GCDWebServerDataRequest.m in Sources */,
+				823CC5F22725DDC000272DEC /* GCDWebServerDataResponse.m in Sources */,
+				823CC5F32725DDC000272DEC /* GCDWebServerStreamedResponse.m in Sources */,
+				823CC5ED2725DDC000272DEC /* GCDWebServerFunctions.m in Sources */,
+				823CC5F02725DDC000272DEC /* GCDWebServerErrorResponse.m in Sources */,
+				823CC5F52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m in Sources */,
 				82E8450F2725A3B900F3FF1F /* MASPreferencesWindowController.m in Sources */,
+				823CC5F12725DDC000272DEC /* GCDWebServerFileResponse.m in Sources */,
 				82E844C3272542AE00F3FF1F /* main.m in Sources */,
 				82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */,
 				82E8451A2725A53200F3FF1F /* PreferencesGeneral.m in Sources */,
+				823CC5EC2725DDC000272DEC /* GCDWebServerRequest.m in Sources */,
+				823CC5C72725DCB900272DEC /* ProxyConfHelper.m in Sources */,
+				823CC5EB2725DDC000272DEC /* GCDWebServerResponse.m in Sources */,
+				823CC5EE2725DDC000272DEC /* GCDWebServer.m in Sources */,
+				823CC5F72725DDC000272DEC /* GCDWebServerFileRequest.m in Sources */,
 				82E845242725A67000F3FF1F /* PreferencesInterfaces.m in Sources */,
 				82E8451F2725A61A00F3FF1F /* PreferencesAdvanced.m in Sources */,
 				82E844F227254D6600F3FF1F /* Preferences.m in Sources */,
