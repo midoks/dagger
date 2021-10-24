@@ -6,11 +6,13 @@
 //
 
 #import "AppDelegate.h"
+
+#import "MASPreferences.h"
 #import "Preferences/Preferences.h"
 
 @interface AppDelegate ()
 {
-    Preferences *_preferenceWindow;
+    NSWindowController *_preferenceWindow;
 }
 
 
@@ -46,19 +48,21 @@
 
 -(void)initPrefencesWindow
 {
-    _preferenceWindow = [[Preferences alloc] init];
+    
+    NSArray *listVC = @[
+        [[PreferencesGeneral alloc] init],
+        [[PreferencesAdvanced alloc] init],
+        [[PreferencesInterfaces alloc] init],
+    ];
+    
+    _preferenceWindow = [[MASPreferencesWindowController alloc] initWithViewControllers:listVC title:@""];
     _preferenceWindow.window.level = NSFloatingWindowLevel;
+    
 }
 
 #pragma mark Preferences
 - (IBAction)showPreferences:(id)sender {
-
-    [_preferenceWindow close];
     [_preferenceWindow showWindow:self];
-    
-    [NSApp activateIgnoringOtherApps:YES];
-    [_preferenceWindow.window makeKeyAndOrderFront:sender];
-    NSLog(@"ww:%@",_preferenceWindow);
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
