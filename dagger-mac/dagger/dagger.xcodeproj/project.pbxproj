@@ -7,62 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82DBF4932721C9F200E71EB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DBF4922721C9F200E71EB4 /* AppDelegate.swift */; };
-		82DBF4952721C9FE00E71EB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82DBF4942721C9FE00E71EB4 /* Assets.xcassets */; };
-		82DBF4982721C9FE00E71EB4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82DBF4962721C9FE00E71EB4 /* MainMenu.xib */; };
-		82DBF4A32721CA0000E71EB4 /* daggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DBF4A22721CA0000E71EB4 /* daggerTests.swift */; };
-		82DBF4AD2721CA0100E71EB4 /* daggerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DBF4AC2721CA0100E71EB4 /* daggerUITests.swift */; };
-		82DBF4AF2721CA0100E71EB4 /* daggerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DBF4AE2721CA0100E71EB4 /* daggerUITestsLaunchTests.swift */; };
-		82DBF4BE27249D2C00E71EB4 /* dagger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82DBF4BD27249D2C00E71EB4 /* dagger@2x.png */; };
+		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
+		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
+		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
+		82E844C3272542AE00F3FF1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844C2272542AE00F3FF1F /* main.m */; };
+		82E844CE272542AF00F3FF1F /* daggerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844CD272542AF00F3FF1F /* daggerTests.m */; };
+		82E844D8272542AF00F3FF1F /* daggerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844D7272542AF00F3FF1F /* daggerUITests.m */; };
+		82E844DA272542AF00F3FF1F /* daggerUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844D9272542AF00F3FF1F /* daggerUITestsLaunchTests.m */; };
+		82E844E92725459600F3FF1F /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 82E844E82725459600F3FF1F /* Icon.icns */; };
+		82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82E844EB27254B8E00F3FF1F /* dagger@2x.png */; };
+		82E844EF27254BCD00F3FF1F /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844EE27254BCD00F3FF1F /* Preferences.xib */; };
+		82E844F227254D6600F3FF1F /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844F127254D6500F3FF1F /* Preferences.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		82DBF49F2721CA0000E71EB4 /* PBXContainerItemProxy */ = {
+		82E844CA272542AF00F3FF1F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 82DBF4872721C9F200E71EB4 /* Project object */;
+			containerPortal = 82E844AF272542A400F3FF1F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 82DBF48E2721C9F200E71EB4;
+			remoteGlobalIDString = 82E844B6272542A500F3FF1F;
 			remoteInfo = dagger;
 		};
-		82DBF4A92721CA0000E71EB4 /* PBXContainerItemProxy */ = {
+		82E844D4272542AF00F3FF1F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 82DBF4872721C9F200E71EB4 /* Project object */;
+			containerPortal = 82E844AF272542A400F3FF1F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 82DBF48E2721C9F200E71EB4;
+			remoteGlobalIDString = 82E844B6272542A500F3FF1F;
 			remoteInfo = dagger;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		82DBF48F2721C9F200E71EB4 /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		82DBF4922721C9F200E71EB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		82DBF4942721C9FE00E71EB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		82DBF4972721C9FE00E71EB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		82DBF4992721C9FE00E71EB4 /* dagger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dagger.entitlements; sourceTree = "<group>"; };
-		82DBF49E2721CA0000E71EB4 /* daggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = daggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		82DBF4A22721CA0000E71EB4 /* daggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = daggerTests.swift; sourceTree = "<group>"; };
-		82DBF4A82721CA0000E71EB4 /* daggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = daggerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		82DBF4AC2721CA0100E71EB4 /* daggerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = daggerUITests.swift; sourceTree = "<group>"; };
-		82DBF4AE2721CA0100E71EB4 /* daggerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = daggerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		82DBF4BD27249D2C00E71EB4 /* dagger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dagger@2x.png"; sourceTree = "<group>"; };
+		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		82E844BD272542AE00F3FF1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		82E844C0272542AE00F3FF1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		82E844C2272542AE00F3FF1F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		82E844C9272542AE00F3FF1F /* daggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = daggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E844CD272542AF00F3FF1F /* daggerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = daggerTests.m; sourceTree = "<group>"; };
+		82E844D3272542AF00F3FF1F /* daggerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = daggerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E844D7272542AF00F3FF1F /* daggerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = daggerUITests.m; sourceTree = "<group>"; };
+		82E844D9272542AF00F3FF1F /* daggerUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = daggerUITestsLaunchTests.m; sourceTree = "<group>"; };
+		82E844E62725442400F3FF1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		82E844E82725459600F3FF1F /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		82E844EB27254B8E00F3FF1F /* dagger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dagger@2x.png"; sourceTree = "<group>"; };
+		82E844EE27254BCD00F3FF1F /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		82E844F027254D6500F3FF1F /* Preferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		82E844F127254D6500F3FF1F /* Preferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		82DBF48C2721C9F200E71EB4 /* Frameworks */ = {
+		82E844B4272542A500F3FF1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82DBF49B2721CA0000E71EB4 /* Frameworks */ = {
+		82E844C6272542AE00F3FF1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82DBF4A52721CA0000E71EB4 /* Frameworks */ = {
+		82E844D0272542AF00F3FF1F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,73 +82,87 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		82DBF4862721C9F200E71EB4 = {
+		82E844AE272542A400F3FF1F = {
 			isa = PBXGroup;
 			children = (
-				82DBF4912721C9F200E71EB4 /* dagger */,
-				82DBF4A12721CA0000E71EB4 /* daggerTests */,
-				82DBF4AB2721CA0000E71EB4 /* daggerUITests */,
-				82DBF4902721C9F200E71EB4 /* Products */,
+				82E844B9272542A500F3FF1F /* dagger */,
+				82E844CC272542AF00F3FF1F /* daggerTests */,
+				82E844D6272542AF00F3FF1F /* daggerUITests */,
+				82E844B8272542A500F3FF1F /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		82DBF4902721C9F200E71EB4 /* Products */ = {
+		82E844B8272542A500F3FF1F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				82DBF48F2721C9F200E71EB4 /* dagger.app */,
-				82DBF49E2721CA0000E71EB4 /* daggerTests.xctest */,
-				82DBF4A82721CA0000E71EB4 /* daggerUITests.xctest */,
+				82E844B7272542A500F3FF1F /* dagger.app */,
+				82E844C9272542AE00F3FF1F /* daggerTests.xctest */,
+				82E844D3272542AF00F3FF1F /* daggerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		82DBF4912721C9F200E71EB4 /* dagger */ = {
+		82E844B9272542A500F3FF1F /* dagger */ = {
 			isa = PBXGroup;
 			children = (
-				82DBF4BC27249D2C00E71EB4 /* image */,
-				82DBF4922721C9F200E71EB4 /* AppDelegate.swift */,
-				82DBF4942721C9FE00E71EB4 /* Assets.xcassets */,
-				82DBF4962721C9FE00E71EB4 /* MainMenu.xib */,
-				82DBF4992721C9FE00E71EB4 /* dagger.entitlements */,
+				82E844ED27254BAB00F3FF1F /* Preferences */,
+				82E844E72725459600F3FF1F /* Resources */,
+				82E844E62725442400F3FF1F /* Info.plist */,
+				82E844BA272542A500F3FF1F /* AppDelegate.h */,
+				82E844BB272542A500F3FF1F /* AppDelegate.m */,
+				82E844BD272542AE00F3FF1F /* Assets.xcassets */,
+				82E844BF272542AE00F3FF1F /* MainMenu.xib */,
+				82E844C2272542AE00F3FF1F /* main.m */,
 			);
 			path = dagger;
 			sourceTree = "<group>";
 		};
-		82DBF4A12721CA0000E71EB4 /* daggerTests */ = {
+		82E844CC272542AF00F3FF1F /* daggerTests */ = {
 			isa = PBXGroup;
 			children = (
-				82DBF4A22721CA0000E71EB4 /* daggerTests.swift */,
+				82E844CD272542AF00F3FF1F /* daggerTests.m */,
 			);
 			path = daggerTests;
 			sourceTree = "<group>";
 		};
-		82DBF4AB2721CA0000E71EB4 /* daggerUITests */ = {
+		82E844D6272542AF00F3FF1F /* daggerUITests */ = {
 			isa = PBXGroup;
 			children = (
-				82DBF4AC2721CA0100E71EB4 /* daggerUITests.swift */,
-				82DBF4AE2721CA0100E71EB4 /* daggerUITestsLaunchTests.swift */,
+				82E844D7272542AF00F3FF1F /* daggerUITests.m */,
+				82E844D9272542AF00F3FF1F /* daggerUITestsLaunchTests.m */,
 			);
 			path = daggerUITests;
 			sourceTree = "<group>";
 		};
-		82DBF4BC27249D2C00E71EB4 /* image */ = {
+		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				82DBF4BD27249D2C00E71EB4 /* dagger@2x.png */,
+				82E844EB27254B8E00F3FF1F /* dagger@2x.png */,
+				82E844E82725459600F3FF1F /* Icon.icns */,
 			);
-			path = image;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		82E844ED27254BAB00F3FF1F /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				82E844EE27254BCD00F3FF1F /* Preferences.xib */,
+				82E844F027254D6500F3FF1F /* Preferences.h */,
+				82E844F127254D6500F3FF1F /* Preferences.m */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		82DBF48E2721C9F200E71EB4 /* dagger */ = {
+		82E844B6272542A500F3FF1F /* dagger */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82DBF4B22721CA0100E71EB4 /* Build configuration list for PBXNativeTarget "dagger" */;
+			buildConfigurationList = 82E844DD272542AF00F3FF1F /* Build configuration list for PBXNativeTarget "dagger" */;
 			buildPhases = (
-				82DBF48B2721C9F200E71EB4 /* Sources */,
-				82DBF48C2721C9F200E71EB4 /* Frameworks */,
-				82DBF48D2721C9F200E71EB4 /* Resources */,
+				82E844B3272542A500F3FF1F /* Sources */,
+				82E844B4272542A500F3FF1F /* Frameworks */,
+				82E844B5272542A500F3FF1F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -146,69 +170,68 @@
 			);
 			name = dagger;
 			productName = dagger;
-			productReference = 82DBF48F2721C9F200E71EB4 /* dagger.app */;
+			productReference = 82E844B7272542A500F3FF1F /* dagger.app */;
 			productType = "com.apple.product-type.application";
 		};
-		82DBF49D2721CA0000E71EB4 /* daggerTests */ = {
+		82E844C8272542AE00F3FF1F /* daggerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82DBF4B52721CA0100E71EB4 /* Build configuration list for PBXNativeTarget "daggerTests" */;
+			buildConfigurationList = 82E844E0272542AF00F3FF1F /* Build configuration list for PBXNativeTarget "daggerTests" */;
 			buildPhases = (
-				82DBF49A2721CA0000E71EB4 /* Sources */,
-				82DBF49B2721CA0000E71EB4 /* Frameworks */,
-				82DBF49C2721CA0000E71EB4 /* Resources */,
+				82E844C5272542AE00F3FF1F /* Sources */,
+				82E844C6272542AE00F3FF1F /* Frameworks */,
+				82E844C7272542AE00F3FF1F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				82DBF4A02721CA0000E71EB4 /* PBXTargetDependency */,
+				82E844CB272542AF00F3FF1F /* PBXTargetDependency */,
 			);
 			name = daggerTests;
 			productName = daggerTests;
-			productReference = 82DBF49E2721CA0000E71EB4 /* daggerTests.xctest */;
+			productReference = 82E844C9272542AE00F3FF1F /* daggerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		82DBF4A72721CA0000E71EB4 /* daggerUITests */ = {
+		82E844D2272542AF00F3FF1F /* daggerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82DBF4B82721CA0100E71EB4 /* Build configuration list for PBXNativeTarget "daggerUITests" */;
+			buildConfigurationList = 82E844E3272542AF00F3FF1F /* Build configuration list for PBXNativeTarget "daggerUITests" */;
 			buildPhases = (
-				82DBF4A42721CA0000E71EB4 /* Sources */,
-				82DBF4A52721CA0000E71EB4 /* Frameworks */,
-				82DBF4A62721CA0000E71EB4 /* Resources */,
+				82E844CF272542AF00F3FF1F /* Sources */,
+				82E844D0272542AF00F3FF1F /* Frameworks */,
+				82E844D1272542AF00F3FF1F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				82DBF4AA2721CA0000E71EB4 /* PBXTargetDependency */,
+				82E844D5272542AF00F3FF1F /* PBXTargetDependency */,
 			);
 			name = daggerUITests;
 			productName = daggerUITests;
-			productReference = 82DBF4A82721CA0000E71EB4 /* daggerUITests.xctest */;
+			productReference = 82E844D3272542AF00F3FF1F /* daggerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		82DBF4872721C9F200E71EB4 /* Project object */ = {
+		82E844AF272542A400F3FF1F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
-					82DBF48E2721C9F200E71EB4 = {
+					82E844B6272542A500F3FF1F = {
 						CreatedOnToolsVersion = 13.0;
 					};
-					82DBF49D2721CA0000E71EB4 = {
+					82E844C8272542AE00F3FF1F = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 82DBF48E2721C9F200E71EB4;
+						TestTargetID = 82E844B6272542A500F3FF1F;
 					};
-					82DBF4A72721CA0000E71EB4 = {
+					82E844D2272542AF00F3FF1F = {
 						CreatedOnToolsVersion = 13.0;
-						TestTargetID = 82DBF48E2721C9F200E71EB4;
+						TestTargetID = 82E844B6272542A500F3FF1F;
 					};
 				};
 			};
-			buildConfigurationList = 82DBF48A2721C9F200E71EB4 /* Build configuration list for PBXProject "dagger" */;
+			buildConfigurationList = 82E844B2272542A400F3FF1F /* Build configuration list for PBXProject "dagger" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -216,37 +239,39 @@
 				en,
 				Base,
 			);
-			mainGroup = 82DBF4862721C9F200E71EB4;
-			productRefGroup = 82DBF4902721C9F200E71EB4 /* Products */;
+			mainGroup = 82E844AE272542A400F3FF1F;
+			productRefGroup = 82E844B8272542A500F3FF1F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				82DBF48E2721C9F200E71EB4 /* dagger */,
-				82DBF49D2721CA0000E71EB4 /* daggerTests */,
-				82DBF4A72721CA0000E71EB4 /* daggerUITests */,
+				82E844B6272542A500F3FF1F /* dagger */,
+				82E844C8272542AE00F3FF1F /* daggerTests */,
+				82E844D2272542AF00F3FF1F /* daggerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		82DBF48D2721C9F200E71EB4 /* Resources */ = {
+		82E844B5272542A500F3FF1F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82DBF4BE27249D2C00E71EB4 /* dagger@2x.png in Resources */,
-				82DBF4952721C9FE00E71EB4 /* Assets.xcassets in Resources */,
-				82DBF4982721C9FE00E71EB4 /* MainMenu.xib in Resources */,
+				82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */,
+				82E844E92725459600F3FF1F /* Icon.icns in Resources */,
+				82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */,
+				82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */,
+				82E844EF27254BCD00F3FF1F /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82DBF49C2721CA0000E71EB4 /* Resources */ = {
+		82E844C7272542AE00F3FF1F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82DBF4A62721CA0000E71EB4 /* Resources */ = {
+		82E844D1272542AF00F3FF1F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -256,51 +281,53 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		82DBF48B2721C9F200E71EB4 /* Sources */ = {
+		82E844B3272542A500F3FF1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82DBF4932721C9F200E71EB4 /* AppDelegate.swift in Sources */,
+				82E844C3272542AE00F3FF1F /* main.m in Sources */,
+				82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */,
+				82E844F227254D6600F3FF1F /* Preferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82DBF49A2721CA0000E71EB4 /* Sources */ = {
+		82E844C5272542AE00F3FF1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82DBF4A32721CA0000E71EB4 /* daggerTests.swift in Sources */,
+				82E844CE272542AF00F3FF1F /* daggerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		82DBF4A42721CA0000E71EB4 /* Sources */ = {
+		82E844CF272542AF00F3FF1F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82DBF4AF2721CA0100E71EB4 /* daggerUITestsLaunchTests.swift in Sources */,
-				82DBF4AD2721CA0100E71EB4 /* daggerUITests.swift in Sources */,
+				82E844DA272542AF00F3FF1F /* daggerUITestsLaunchTests.m in Sources */,
+				82E844D8272542AF00F3FF1F /* daggerUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		82DBF4A02721CA0000E71EB4 /* PBXTargetDependency */ = {
+		82E844CB272542AF00F3FF1F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 82DBF48E2721C9F200E71EB4 /* dagger */;
-			targetProxy = 82DBF49F2721CA0000E71EB4 /* PBXContainerItemProxy */;
+			target = 82E844B6272542A500F3FF1F /* dagger */;
+			targetProxy = 82E844CA272542AF00F3FF1F /* PBXContainerItemProxy */;
 		};
-		82DBF4AA2721CA0000E71EB4 /* PBXTargetDependency */ = {
+		82E844D5272542AF00F3FF1F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 82DBF48E2721C9F200E71EB4 /* dagger */;
-			targetProxy = 82DBF4A92721CA0000E71EB4 /* PBXContainerItemProxy */;
+			target = 82E844B6272542A500F3FF1F /* dagger */;
+			targetProxy = 82E844D4272542AF00F3FF1F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		82DBF4962721C9FE00E71EB4 /* MainMenu.xib */ = {
+		82E844BF272542AE00F3FF1F /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				82DBF4972721C9FE00E71EB4 /* Base */,
+				82E844C0272542AE00F3FF1F /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -308,7 +335,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		82DBF4B02721CA0100E71EB4 /* Debug */ = {
+		82E844DB272542AF00F3FF1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -359,17 +386,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		82DBF4B12721CA0100E71EB4 /* Release */ = {
+		82E844DC272542AF00F3FF1F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -414,25 +439,26 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
-		82DBF4B32721CA0100E71EB4 /* Debug */ = {
+		82E844DE272542AF00F3FF1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = dagger/dagger.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = dagger/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -444,21 +470,23 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.midoks.dagger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		82DBF4B42721CA0100E71EB4 /* Release */ = {
+		82E844DF272542AF00F3FF1F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = dagger/dagger.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = dagger/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -471,14 +499,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.midoks.dagger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
-		82DBF4B62721CA0100E71EB4 /* Debug */ = {
+		82E844E1272542AF00F3FF1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -494,15 +520,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.midoks.daggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dagger.app/Contents/MacOS/dagger";
 			};
 			name = Debug;
 		};
-		82DBF4B72721CA0100E71EB4 /* Release */ = {
+		82E844E2272542AF00F3FF1F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -518,15 +542,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.midoks.daggerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dagger.app/Contents/MacOS/dagger";
 			};
 			name = Release;
 		};
-		82DBF4B92721CA0100E71EB4 /* Debug */ = {
+		82E844E4272542AF00F3FF1F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -540,15 +562,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.midoks.daggerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = dagger;
 			};
 			name = Debug;
 		};
-		82DBF4BA2721CA0100E71EB4 /* Release */ = {
+		82E844E5272542AF00F3FF1F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -562,7 +582,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.midoks.daggerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = dagger;
 			};
 			name = Release;
@@ -570,43 +589,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		82DBF48A2721C9F200E71EB4 /* Build configuration list for PBXProject "dagger" */ = {
+		82E844B2272542A400F3FF1F /* Build configuration list for PBXProject "dagger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				82DBF4B02721CA0100E71EB4 /* Debug */,
-				82DBF4B12721CA0100E71EB4 /* Release */,
+				82E844DB272542AF00F3FF1F /* Debug */,
+				82E844DC272542AF00F3FF1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82DBF4B22721CA0100E71EB4 /* Build configuration list for PBXNativeTarget "dagger" */ = {
+		82E844DD272542AF00F3FF1F /* Build configuration list for PBXNativeTarget "dagger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				82DBF4B32721CA0100E71EB4 /* Debug */,
-				82DBF4B42721CA0100E71EB4 /* Release */,
+				82E844DE272542AF00F3FF1F /* Debug */,
+				82E844DF272542AF00F3FF1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82DBF4B52721CA0100E71EB4 /* Build configuration list for PBXNativeTarget "daggerTests" */ = {
+		82E844E0272542AF00F3FF1F /* Build configuration list for PBXNativeTarget "daggerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				82DBF4B62721CA0100E71EB4 /* Debug */,
-				82DBF4B72721CA0100E71EB4 /* Release */,
+				82E844E1272542AF00F3FF1F /* Debug */,
+				82E844E2272542AF00F3FF1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82DBF4B82721CA0100E71EB4 /* Build configuration list for PBXNativeTarget "daggerUITests" */ = {
+		82E844E3272542AF00F3FF1F /* Build configuration list for PBXNativeTarget "daggerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				82DBF4B92721CA0100E71EB4 /* Debug */,
-				82DBF4BA2721CA0100E71EB4 /* Release */,
+				82E844E4272542AF00F3FF1F /* Debug */,
+				82E844E5272542AF00F3FF1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 82DBF4872721C9F200E71EB4 /* Project object */;
+	rootObject = 82E844AF272542A400F3FF1F /* Project object */;
 }
