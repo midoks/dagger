@@ -15,15 +15,13 @@
 #import "BRLOptionParser.h"
 
 
-#define kProxyConfHelperVersion @"1.0"
+#define kProxyConfHelperVersion @"1.0.0"
 
 int main(int argc, const char * argv[]) {
     NSString* mode;
     NSString* pacURL;
     NSString* portString;
     NSString* socks5ListenAddress;
-    NSString* privoxyPortString;
-    NSString* privoxyListenAddress;
     
     BRLOptionParser *options = [BRLOptionParser new];
     [options setBanner:@"Usage: %s [-v] [-m auto|global|off] [-u <url>] [-p <port>] [-l <socks5-listen-address>] [-r <port>] [-p <privoxy-listen-address>] [-x <exception>]", argv[0]];
@@ -47,9 +45,6 @@ int main(int argc, const char * argv[]) {
     [options addOption:"pac-url" flag:'u' description:@"PAC file url for auto mode." argument:&pacURL];
     [options addOption:"port" flag:'p' description:@"Listen port for global mode." argument:&portString];
     [options addOption:"socks-listen-address" flag:'l' description:@"Listen socks5 address for global mode." argument:&socks5ListenAddress];
-    
-    [options addOption:"privoxy-port" flag:'r' description:@"Privoxy Port for global mode." argument:&privoxyPortString];
-    [options addOption:"privoxy-listen-address" flag:'s' description:@"Privoxy Listen Address for global mode." argument:&privoxyListenAddress];
     
     NSMutableSet* networkServiceKeys = [NSMutableSet set];
     [options addOption:"network-service" flag:'n' description:@"Manual specify the network profile need to set proxy." blockWithArgument:^(NSString* value){
@@ -93,13 +88,7 @@ int main(int argc, const char * argv[]) {
         }
     }
     
-    NSInteger privoxyPort = 0;
-    if (privoxyPortString) {
-        privoxyPort = [privoxyPortString integerValue];
-        if (0 == privoxyPort) {
-            return 1;
-        }
-    }
+
     
     static AuthorizationRef authRef;
     static AuthorizationFlags authFlags;
@@ -118,7 +107,7 @@ int main(int argc, const char * argv[]) {
             return 1;
         }
         
-        SCPreferencesRef prefRef = SCPreferencesCreateWithAuthorization(nil, CFSTR("Shadowsocks"), nil, authRef);
+        SCPreferencesRef prefRef = SCPreferencesCreateWithAuthorization(nil, CFSTR("dagger"), nil, authRef);
         
         NSDictionary *sets = (__bridge NSDictionary *)SCPreferencesGetValue(prefRef, kSCPrefNetworkServices);
         
@@ -167,22 +156,6 @@ int main(int argc, const char * argv[]) {
                     [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
                      kCFNetworkProxiesSOCKSEnable];
                     [proxies setObject:[proxyExceptions allObjects] forKey:(NSString *)kCFNetworkProxiesExceptionsList];
-                    
-                    if (privoxyPort != 0) {
-                        [proxies setObject:privoxyListenAddress forKey:(NSString *)
-                         kCFNetworkProxiesHTTPProxy];
-                        [proxies setObject:[NSNumber numberWithInteger:privoxyPort] forKey:(NSString*)
-                         kCFNetworkProxiesHTTPPort];
-                        [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
-                         kCFNetworkProxiesHTTPEnable];
-                        
-                        [proxies setObject:privoxyListenAddress forKey:(NSString *)
-                         kCFNetworkProxiesHTTPSProxy];
-                        [proxies setObject:[NSNumber numberWithInteger:privoxyPort] forKey:(NSString*)
-                         kCFNetworkProxiesHTTPSPort];
-                        [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
-                         kCFNetworkProxiesHTTPSEnable];
-                    }
                     
                     SCPreferencesPathSetValue(prefRef, (__bridge CFStringRef)prefPath
                                               , (__bridge CFDictionaryRef)proxies);
