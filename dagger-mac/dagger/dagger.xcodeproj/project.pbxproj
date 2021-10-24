@@ -22,6 +22,7 @@
 		823CC5F52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E52725DDC000272DEC /* GCDWebServerMultiPartFormRequest.m */; };
 		823CC5F62725DDC000272DEC /* GCDWebServerDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E62725DDC000272DEC /* GCDWebServerDataRequest.m */; };
 		823CC5F72725DDC000272DEC /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E72725DDC000272DEC /* GCDWebServerFileRequest.m */; };
+		823CC5FB2725E21100272DEC /* install_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 823CC5FA2725E21100272DEC /* install_helper.sh */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -92,6 +93,7 @@
 		823CC5E62725DDC000272DEC /* GCDWebServerDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataRequest.m; sourceTree = "<group>"; };
 		823CC5E72725DDC000272DEC /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileRequest.m; sourceTree = "<group>"; };
 		823CC5E82725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerURLEncodedFormRequest.h; sourceTree = "<group>"; };
+		823CC5FA2725E21100272DEC /* install_helper.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_helper.sh; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				823CC5FA2725E21100272DEC /* install_helper.sh */,
 				823CC5BE2725DAC300272DEC /* dagger-helper */,
 				82E844EB27254B8E00F3FF1F /* dagger@2x.png */,
 			);
@@ -455,6 +458,7 @@
 				82E845252725A67000F3FF1F /* PreferencesInterfaces.xib in Resources */,
 				82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */,
 				82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */,
+				823CC5FB2725E21100272DEC /* install_helper.sh in Resources */,
 				82E8450D2725A3B900F3FF1F /* LICENSE.md in Resources */,
 				82E845102725A3B900F3FF1F /* README.md in Resources */,
 				82E845202725A61A00F3FF1F /* PreferencesAdvanced.xib in Resources */,

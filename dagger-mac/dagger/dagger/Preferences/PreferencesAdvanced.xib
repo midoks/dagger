@@ -71,6 +71,9 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.Timeout" id="KVE-ZD-PBK"/>
+                            </connections>
                         </textField>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbO-k2-1qC">
                             <rect key="frame" x="209" y="38" width="158" height="18"/>
@@ -79,6 +82,9 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.EnableUDPRelay" id="ptw-Hl-gvE"/>
+                            </connections>
                         </button>
                         <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f3W-lG-zAN">
                             <rect key="frame" x="212" y="158" width="60" height="21"/>
@@ -112,6 +118,9 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.EnableVerboseMode" id="YKk-l2-8ql"/>
+                            </connections>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Xf-4p-BHY">
                             <rect key="frame" x="24" y="97" width="181" height="16"/>
@@ -130,6 +139,9 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.PacServer.ListenPort" id="e7w-pp-89c"/>
+                            </connections>
                         </textField>
                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C6U-YY-m8t">
                             <rect key="frame" x="210" y="127" width="241" height="18"/>
@@ -138,6 +150,9 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.PacServer.BindToLocalhost" id="Tem-Y0-Bwf"/>
+                            </connections>
                         </button>
                     </subviews>
                 </customView>

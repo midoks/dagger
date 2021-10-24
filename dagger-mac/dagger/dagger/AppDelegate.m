@@ -6,9 +6,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ProxyConfHelper.h"
 #import "MASPreferences.h"
-#import "Preferences/Preferences.h"
+#import "Preferences.h"
 
 @interface AppDelegate ()
 {
@@ -35,15 +35,20 @@
 -(void)initConfig{
     NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
     
+    
     [shared registerDefaults:@{
-        @"LocalSocks5.ListenPort":@1096,
+        @"LocalSocks5.ListenPort": @"1096",
         @"LocalSocks5.ListenAddress": @"127.0.0.1",
+        @"PacServer.BindToLocalhost": @YES,
+        @"PacServer.ListenPort":@"1099",
+        @"LocalSocks5.Timeout": @"60",
+        @"LocalSocks5.EnableUDPRelay": @NO,
+        @"LocalSocks5.EnableVerboseMode": @NO,
         @"GFWListURL": @"https://cdn.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt",
         @"ProxyExceptions": @"127.0.0.1, localhost, 192.168.0.0/16, 10.0.0.0/8, FE80::/64, ::1, FD00::/8",
+        
     }];
-    
-    
-    [shared setBool:NO forKey:@"_UIConstraintBasedLayoutLogUnsatisfiable"];
+
 }
 
 -(void)initPrefencesWindow
@@ -69,6 +74,8 @@
     [self initConfig];
     [self initPrefencesWindow];
     [self setBarStatus];
+    
+    [ProxyConfHelper install];
 }
 
 
