@@ -100,6 +100,13 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="zTQ-f1-op6" name="value" keyPath="values.ProxyExceptions" id="hPL-Mw-dou">
+                                    <dictionary key="options">
+                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
                         </textField>
                     </subviews>
                 </customView>
@@ -112,5 +119,6 @@
             </constraints>
             <point key="canvasLocation" x="140" y="136"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="zTQ-f1-op6"/>
     </objects>
 </document>

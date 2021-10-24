@@ -46,6 +46,13 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.ListenAddress" id="cCX-J7-5Cq">
+                                    <dictionary key="options">
+                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Kf-l2-VRs">
                             <rect key="frame" x="24" y="66" width="181" height="16"/>
@@ -81,6 +88,13 @@
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <connections>
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.ListenPort" id="a2c-Sv-k4H">
+                                    <dictionary key="options">
+                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GO5-T7-V4p">
                             <rect key="frame" x="278" y="66" width="119" height="16"/>
@@ -136,5 +150,6 @@
             </constraints>
             <point key="canvasLocation" x="140" y="96"/>
         </customView>
+        <userDefaultsController representsSharedInstance="YES" id="Lec-dL-Zee"/>
     </objects>
 </document>
