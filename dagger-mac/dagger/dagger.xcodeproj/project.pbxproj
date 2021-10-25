@@ -24,6 +24,12 @@
 		823CC5F72725DDC000272DEC /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC5E72725DDC000272DEC /* GCDWebServerFileRequest.m */; };
 		823CC5FB2725E21100272DEC /* install_helper.sh in Resources */ = {isa = PBXBuildFile; fileRef = 823CC5FA2725E21100272DEC /* install_helper.sh */; };
 		823CC6132725EEE000272DEC /* ProxyConfTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 823CC6122725EEDF00272DEC /* ProxyConfTool.m */; };
+		82C2FBF52726BE23006A76CD /* menu_g_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBF32726BE22006A76CD /* menu_g_icon.png */; };
+		82C2FBF62726BE23006A76CD /* menu_g_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBF42726BE22006A76CD /* menu_g_icon@2x.png */; };
+		82C2FBF92726BEE7006A76CD /* menu_p_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBF72726BEE7006A76CD /* menu_p_icon.png */; };
+		82C2FBFA2726BEE7006A76CD /* menu_p_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBF82726BEE7006A76CD /* menu_p_icon@2x.png */; };
+		82C2FBFD2726BF40006A76CD /* menu_m_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBFB2726BF3F006A76CD /* menu_m_icon@2x.png */; };
+		82C2FBFE2726BF40006A76CD /* menu_m_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBFC2726BF40006A76CD /* menu_m_icon.png */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -97,6 +103,12 @@
 		823CC5FA2725E21100272DEC /* install_helper.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_helper.sh; sourceTree = "<group>"; };
 		823CC6112725EEDF00272DEC /* ProxyConfTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProxyConfTool.h; sourceTree = "<group>"; };
 		823CC6122725EEDF00272DEC /* ProxyConfTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProxyConfTool.m; sourceTree = "<group>"; };
+		82C2FBF32726BE22006A76CD /* menu_g_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_g_icon.png; sourceTree = "<group>"; };
+		82C2FBF42726BE22006A76CD /* menu_g_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_g_icon@2x.png"; sourceTree = "<group>"; };
+		82C2FBF72726BEE7006A76CD /* menu_p_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_p_icon.png; sourceTree = "<group>"; };
+		82C2FBF82726BEE7006A76CD /* menu_p_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_p_icon@2x.png"; sourceTree = "<group>"; };
+		82C2FBFB2726BF3F006A76CD /* menu_m_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_m_icon@2x.png"; sourceTree = "<group>"; };
+		82C2FBFC2726BF40006A76CD /* menu_m_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_m_icon.png; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -297,6 +309,12 @@
 		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82C2FBFC2726BF40006A76CD /* menu_m_icon.png */,
+				82C2FBFB2726BF3F006A76CD /* menu_m_icon@2x.png */,
+				82C2FBF72726BEE7006A76CD /* menu_p_icon.png */,
+				82C2FBF82726BEE7006A76CD /* menu_p_icon@2x.png */,
+				82C2FBF32726BE22006A76CD /* menu_g_icon.png */,
+				82C2FBF42726BE22006A76CD /* menu_g_icon@2x.png */,
 				823CC5FA2725E21100272DEC /* install_helper.sh */,
 				823CC5BE2725DAC300272DEC /* dagger-helper */,
 				82E844EB27254B8E00F3FF1F /* dagger@2x.png */,
@@ -457,14 +475,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C2FBF92726BEE7006A76CD /* menu_p_icon.png in Resources */,
 				823CC5BF2725DAC300272DEC /* dagger-helper in Resources */,
+				82C2FBF52726BE23006A76CD /* menu_g_icon.png in Resources */,
+				82C2FBFE2726BF40006A76CD /* menu_m_icon.png in Resources */,
 				82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */,
 				82E8451B2725A53200F3FF1F /* PreferencesGeneral.xib in Resources */,
 				82E845252725A67000F3FF1F /* PreferencesInterfaces.xib in Resources */,
 				82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */,
 				82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */,
+				82C2FBFD2726BF40006A76CD /* menu_m_icon@2x.png in Resources */,
 				823CC5FB2725E21100272DEC /* install_helper.sh in Resources */,
 				82E8450D2725A3B900F3FF1F /* LICENSE.md in Resources */,
+				82C2FBF62726BE23006A76CD /* menu_g_icon@2x.png in Resources */,
+				82C2FBFA2726BEE7006A76CD /* menu_p_icon@2x.png in Resources */,
 				82E845102725A3B900F3FF1F /* README.md in Resources */,
 				82E845202725A61A00F3FF1F /* PreferencesAdvanced.xib in Resources */,
 				82E8450E2725A3B900F3FF1F /* MASPreferencesWindow.xib in Resources */,

@@ -38,7 +38,6 @@ GCDWebServer *webServer = nil;
     NSString *str;
     str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-  
     return YES;
 }
 
@@ -64,7 +63,7 @@ GCDWebServer *webServer = nil;
     [task setLaunchPath:kDaggerHelper];
 
     // this log is very important
-    NSLog(@"run shadowsocks helper: %@", kDaggerHelper);
+    NSLog(@"run dagger helper: %@", kDaggerHelper);
     [task setArguments:arguments];
 
     NSPipe *stdoutpipe;
@@ -138,6 +137,7 @@ GCDWebServer *webServer = nil;
     //start server here and then using the string next line
     //next two lines can open gcdwebserver and work around pac file
     NSString* PACFilePath = [self getPACFilePath];
+    NSLog(@"pc:%@",PACFilePath);
     [self startPACServer: PACFilePath];
     
     NSURL* url = [NSURL URLWithString: [self getHttpPACUrl]];
@@ -156,15 +156,6 @@ GCDWebServer *webServer = nil;
     NSMutableArray* args = [@[@"--mode", @"global", @"--port"
                               , [NSString stringWithFormat:@"%lu", (unsigned long)port],@"--socks-listen-address",socks5ListenAddress]mutableCopy];
     
-    // Known issue #106 https://github.com/shadowsocks/ShadowsocksX-NG/issues/106
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"LocalHTTPOn"] && [[NSUserDefaults standardUserDefaults] boolForKey:@"LocalHTTP.FollowGlobal"]) {
-        NSUInteger privoxyPort = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalHTTP.ListenPort"];
-        NSString* privoxyListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalHTTP.ListenAddress"];
-        [args addObject:@"--privoxy-port"];
-        [args addObject:[NSString stringWithFormat:@"%lu", (unsigned long)privoxyPort]];
-        [args addObject:@"--privoxy-listen-address"];
-        [args addObject:privoxyListenAddress];
-    }
     
     [self addArguments4ManualSpecifyNetworkServices:args];
     [self addArguments4ManualSpecifyProxyExceptions:args];
@@ -275,8 +266,8 @@ GCDWebServer *webServer = nil;
           // That means DISPATCH_VNODE_DELETE event always be trigged
           // Need to be run the following statements in any events
           NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-          if ([defaults boolForKey:@"ShadowsocksOn"]) {
-              if ([[defaults stringForKey:@"ShadowsocksRunningMode"] isEqualToString:@"auto"]) {
+          if ([defaults boolForKey:@"DaagerMode"]) {
+              if ([[defaults stringForKey:@"DaagerMode"] isEqualToString:@"auto"]) {
                   [ProxyConfHelper disableProxy];
                   [ProxyConfHelper enablePACProxy];
               }
