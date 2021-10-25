@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesInterfaces">
             <connections>
+                <outlet property="tableView" destination="dgS-58-AIp" id="pDg-ma-PD8"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -36,6 +37,9 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <binding destination="zTQ-f1-op6" name="value" keyPath="values.AutoConfigureNetworkServices" id="Tdq-0k-Sxq"/>
+                            </connections>
                         </button>
                         <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKn-FE-v73">
                             <rect key="frame" x="20" y="115" width="440" height="118"/>

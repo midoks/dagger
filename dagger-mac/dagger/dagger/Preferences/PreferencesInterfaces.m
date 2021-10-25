@@ -6,8 +6,12 @@
 //
 
 #import "PreferencesInterfaces.h"
+#import "ProxyConfTool.h"
 
-@interface PreferencesInterfaces ()
+@interface PreferencesInterfaces ()<NSTableViewDelegate,NSTableViewDataSource>
+
+@property (strong) NSArray *netList;
+@property (weak) IBOutlet NSTableView *tableView;
 
 @end
 
@@ -20,7 +24,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _netList = [ProxyConfTool networkServicesList];
+    NSLog(@"%@",_netList);
+    
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    
+    
+    [_tableView reloadData];
 }
+
+#pragma mark - NSTableViewDelegate,NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return [_netList count];
+}
+
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
+    NSButtonCell *cell = tableColumn.dataCell;
+    NSString *tit =  [[_netList objectAtIndex:row] objectForKey:@"userDefinedName"];
+    cell.title = tit;
+    return cell;
+}
+
 
 #pragma mark - MASPreferencesViewController
 - (NSString *)viewIdentifier

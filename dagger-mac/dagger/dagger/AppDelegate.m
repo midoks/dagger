@@ -45,6 +45,7 @@
         @"LocalSocks5.EnableUDPRelay": @NO,
         @"LocalSocks5.EnableVerboseMode": @NO,
         @"GFWListURL": @"https://cdn.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt",
+        @"AutoConfigureNetworkServices":@YES,
         @"ProxyExceptions": @"127.0.0.1, localhost, 192.168.0.0/16, 10.0.0.0/8, FE80::/64, ::1, FD00::/8",
         
     }];
