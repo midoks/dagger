@@ -92,7 +92,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) {
 
 	wg.Wait()
 
-	fmt.Println("oooo...")
+	fmt.Println("oooo...", info.Link)
 }
 
 func readAllShut(conn net.Conn) ([]byte, error) { //这个手动方法可以避免粘包的问题
