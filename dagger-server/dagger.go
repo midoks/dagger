@@ -88,7 +88,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) {
 		io.Copy(src, dst)
 	}()
 
-	go dealConn(dst, src, info.Link)
+	// go dealConn(dst, src, info.Link)
 
 	wg.Wait()
 
