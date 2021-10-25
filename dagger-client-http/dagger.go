@@ -136,8 +136,8 @@ func tunnel_ws(w http.ResponseWriter, req *http.Request) {
 	// u := url.URL{Scheme: "ws", Host: *addr, Path: "/ws"}
 	// log.Printf("connecting to %s", u.String())
 
-	// link := "ws://127.0.0.1:12345/network"
-	link := "wss://v3.biqu.xyz/ws"
+	link := "ws://127.0.0.1:12345/network"
+	// link := "wss://v3.biqu.xyz/ws"
 
 	// if wsConn == nil {
 	wsConn, _, err = websocket.DefaultDialer.Dial(link, nil)

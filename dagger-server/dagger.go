@@ -15,7 +15,7 @@ import (
 	"sync"
 	"time"
 	// "net/url"
-	// "bytes"
+	"bytes"
 	// "strings"
 	// "encoding/base64"
 
@@ -45,14 +45,6 @@ type SendMsg struct {
 	ReqConn string `json:"reqconn"`
 }
 
-var (
-	list map[string]net.Conn
-)
-
-func init() {
-	list = make(map[string]net.Conn)
-}
-
 func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) {
 
 	// Now, Hijack the writer to get the underlying net.Conn.
@@ -68,8 +60,8 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) {
 	}
 	defer dst.Close()
 
-	src.SetDeadline(time.Now().Add(5 * time.Second))
-	dst.SetDeadline(time.Now().Add(5 * time.Second))
+	// src.SetDeadline(time.Now().Add(5 * time.Second))
+	// dst.SetDeadline(time.Now().Add(5 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
@@ -96,9 +88,92 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendMsg) {
 		io.Copy(src, dst)
 	}()
 
+	go dealConn(dst, src, info.Link)
+
 	wg.Wait()
 
 	fmt.Println("oooo...")
+}
+
+func readAllShut(conn net.Conn) ([]byte, error) { //这个手动方法可以避免粘包的问题
+	//bufio.NewWriter
+	re := bytes.NewBuffer(nil)
+	const N = 666
+	for {
+		var text [N]byte
+		lens, err := conn.Read(text[0:])
+		re.Write(text[:lens])
+		if lens == 0 || err != nil {
+			//log.Println(err)  //在这个死循环里面，不要有任何的输出
+			// if errors.As(err,*net.OpError) 	//
+			if _, ok := err.(*net.OpError); ok {
+				return nil, err
+			}
+			break
+		}
+		//conn
+		//log.Println(lens,text)
+		if lens < N {
+			break
+		}
+	}
+	rb := re.Bytes()
+	//log.Println(rb,"len",len(rb))
+	return rb, nil
+	/*data,err:=ioutil.ReadAll(conn)
+	if err!=nil{
+		log.Printf("读取出现错误%T:%v",err,err)
+	}
+	return data;*/
+}
+
+func dealConn(conn net.Conn, src net.Conn, link string) {
+
+	time.Sleep(10 * time.Second)
+
+	//defer conn.Close()
+	//defer conn.Flush()
+	//长连接里边的读写操作必须放到循环里面这样才能进行多次的读写
+	// 如果连接已经断开，就把这个线程中断掉，怎么判断这个连接已经断开？
+	thread_c := 0 //如果连续100秒中读取不到内容，就终止循环
+	c := 0
+	for {
+		defer func() {
+			if r := recover(); r != nil {
+				buf := make([]byte, 666)
+				buf = buf[:runtime.Stack(buf, false)]
+				log.Printf("运行时错误:%v.Runtime error caught: %s", r, buf)
+			}
+		}()
+		// 注意continue这里也要等待，不然造成内存耗尽，处理器耗尽
+		time.Sleep(50 * time.Millisecond)
+		//#log.Println(len,string(text))
+		thread_c++
+		if thread_c > 20*100 {
+			log.Println(link, conn.RemoteAddr(), "超过100秒未读取到内容，本连接将关闭")
+			conn.Close()
+			src.Close()
+			c--
+			break
+		}
+		frame, op_err := readAllShut(conn)
+		if op_err != nil {
+			log.Println(link, conn.RemoteAddr(), "出现读写错误，连接不可用，将会被关闭")
+			conn.Close()
+			src.Close()
+			c--
+			break //这种已经关闭的连接，要终止循环，退出这条线程
+		}
+		if len(frame) == 0 {
+			//
+			//time.Sleep(50*time.Millisecond)
+			continue
+		}
+		thread_c = 0
+		log.Printf("%s:-----------------收到tcp请求:报文的长度是%v,", link, len(frame))
+		//TODO
+		//这里写自己的业务代码
+	}
 }
 
 //websocket实现
@@ -121,7 +196,6 @@ func network(c *gin.Context) {
 		res := &SendMsg{}
 		json.Unmarshal(message, &res)
 
-		fmt.Println("res:", res.Link)
 		fmt.Println("receive", mt, string(message))
 
 		log.Println("process", &c, &ws, runtime.NumGoroutine())
