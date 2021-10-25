@@ -140,6 +140,9 @@
                         <items>
                             <menuItem title="Server Preferences..." id="XB2-vM-fv5">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setServers:" target="Voe-Tx-rLC" id="vn9-mc-O5g"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>

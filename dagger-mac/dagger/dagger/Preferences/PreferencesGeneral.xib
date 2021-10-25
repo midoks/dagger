@@ -40,13 +40,13 @@
                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DbA-ap-Xsp">
                             <rect key="frame" x="16" y="50" width="454" height="45"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="zlR-lj-eLd">
+                            <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="zlR-lj-eLd">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
-                                <binding destination="eS9-ph-0iB" name="value" keyPath="values.GFWListURL" id="5MY-ZH-lMD">
+                                <binding destination="eS9-ph-0iB" name="value" keyPath="values.GFWListURL" id="j7t-b8-lcp">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     </dictionary>

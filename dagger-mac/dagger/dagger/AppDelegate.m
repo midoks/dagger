@@ -10,6 +10,7 @@
 #import "MASPreferences.h"
 #import "Preferences.h"
 #import "PACUtils.h"
+#import "Servers.h"
 
 @interface AppDelegate ()
 {
@@ -187,7 +188,11 @@
     
     _preferenceWindow = [[MASPreferencesWindowController alloc] initWithViewControllers:listVC title:@""];
     _preferenceWindow.window.level = NSFloatingWindowLevel;
-    
+}
+
+#pragma mark Servers
+- (IBAction)setServers:(id)sender {
+    [[Servers Instance]  showWindow:nil];
 }
 
 #pragma mark Preferences
