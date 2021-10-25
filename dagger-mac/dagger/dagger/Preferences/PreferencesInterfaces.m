@@ -26,7 +26,7 @@
     [super viewDidLoad];
     
     _netList = [ProxyConfTool networkServicesList];
-    NSLog(@"%@",_netList);
+//    NSLog(@"%@",_netList);
     
     _tableView.delegate = self;
     _tableView.dataSource = self;

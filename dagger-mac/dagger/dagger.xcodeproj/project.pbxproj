@@ -39,6 +39,8 @@
 		82C2FC1327272374006A76CD /* NSTextField+Copypast.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC1227272374006A76CD /* NSTextField+Copypast.m */; };
 		82C2FC16272750E1006A76CD /* AppCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC15272750E1006A76CD /* AppCommon.m */; };
 		82C2FC1927275A8D006A76CD /* ServersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC1827275A8C006A76CD /* ServersModel.m */; };
+		82C2FC1C2727644C006A76CD /* docs.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC1A2727644B006A76CD /* docs.png */; };
+		82C2FC1D2727644C006A76CD /* docs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC1B2727644B006A76CD /* docs@2x.png */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -132,6 +134,8 @@
 		82C2FC15272750E1006A76CD /* AppCommon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppCommon.m; sourceTree = "<group>"; };
 		82C2FC1727275A8C006A76CD /* ServersModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServersModel.h; sourceTree = "<group>"; };
 		82C2FC1827275A8C006A76CD /* ServersModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServersModel.m; sourceTree = "<group>"; };
+		82C2FC1A2727644B006A76CD /* docs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = docs.png; sourceTree = "<group>"; };
+		82C2FC1B2727644B006A76CD /* docs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "docs@2x.png"; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -348,6 +352,8 @@
 		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82C2FC1A2727644B006A76CD /* docs.png */,
+				82C2FC1B2727644B006A76CD /* docs@2x.png */,
 				82C2FC0A2726D5F0006A76CD /* abp.js */,
 				82C2FC082726D5E2006A76CD /* user-rule.txt */,
 				82C2FC062726D5D8006A76CD /* gfwlist.txt */,
@@ -524,10 +530,12 @@
 				82C2FBF92726BEE7006A76CD /* menu_p_icon.png in Resources */,
 				823CC5BF2725DAC300272DEC /* dagger-helper in Resources */,
 				82C2FBF52726BE23006A76CD /* menu_g_icon.png in Resources */,
+				82C2FC1D2727644C006A76CD /* docs@2x.png in Resources */,
 				82C2FBFE2726BF40006A76CD /* menu_m_icon.png in Resources */,
 				82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */,
 				82E8451B2725A53200F3FF1F /* PreferencesGeneral.xib in Resources */,
 				82E845252725A67000F3FF1F /* PreferencesInterfaces.xib in Resources */,
+				82C2FC1C2727644C006A76CD /* docs.png in Resources */,
 				82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */,
 				82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */,
 				82C2FC1027271C25006A76CD /* Servers.xib in Resources */,

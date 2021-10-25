@@ -15,6 +15,7 @@
 @interface AppDelegate ()
 {
     NSWindowController *_preferenceWindow;
+    Servers *_serverConf;
 }
 
 @property (weak) IBOutlet NSMenuItem *runningStatusMenuItem;
@@ -177,7 +178,7 @@
 
 }
 
--(void)initPrefencesWindow
+-(void)initWindow
 {
     
     NSArray *listVC = @[
@@ -188,11 +189,14 @@
     
     _preferenceWindow = [[MASPreferencesWindowController alloc] initWithViewControllers:listVC title:@""];
     _preferenceWindow.window.level = NSFloatingWindowLevel;
+    
+    
+    _serverConf = [[Servers alloc] init];
 }
 
 #pragma mark Servers
 - (IBAction)setServers:(id)sender {
-    [[Servers Instance]  showWindow:nil];
+    [_serverConf showWindow:nil];
 }
 
 #pragma mark Preferences
@@ -202,7 +206,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self initConfig];
-    [self initPrefencesWindow];
+    [self initWindow];
     [self setBarStatus];
     
     [ProxyConfHelper install];
