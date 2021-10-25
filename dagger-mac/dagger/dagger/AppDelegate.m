@@ -139,7 +139,7 @@
     [shared setBool:!on forKey:@"DaggerOn"];
     
     [self updateMainMenu];
-
+    [self applyConf];
 }
 
 #pragma mark 设置界面UI

@@ -199,7 +199,7 @@ func network(c *gin.Context) {
 		fmt.Println("receive", mt, string(message))
 
 		log.Println("process", &c, &ws, runtime.NumGoroutine())
-		process(c, ws, res)
+		go process(c, ws, res)
 
 		// encodeR := base64.StdEncoding.EncodeToString([]byte(r))
 		// d, err := httpGet([]byte("https://www.ixigua.com"))
