@@ -130,7 +130,7 @@ GCDWebServer *webServer = nil;
 }
 
 + (NSString*)getPACFilePath {
-    return [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @".ShadowsocksX-NG/gfwlist.js"];
+    return [NSString stringWithFormat:@"%@/%@", NSHomeDirectory(), @".dagger/gfwlist.js"];
 }
 
 + (void)enablePACProxy {

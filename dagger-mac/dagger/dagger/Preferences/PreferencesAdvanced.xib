@@ -155,6 +155,10 @@
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="490" id="5gV-rE-aM9"/>
+                        <constraint firstAttribute="height" constant="230" id="Ifi-ls-fzG"/>
+                    </constraints>
                 </customView>
             </subviews>
             <constraints>

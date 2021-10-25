@@ -9,6 +9,7 @@
 #import "ProxyConfHelper.h"
 #import "MASPreferences.h"
 #import "Preferences.h"
+#import "PACUtils.h"
 
 @interface AppDelegate ()
 {
@@ -189,7 +190,7 @@
 
 #pragma mark Preferences
 - (IBAction)showPreferences:(id)sender {
-    [_preferenceWindow showWindow:self];
+    [_preferenceWindow showWindow:nil];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -198,6 +199,7 @@
     [self setBarStatus];
     
     [ProxyConfHelper install];
+    [PACUtils install];
     
     
     

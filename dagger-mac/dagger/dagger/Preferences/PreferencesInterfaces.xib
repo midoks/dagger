@@ -113,6 +113,10 @@
                             </connections>
                         </textField>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="310" id="9bN-zV-XHN"/>
+                        <constraint firstAttribute="width" constant="490" id="pdb-yX-j1m"/>
+                    </constraints>
                 </customView>
             </subviews>
             <constraints>

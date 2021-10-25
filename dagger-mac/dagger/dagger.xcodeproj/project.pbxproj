@@ -30,6 +30,10 @@
 		82C2FBFA2726BEE7006A76CD /* menu_p_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBF82726BEE7006A76CD /* menu_p_icon@2x.png */; };
 		82C2FBFD2726BF40006A76CD /* menu_m_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBFB2726BF3F006A76CD /* menu_m_icon@2x.png */; };
 		82C2FBFE2726BF40006A76CD /* menu_m_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FBFC2726BF40006A76CD /* menu_m_icon.png */; };
+		82C2FC052726CB72006A76CD /* PACUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC042726CB71006A76CD /* PACUtils.m */; };
+		82C2FC072726D5D8006A76CD /* gfwlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC062726D5D8006A76CD /* gfwlist.txt */; };
+		82C2FC092726D5E2006A76CD /* user-rule.txt in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC082726D5E2006A76CD /* user-rule.txt */; };
+		82C2FC0B2726D5F0006A76CD /* abp.js in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC0A2726D5F0006A76CD /* abp.js */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -109,6 +113,11 @@
 		82C2FBF82726BEE7006A76CD /* menu_p_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_p_icon@2x.png"; sourceTree = "<group>"; };
 		82C2FBFB2726BF3F006A76CD /* menu_m_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_m_icon@2x.png"; sourceTree = "<group>"; };
 		82C2FBFC2726BF40006A76CD /* menu_m_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_m_icon.png; sourceTree = "<group>"; };
+		82C2FC032726CB71006A76CD /* PACUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PACUtils.h; sourceTree = "<group>"; };
+		82C2FC042726CB71006A76CD /* PACUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PACUtils.m; sourceTree = "<group>"; };
+		82C2FC062726D5D8006A76CD /* gfwlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gfwlist.txt; sourceTree = "<group>"; };
+		82C2FC082726D5E2006A76CD /* user-rule.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "user-rule.txt"; sourceTree = "<group>"; };
+		82C2FC0A2726D5F0006A76CD /* abp.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = abp.js; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -252,6 +261,15 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		82C2FC022726CB71006A76CD /* PACUtils */ = {
+			isa = PBXGroup;
+			children = (
+				82C2FC032726CB71006A76CD /* PACUtils.h */,
+				82C2FC042726CB71006A76CD /* PACUtils.m */,
+			);
+			path = PACUtils;
+			sourceTree = "<group>";
+		};
 		82E844AE272542A400F3FF1F = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +327,9 @@
 		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82C2FC0A2726D5F0006A76CD /* abp.js */,
+				82C2FC082726D5E2006A76CD /* user-rule.txt */,
+				82C2FC062726D5D8006A76CD /* gfwlist.txt */,
 				82C2FBFC2726BF40006A76CD /* menu_m_icon.png */,
 				82C2FBFB2726BF3F006A76CD /* menu_m_icon@2x.png */,
 				82C2FBF72726BEE7006A76CD /* menu_p_icon.png */,
@@ -343,6 +364,7 @@
 		82E844F32725A3B400F3FF1F /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				82C2FC022726CB71006A76CD /* PACUtils */,
 				823CC5C82725DDBF00272DEC /* GCDWebServer */,
 				823CC5C42725DCB900272DEC /* ProxyConfHelper */,
 				82E844F42725A3B400F3FF1F /* MASPreferences */,
@@ -475,6 +497,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C2FC0B2726D5F0006A76CD /* abp.js in Resources */,
 				82C2FBF92726BEE7006A76CD /* menu_p_icon.png in Resources */,
 				823CC5BF2725DAC300272DEC /* dagger-helper in Resources */,
 				82C2FBF52726BE23006A76CD /* menu_g_icon.png in Resources */,
@@ -488,6 +511,8 @@
 				823CC5FB2725E21100272DEC /* install_helper.sh in Resources */,
 				82E8450D2725A3B900F3FF1F /* LICENSE.md in Resources */,
 				82C2FBF62726BE23006A76CD /* menu_g_icon@2x.png in Resources */,
+				82C2FC092726D5E2006A76CD /* user-rule.txt in Resources */,
+				82C2FC072726D5D8006A76CD /* gfwlist.txt in Resources */,
 				82C2FBFA2726BEE7006A76CD /* menu_p_icon@2x.png in Resources */,
 				82E845102725A3B900F3FF1F /* README.md in Resources */,
 				82E845202725A61A00F3FF1F /* PreferencesAdvanced.xib in Resources */,
@@ -534,6 +559,7 @@
 				823CC5EB2725DDC000272DEC /* GCDWebServerResponse.m in Sources */,
 				823CC6132725EEE000272DEC /* ProxyConfTool.m in Sources */,
 				823CC5EE2725DDC000272DEC /* GCDWebServer.m in Sources */,
+				82C2FC052726CB72006A76CD /* PACUtils.m in Sources */,
 				823CC5F72725DDC000272DEC /* GCDWebServerFileRequest.m in Sources */,
 				82E845242725A67000F3FF1F /* PreferencesInterfaces.m in Sources */,
 				82E8451F2725A61A00F3FF1F /* PreferencesAdvanced.m in Sources */,
