@@ -161,6 +161,8 @@
         @"DaggerMode":@"auto",
         @"LocalSocks5.ListenPort": @"1096",
         @"LocalSocks5.ListenAddress": @"127.0.0.1",
+        @"LocalHTTP.ListenAddress": @"127.0.0.1",
+        @"LocalHTTP.ListenPort": @"1097",
         @"PacServer.BindToLocalhost": @YES,
         @"PacServer.ListenPort":@"1099",
         @"LocalSocks5.Timeout": @"60",

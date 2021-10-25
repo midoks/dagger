@@ -150,12 +150,24 @@ GCDWebServer *webServer = nil;
 }
 
 + (void)enableGlobalProxy {
-    NSString* socks5ListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalSocks5.ListenAddress"];
-    NSUInteger port = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalSocks5.ListenPort"];
+    NSMutableArray* args = [@[@"--mode", @"global"]mutableCopy];
     
-    NSMutableArray* args = [@[@"--mode", @"global", @"--port"
-                              , [NSString stringWithFormat:@"%lu", (unsigned long)port],@"--socks-listen-address",socks5ListenAddress]mutableCopy];
+//    NSString* socks5ListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalSocks5.ListenAddress"];
+//    NSUInteger port = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalSocks5.ListenPort"];
+//    [args addObject:@"--port"];
+//    [args addObject:[NSString stringWithFormat:@"%lu", (unsigned long)port]];
+//    [args addObject:@"--socks-listen-address"];
+//    [args addObject:[NSString stringWithFormat:@"%lu", (unsigned long)socks5ListenAddress]];
+//
+
+    NSUInteger privoxyPort = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalHTTP.ListenPort"];
+    NSString* privoxyListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalHTTP.ListenAddress"];
+    [args addObject:@"--privoxy-port"];
+    [args addObject:[NSString stringWithFormat:@"%lu", (unsigned long)privoxyPort]];
+    [args addObject:@"--privoxy-listen-address"];
+    [args addObject:privoxyListenAddress];
     
+//    NSLog(@"%@",args);
     
     [self addArguments4ManualSpecifyNetworkServices:args];
     [self addArguments4ManualSpecifyProxyExceptions:args];

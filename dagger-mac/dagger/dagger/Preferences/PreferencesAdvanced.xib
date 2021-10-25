@@ -23,16 +23,16 @@
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nU7-rv-bPA">
                             <rect key="frame" x="24" y="161" width="182" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Local Socks5 Listen Port:" id="fr6-rS-eL2">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Local Http Listen Port:" id="fr6-rS-eL2">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iyz-2K-IdT">
-                            <rect key="frame" x="24" y="192" width="182" height="16"/>
+                            <rect key="frame" x="42" y="192" width="164" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Local Socks5 Listen Address:" id="zQi-UA-JiI">
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Local Http Listen Address:" id="zQi-UA-JiI">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -47,7 +47,7 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
-                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.ListenAddress" id="cCX-J7-5Cq">
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalHTTP.ListenAddress" id="SjB-5e-5n8">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     </dictionary>
@@ -95,7 +95,7 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                             <connections>
-                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalSocks5.ListenPort" id="a2c-Sv-k4H">
+                                <binding destination="Lec-dL-Zee" name="value" keyPath="values.LocalHTTP.ListenPort" id="MMW-f6-Tcp">
                                     <dictionary key="options">
                                         <bool key="NSContinuouslyUpdatesValue" value="YES"/>
                                     </dictionary>
