@@ -15,13 +15,15 @@
 #import "BRLOptionParser.h"
 
 
-#define kProxyConfHelperVersion @"1.0.0"
+#define kProxyConfHelperVersion @"1.0.3"
 
 int main(int argc, const char * argv[]) {
     NSString* mode;
     NSString* pacURL;
     NSString* portString;
     NSString* socks5ListenAddress;
+    NSString* privoxyPortString;
+    NSString* privoxyListenAddress;
     
     BRLOptionParser *options = [BRLOptionParser new];
     [options setBanner:@"Usage: %s [-v] [-m auto|global|off] [-u <url>] [-p <port>] [-l <socks5-listen-address>] [-r <port>] [-p <privoxy-listen-address>] [-x <exception>]", argv[0]];
@@ -45,6 +47,9 @@ int main(int argc, const char * argv[]) {
     [options addOption:"pac-url" flag:'u' description:@"PAC file url for auto mode." argument:&pacURL];
     [options addOption:"port" flag:'p' description:@"Listen port for global mode." argument:&portString];
     [options addOption:"socks-listen-address" flag:'l' description:@"Listen socks5 address for global mode." argument:&socks5ListenAddress];
+    
+    [options addOption:"privoxy-port" flag:'r' description:@"Privoxy Port for global mode." argument:&privoxyPortString];
+    [options addOption:"privoxy-listen-address" flag:'s' description:@"Privoxy Listen Address for global mode." argument:&privoxyListenAddress];
     
     NSMutableSet* networkServiceKeys = [NSMutableSet set];
     [options addOption:"network-service" flag:'n' description:@"Manual specify the network profile need to set proxy." blockWithArgument:^(NSString* value){
@@ -70,7 +75,6 @@ int main(int argc, const char * argv[]) {
             }
         } else if ([@"global" isEqualToString:mode]) {
             if (!portString) {
-                return 1;
             }
         } else if (![@"off" isEqualToString:mode]) {
             return 1;
@@ -84,12 +88,17 @@ int main(int argc, const char * argv[]) {
     if (portString) {
         port = [portString integerValue];
         if (0 == port) {
-            return 1;
         }
     }
     
+    NSInteger privoxyPort = 0;
+    if (privoxyPortString) {
+        privoxyPort = [privoxyPortString integerValue];
+        if (0 == privoxyPort) {
+        }
+    }
 
-    
+    NSLog(@"%ld:%ld",(long)port,(long)privoxyPort);
     static AuthorizationRef authRef;
     static AuthorizationFlags authFlags;
     authFlags = kAuthorizationFlagDefaults
@@ -148,14 +157,32 @@ int main(int argc, const char * argv[]) {
                                               , (__bridge CFDictionaryRef)proxies);
                 } else if ([mode isEqualToString:@"global"]) {
                     
-                    
-                    [proxies setObject:socks5ListenAddress forKey:(NSString *)
-                     kCFNetworkProxiesSOCKSProxy];
-                    [proxies setObject:[NSNumber numberWithInteger:port] forKey:(NSString*)
-                     kCFNetworkProxiesSOCKSPort];
-                    [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
-                     kCFNetworkProxiesSOCKSEnable];
                     [proxies setObject:[proxyExceptions allObjects] forKey:(NSString *)kCFNetworkProxiesExceptionsList];
+                    
+                    if (port != 0) {
+                        [proxies setObject:socks5ListenAddress forKey:(NSString *)
+                         kCFNetworkProxiesSOCKSProxy];
+                        [proxies setObject:[NSNumber numberWithInteger:port] forKey:(NSString*)
+                         kCFNetworkProxiesSOCKSPort];
+                        [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
+                         kCFNetworkProxiesSOCKSEnable];
+                    }
+                    
+                    if (privoxyPort != 0) {
+                        [proxies setObject:privoxyListenAddress forKey:(NSString *)
+                         kCFNetworkProxiesHTTPProxy];
+                        [proxies setObject:[NSNumber numberWithInteger:privoxyPort] forKey:(NSString*)
+                         kCFNetworkProxiesHTTPPort];
+                        [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
+                         kCFNetworkProxiesHTTPEnable];
+                        
+                        [proxies setObject:privoxyListenAddress forKey:(NSString *)
+                         kCFNetworkProxiesHTTPSProxy];
+                        [proxies setObject:[NSNumber numberWithInteger:privoxyPort] forKey:(NSString*)
+                         kCFNetworkProxiesHTTPSPort];
+                        [proxies setObject:[NSNumber numberWithInt:1] forKey:(NSString*)
+                         kCFNetworkProxiesHTTPSEnable];
+                    }
                     
                     SCPreferencesPathSetValue(prefRef, (__bridge CFStringRef)prefPath
                                               , (__bridge CFDictionaryRef)proxies);
