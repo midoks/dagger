@@ -37,6 +37,8 @@
 		82C2FC0F27271C25006A76CD /* Servers.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC0D27271C24006A76CD /* Servers.m */; };
 		82C2FC1027271C25006A76CD /* Servers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC0E27271C24006A76CD /* Servers.xib */; };
 		82C2FC1327272374006A76CD /* NSTextField+Copypast.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC1227272374006A76CD /* NSTextField+Copypast.m */; };
+		82C2FC16272750E1006A76CD /* AppCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC15272750E1006A76CD /* AppCommon.m */; };
+		82C2FC1927275A8D006A76CD /* ServersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC1827275A8C006A76CD /* ServersModel.m */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -126,6 +128,10 @@
 		82C2FC0E27271C24006A76CD /* Servers.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Servers.xib; sourceTree = "<group>"; };
 		82C2FC1127272373006A76CD /* NSTextField+Copypast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextField+Copypast.h"; sourceTree = "<group>"; };
 		82C2FC1227272374006A76CD /* NSTextField+Copypast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextField+Copypast.m"; sourceTree = "<group>"; };
+		82C2FC14272750E1006A76CD /* AppCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppCommon.h; sourceTree = "<group>"; };
+		82C2FC15272750E1006A76CD /* AppCommon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppCommon.m; sourceTree = "<group>"; };
+		82C2FC1727275A8C006A76CD /* ServersModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServersModel.h; sourceTree = "<group>"; };
+		82C2FC1827275A8C006A76CD /* ServersModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServersModel.m; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -190,6 +196,8 @@
 				82C2FC0C27271C24006A76CD /* Servers.h */,
 				82C2FC0D27271C24006A76CD /* Servers.m */,
 				82C2FC0E27271C24006A76CD /* Servers.xib */,
+				82C2FC1727275A8C006A76CD /* ServersModel.h */,
+				82C2FC1827275A8C006A76CD /* ServersModel.m */,
 			);
 			path = Servers;
 			sourceTree = "<group>";
@@ -314,6 +322,8 @@
 				82E844BD272542AE00F3FF1F /* Assets.xcassets */,
 				82E844BF272542AE00F3FF1F /* MainMenu.xib */,
 				82E844C2272542AE00F3FF1F /* main.m */,
+				82C2FC14272750E1006A76CD /* AppCommon.h */,
+				82C2FC15272750E1006A76CD /* AppCommon.m */,
 			);
 			path = dagger;
 			sourceTree = "<group>";
@@ -571,11 +581,13 @@
 				82C2FC1327272374006A76CD /* NSTextField+Copypast.m in Sources */,
 				823CC5EC2725DDC000272DEC /* GCDWebServerRequest.m in Sources */,
 				82C2FC0F27271C25006A76CD /* Servers.m in Sources */,
+				82C2FC16272750E1006A76CD /* AppCommon.m in Sources */,
 				823CC5C72725DCB900272DEC /* ProxyConfHelper.m in Sources */,
 				823CC5EB2725DDC000272DEC /* GCDWebServerResponse.m in Sources */,
 				823CC6132725EEE000272DEC /* ProxyConfTool.m in Sources */,
 				823CC5EE2725DDC000272DEC /* GCDWebServer.m in Sources */,
 				82C2FC052726CB72006A76CD /* PACUtils.m in Sources */,
+				82C2FC1927275A8D006A76CD /* ServersModel.m in Sources */,
 				823CC5F72725DDC000272DEC /* GCDWebServerFileRequest.m in Sources */,
 				82E845242725A67000F3FF1F /* PreferencesInterfaces.m in Sources */,
 				82E8451F2725A61A00F3FF1F /* PreferencesAdvanced.m in Sources */,
