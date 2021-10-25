@@ -167,8 +167,6 @@ GCDWebServer *webServer = nil;
     [args addObject:@"--privoxy-listen-address"];
     [args addObject:privoxyListenAddress];
     
-//    NSLog(@"%@",args);
-    
     [self addArguments4ManualSpecifyNetworkServices:args];
     [self addArguments4ManualSpecifyProxyExceptions:args];
     [self callHelper:args];

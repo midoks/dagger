@@ -14,20 +14,20 @@
     BOOL needGenerate = NO;
     NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
     
-    NSString *nowSocks5Address = [shared objectForKey:@"LocalSocks5.ListenAddress"];
-    NSString *oldSocks5Address = [shared objectForKey:@"LocalSocks5.ListenAddress.old"];
+    NSString *nowSocks5Address = [shared objectForKey:@"LocalHTTP.ListenAddress"];
+    NSString *oldSocks5Address = [shared objectForKey:@"LocalHTTP.ListenAddress.old"];
     
     if ([nowSocks5Address isNotEqualTo:oldSocks5Address]){
         needGenerate = YES;
-        [shared setObject:nowSocks5Address forKey:@"LocalSocks5.ListenAddress.old"];
+        [shared setObject:nowSocks5Address forKey:@"LocalHTTP.ListenAddress.old"];
     }
     
-    NSString *nowSocks5Port = [shared objectForKey:@"LocalSocks5.ListenPort"];
-    NSString *oldSocks5Port = [shared objectForKey:@"LocalSocks5.ListenPort.old"];
+    NSString *nowSocks5Port = [shared objectForKey:@"LocalHTTP.ListenPort"];
+    NSString *oldSocks5Port = [shared objectForKey:@"LocalHTTP.ListenPort.old"];
     
     if ([nowSocks5Port isNotEqualTo:oldSocks5Port]){
         needGenerate = YES;
-        [shared setObject:nowSocks5Address forKey:@"LocalSocks5.ListenPort.old"];
+        [shared setObject:nowSocks5Address forKey:@"LocalHTTP.ListenPort.old"];
     }
     
     NSFileManager *fm = [NSFileManager defaultManager];
@@ -47,8 +47,8 @@
     NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
     NSFileManager *fm = [NSFileManager defaultManager];
     
-    NSString *socks5Address = [shared objectForKey:@"LocalSocks5.ListenAddress"];
-    NSString *socks5Port = [shared objectForKey:@"LocalSocks5.ListenPort"];
+    NSString *socks5Address = [shared objectForKey:@"LocalHTTP.ListenAddress"];
+    NSString *socks5Port = [shared objectForKey:@"LocalHTTP.ListenPort"];
     
     NSString *pacDir = [NSString stringWithFormat:@"%@/%s", NSHomeDirectory(), PAC_DEFAULT_DIR];
     NSString *pacUserRuleDirPath = [NSString stringWithFormat:@"%@/%s",pacDir, PAC_USER_RULE_PATH];
@@ -88,9 +88,6 @@
         }
         return  YES;
     }]];
-    
-    
-   
     
     NSString *userContent = [NSString stringWithContentsOfFile:pacUserRuleDirPath encoding:NSUTF8StringEncoding error:nil];
     NSArray *userLine = [userContent componentsSeparatedByString:@"\n"];
