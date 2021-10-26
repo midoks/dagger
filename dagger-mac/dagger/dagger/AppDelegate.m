@@ -210,19 +210,23 @@
 }
 
 - (IBAction)showLog:(id)sender {
-    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
-    NSURL *appUrl = [ws URLForApplicationWithBundleIdentifier:@"com.apple.Console"];
+//    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
     
-
-    NSArray  *logArr = [NSArray arrayWithObjects:@"~/Library/Logs/dagger-client-http.log",nil];
+//    NSURL *appUrl = [ws URLForApplicationWithBundleIdentifier:@"com.apple.Console"];
+//    NSArray  *logArr = [NSArray arrayWithObjects:@"~/Library/Logs/dagger-client-http.log",nil];
+//
+//    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+//    [dict setObject:logArr forKey:NSWorkspaceLaunchConfigurationArguments];
+//
+//    [ws launchApplicationAtURL:appUrl
+//                       options:NSWorkspaceLaunchDefault
+//                 configuration:dict
+//                         error:nil];
     
-    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:logArr forKey:NSWorkspaceLaunchConfigurationArguments];
+    NSString *logPath = [NSString stringWithFormat:@"%@/%@",NSHomeDirectory(), @"Library/Logs/dagger-client-http.log"];
     
-    [ws launchApplicationAtURL:appUrl
-                       options:NSWorkspaceLaunchDefault
-                 configuration:dict
-                         error:nil];
+    [[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:[NSArray arrayWithObjects:logPath, nil]] waitUntilExit];
+    
     
 }
 
