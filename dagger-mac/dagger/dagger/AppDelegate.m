@@ -219,6 +219,10 @@
     [_userRuleWindow.window makeKeyAndOrderFront:sender];
     
     [ProxyConfHelper disableProxy];
+   
+    [self updateMainMenu];
+    [self updateRunningModeMenu];
+    [self updateServersMenu];
     [self applyConf];
 }
 

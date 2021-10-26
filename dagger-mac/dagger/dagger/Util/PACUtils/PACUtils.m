@@ -84,6 +84,10 @@
             return NO;
         }
         
+        if ([[object substringToIndex:1] isEqualTo:@"@"]){
+            return NO;
+        }
+        
         if ([[object substringToIndex:1] isEqualTo:@"!"] || [[object substringToIndex:1] isEqualTo:@"["]){
             return NO;
         }
@@ -96,6 +100,11 @@
         if ([object isEqualToString:@""]){
             return NO;
         }
+        
+        if ([[object substringToIndex:1] isEqualTo:@"@"]){
+            return NO;
+        }
+        
         if ([[object substringToIndex:1] isEqualTo:@"!"] || [[object substringToIndex:1] isEqualTo:@"["]){
             return NO;
         }
