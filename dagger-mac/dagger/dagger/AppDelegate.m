@@ -12,6 +12,7 @@
 #import "PACUtils.h"
 #import "Servers.h"
 #import "UserRules.h"
+#import "LaunchAgentsUtils.h"
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate>
 {
@@ -285,6 +286,7 @@
     
     [ProxyConfHelper install];
     [PACUtils install];
+    [LaunchAgentsUtils install];
     
     
     [self updateMainMenu];

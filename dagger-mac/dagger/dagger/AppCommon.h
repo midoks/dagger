@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(NSString*)getServerPlist;
 
++ (void)runSystemCommand:(NSString *)cmd;
+
 @end
 
 NS_ASSUME_NONNULL_END

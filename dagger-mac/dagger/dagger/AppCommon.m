@@ -60,6 +60,14 @@
 }
 
 
+#pragma mark 如果你希望调用系统命
++ (void)runSystemCommand:(NSString *)cmd
+{
+    [[NSTask launchedTaskWithLaunchPath:@"/bin/sh"
+                              arguments:[NSArray arrayWithObjects:@"-c", cmd, nil]]
+     waitUntilExit];
+}
+
 +(NSString*)getServerPlist {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *dirUrl = [AppCommon appSupportDirURL];

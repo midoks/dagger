@@ -48,6 +48,9 @@
 		82C2FC332727FBE5006A76CD /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC2B2727FBE2006A76CD /* AFSecurityPolicy.m */; };
 		82C2FC3C272816A3006A76CD /* UserRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC3A272816A3006A76CD /* UserRules.m */; };
 		82C2FC3D272816A3006A76CD /* UserRules.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC3B272816A3006A76CD /* UserRules.xib */; };
+		82C2FC4227286848006A76CD /* LaunchAgentsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC4127286847006A76CD /* LaunchAgentsUtils.m */; };
+		82C2FC4427286B46006A76CD /* install_dagger_proxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4327286B46006A76CD /* install_dagger_proxy.sh */; };
+		82C2FC4627286B72006A76CD /* dagger-client-http in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4527286B72006A76CD /* dagger-client-http */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -159,6 +162,10 @@
 		82C2FC39272816A3006A76CD /* UserRules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserRules.h; sourceTree = "<group>"; };
 		82C2FC3A272816A3006A76CD /* UserRules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserRules.m; sourceTree = "<group>"; };
 		82C2FC3B272816A3006A76CD /* UserRules.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserRules.xib; sourceTree = "<group>"; };
+		82C2FC4027286847006A76CD /* LaunchAgentsUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchAgentsUtils.h; sourceTree = "<group>"; };
+		82C2FC4127286847006A76CD /* LaunchAgentsUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchAgentsUtils.m; sourceTree = "<group>"; };
+		82C2FC4327286B46006A76CD /* install_dagger_proxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_dagger_proxy.sh; sourceTree = "<group>"; };
+		82C2FC4527286B72006A76CD /* dagger-client-http */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "dagger-client-http"; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -345,6 +352,15 @@
 			path = UserRules;
 			sourceTree = "<group>";
 		};
+		82C2FC3F27286832006A76CD /* LaunchAgentsUtils */ = {
+			isa = PBXGroup;
+			children = (
+				82C2FC4027286847006A76CD /* LaunchAgentsUtils.h */,
+				82C2FC4127286847006A76CD /* LaunchAgentsUtils.m */,
+			);
+			path = LaunchAgentsUtils;
+			sourceTree = "<group>";
+		};
 		82E844AE272542A400F3FF1F = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +422,8 @@
 		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				82C2FC4527286B72006A76CD /* dagger-client-http */,
+				82C2FC4327286B46006A76CD /* install_dagger_proxy.sh */,
 				82C2FC1A2727644B006A76CD /* docs.png */,
 				82C2FC1B2727644B006A76CD /* docs@2x.png */,
 				82C2FC0A2726D5F0006A76CD /* abp.js */,
@@ -445,6 +463,7 @@
 		82E844F32725A3B400F3FF1F /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				82C2FC3F27286832006A76CD /* LaunchAgentsUtils */,
 				82C2FC1F2727FBE1006A76CD /* AFNetworking */,
 				82C2FC1127272373006A76CD /* NSTextField+Copypast.h */,
 				82C2FC1227272374006A76CD /* NSTextField+Copypast.m */,
@@ -604,7 +623,9 @@
 				82C2FBFA2726BEE7006A76CD /* menu_p_icon@2x.png in Resources */,
 				82E845102725A3B900F3FF1F /* README.md in Resources */,
 				82E845202725A61A00F3FF1F /* PreferencesAdvanced.xib in Resources */,
+				82C2FC4427286B46006A76CD /* install_dagger_proxy.sh in Resources */,
 				82E8450E2725A3B900F3FF1F /* MASPreferencesWindow.xib in Resources */,
+				82C2FC4627286B72006A76CD /* dagger-client-http in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +656,7 @@
 				823CC5F62725DDC000272DEC /* GCDWebServerDataRequest.m in Sources */,
 				823CC5F22725DDC000272DEC /* GCDWebServerDataResponse.m in Sources */,
 				82C2FC3C272816A3006A76CD /* UserRules.m in Sources */,
+				82C2FC4227286848006A76CD /* LaunchAgentsUtils.m in Sources */,
 				823CC5F32725DDC000272DEC /* GCDWebServerStreamedResponse.m in Sources */,
 				82C2FC302727FBE5006A76CD /* AFURLSessionManager.m in Sources */,
 				823CC5ED2725DDC000272DEC /* GCDWebServerFunctions.m in Sources */,
