@@ -48,6 +48,7 @@
 
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
     NSButtonCell *cell = tableColumn.dataCell;
+    cell.state = NSControlStateValueOn;
     NSString *tit =  [[_netList objectAtIndex:row] objectForKey:@"userDefinedName"];
     cell.title = tit;
     return cell;
