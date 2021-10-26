@@ -217,13 +217,6 @@
     [_userRuleWindow showWindow:nil];
     [NSApp activateIgnoringOtherApps:YES];
     [_userRuleWindow.window makeKeyAndOrderFront:sender];
-    
-    [ProxyConfHelper disableProxy];
-   
-    [self updateMainMenu];
-    [self updateRunningModeMenu];
-    [self updateServersMenu];
-    [self applyConf];
 }
 
 #pragma mark 设置界面UI

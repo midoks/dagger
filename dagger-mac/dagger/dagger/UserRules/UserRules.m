@@ -7,6 +7,7 @@
 
 #import "UserRules.h"
 #import "PACUtils.h"
+#import "ProxyConfHelper.h"
 
 @interface UserRules ()
 
@@ -30,6 +31,24 @@ static dispatch_once_t _instance_once;
     return self;
 }
 
+-(void)applyConf{
+    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+    NSString *mode = [shared objectForKey:@"DaggerMode"];
+    BOOL on = [shared boolForKey:@"DaggerOn"];
+    
+    if (on) {
+        if ([mode isEqualTo:@"auto"]){
+            [ProxyConfHelper enablePACProxy];
+        } else if ([mode isEqualTo:@"global"]){
+            [ProxyConfHelper enableGlobalProxy];
+        } else if ([mode isEqualTo:@"manual"]){
+            [ProxyConfHelper disableProxy];
+        }
+    } else {
+        [ProxyConfHelper disableProxy];
+    }
+}
+
 - (IBAction)btnOK:(id)sender
 {
     NSString *pacDir = [NSString stringWithFormat:@"%@/%s", NSHomeDirectory(), PAC_DEFAULT_DIR];
@@ -38,6 +57,9 @@ static dispatch_once_t _instance_once;
     
     [ur writeToFile:pacUserRuleDirPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
     [PACUtils GeneratePACFile];
+    
+    [ProxyConfHelper disableProxy];
+    [self applyConf];
 }
 
 - (IBAction)btnCancel:(id)sender
