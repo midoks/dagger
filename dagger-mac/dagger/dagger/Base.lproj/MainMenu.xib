@@ -18,6 +18,7 @@
                 <outlet property="globalModeMenuItem" destination="VyQ-uM-58f" id="KiW-T0-D61"/>
                 <outlet property="manualModeMenuItem" destination="UZW-9u-bfn" id="1FE-Zc-bMN"/>
                 <outlet property="runningStatusMenuItem" destination="pRC-Xd-uez" id="oYs-5a-Ym6"/>
+                <outlet property="serverMenuItem" destination="eSi-vl-Kpv" id="O1K-0g-cja"/>
                 <outlet property="statusBarItemMenu" destination="jGf-73-M16" id="HGK-ZA-WJ2"/>
                 <outlet property="toggleRunningMenuItem" destination="aUP-Bi-8RK" id="0VT-Of-ovf"/>
             </connections>

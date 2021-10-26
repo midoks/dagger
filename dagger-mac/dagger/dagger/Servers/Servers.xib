@@ -148,6 +148,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="remove:" target="-2" id="Mf5-Fe-0UZ"/>
+                        </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4j-WL-1Dg">
                         <rect key="frame" x="89" y="43" width="91" height="22"/>
@@ -167,6 +170,9 @@
 Gw
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="btnCancel:" target="-2" id="Q5S-TN-zPm"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="esJ-bN-cuN">
                         <rect key="frame" x="403" y="33" width="76" height="32"/>
@@ -178,6 +184,9 @@ Gw
 DQ
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="btnOK:" target="-2" id="YcY-oE-a0h"/>
+                        </connections>
                     </button>
                     <scrollView focusRingType="none" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zA-Rb-Zoo">
                         <rect key="frame" x="20" y="65" width="160" height="208"/>

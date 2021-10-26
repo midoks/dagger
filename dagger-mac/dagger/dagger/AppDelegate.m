@@ -25,6 +25,7 @@
 @property (weak) IBOutlet NSMenuItem *globalModeMenuItem;
 @property (weak) IBOutlet NSMenuItem *manualModeMenuItem;
 
+@property (weak) IBOutlet NSMenuItem *serverMenuItem;
 
 
 @property (strong) IBOutlet NSWindow *window;

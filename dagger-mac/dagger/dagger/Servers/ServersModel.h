@@ -19,6 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *password;
 
 
+-(NSMutableDictionary *)setWithValue:(NSString *)remark
+                             domain:(NSString *)domain
+                               path:(NSString *)path
+                           username:(NSString *)username
+                            password:(NSString *)password;
 @end
 
 NS_ASSUME_NONNULL_END
