@@ -25,6 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+//    NSString *services = [shared objectForKey:@"Proxy4NetworkServices"];
+    
+    
     _netList = [ProxyConfTool networkServicesList];
 //    NSLog(@"%@",_netList);
     

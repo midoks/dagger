@@ -295,6 +295,7 @@
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    [ProxyConfHelper disableProxy];
 }
 
 
