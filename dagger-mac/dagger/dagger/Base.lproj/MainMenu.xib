@@ -160,6 +160,9 @@
                 </menuItem>
                 <menuItem title="Show Logs..." id="7GC-dz-bxL">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showLog:" target="Voe-Tx-rLC" id="UbI-Ra-4Sy"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Update PAC from GFW List" id="hsI-lF-1na">
                     <modifierMask key="keyEquivalentModifierMask"/>

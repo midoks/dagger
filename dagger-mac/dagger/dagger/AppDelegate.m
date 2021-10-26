@@ -209,6 +209,23 @@
     [self applyConf];
 }
 
+- (IBAction)showLog:(id)sender {
+    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+    NSURL *appUrl = [ws URLForApplicationWithBundleIdentifier:@"com.apple.Console"];
+    
+
+    NSArray  *logArr = [NSArray arrayWithObjects:@"~/Library/Logs/dagger-client-http.log",nil];
+    
+    NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+    [dict setObject:logArr forKey:NSWorkspaceLaunchConfigurationArguments];
+    
+    [ws launchApplicationAtURL:appUrl
+                       options:NSWorkspaceLaunchDefault
+                 configuration:dict
+                         error:nil];
+    
+}
+
 - (IBAction)updateGFWList:(NSMenuItem *)sender {
     [PACUtils UpdatePACFromGFWList:^{
         [self Toast:@"updated gfw file ok"];
