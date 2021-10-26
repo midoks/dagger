@@ -7,6 +7,7 @@
 
 #import "LaunchAgentsUtils.h"
 #import "AppCommon.h"
+#import "Servers.h"
 
 @implementation LaunchAgentsUtils
 
@@ -45,6 +46,9 @@
 
 +(BOOL)generateHttpLauchAgentPlist{
     
+    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+    NSString *localHttpListenPort = [shared objectForKey:@"LocalHTTP.ListenPort"];
+    
     NSString *homeDir = NSHomeDirectory();
     NSString *logFilePath = [NSString  stringWithFormat:@"%@/%@", homeDir, @"Library/Logs/dagger-client-http.log"];
     NSString *appSupportDir = [NSString  stringWithFormat:@"%@/%@", homeDir, APP_SUPPORT_DIR];
@@ -52,7 +56,44 @@
     NSString *launchAgentDirPath = [NSString  stringWithFormat:@"%@/%@", homeDir, LAUNCH_AGENT_DIR];
     NSString *plistFilepath = [NSString  stringWithFormat:@"%@/%@", launchAgentDirPath, LAUNCH_AGENT_CONF_HTTP_NAME];
     
-    NSArray *arguments = @[daggerHttp, @"service", @"-p", @"localhost:1098"];
+    
+    
+    NSMutableArray *arguments = [@[daggerHttp, @"service"]mutableCopy];
+    
+    NSMutableArray *list = [Servers serverList];
+    NSDictionary *dst = nil;
+    for (NSDictionary *i in list){
+        if([[i objectForKey:@"status"] isEqualTo:@"on"]){
+            dst = i;
+            break;
+        }
+    }
+    
+    [arguments addObject:@"-p"];
+    [arguments addObject:[NSString stringWithFormat:@"localhost:%@",localHttpListenPort]];
+    
+    if (dst){
+        NSString *domain = [dst objectForKey:@"domain"];
+        NSString *path = [dst objectForKey:@"path"];
+        NSString *wsLink = [NSString stringWithFormat:@"%@/%@",domain, path];
+        
+        [arguments addObject:@"-w"];
+        [arguments addObject:wsLink];
+        
+        
+        NSString *username = [dst objectForKey:@"username"];
+        if ([username isNotEqualTo:@""]){
+            [arguments addObject:@"-u"];
+            [arguments addObject:username];
+        }
+        
+        NSString *password = [dst objectForKey:@"password"];
+        if ([username isNotEqualTo:@""]){
+            [arguments addObject:@"-m"];
+            [arguments addObject:password];
+        }
+    }
+    
     
     NSDictionary *info = @{
         @"Label":@"com.midoks.dagger.http",
