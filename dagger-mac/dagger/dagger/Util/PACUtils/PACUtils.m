@@ -118,7 +118,7 @@
     [jsContent writeToFile:pacGFWJSPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
-+(void)UpdatePACFromGFWList{
++(void)UpdatePACFromGFWList:(void(^)(void))success fail:(void(^)(void))fail{
     NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
     NSString *gFWListURL = [shared objectForKey:@"GFWListURL"];
     NSString *pacDir = [NSString stringWithFormat:@"%@/%s", NSHomeDirectory(), PAC_DEFAULT_DIR];
@@ -135,8 +135,11 @@
         NSString *strGfw = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         [strGfw writeToFile:pacGFWJSPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
         [self GeneratePACFile];
+        
+        success();
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"请求失败:%@",error);
+//        NSLog(@"请求失败:%@",error);
+        fail();
     }];
 
 }

@@ -203,7 +203,11 @@
 }
 
 - (IBAction)updateGFWList:(NSMenuItem *)sender {
-    [PACUtils UpdatePACFromGFWList];
+    [PACUtils UpdatePACFromGFWList:^{
+        [self Toast:@"updated gfw file ok"];
+    } fail:^{
+        [self Toast:@"updated gfw file fail"];
+    }];
 }
 
 

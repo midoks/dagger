@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PACUtils : NSObject
 
 + (void)install;
-+(void)UpdatePACFromGFWList;
++(void)UpdatePACFromGFWList:(void(^)(void))success fail:(void(^)(void))fail;
 @end
 
 NS_ASSUME_NONNULL_END
