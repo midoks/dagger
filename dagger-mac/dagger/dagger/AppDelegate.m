@@ -12,7 +12,7 @@
 #import "PACUtils.h"
 #import "Servers.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <NSUserNotificationCenterDelegate>
 {
     NSWindowController *_preferenceWindow;
     Servers *_serverConf;
@@ -36,6 +36,30 @@
 @end
 
 @implementation AppDelegate
+
+#pragma mark 用户通知中心
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
+}
+
+-(void)Toast:(NSString *)content
+{
+    [[NSUserNotificationCenter defaultUserNotificationCenter] removeAllDeliveredNotifications];
+    for (NSUserNotification *notify in [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications])
+    {
+        [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification:notify];
+    }
+    
+    
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = @"通知中心";
+    notification.informativeText = content;
+    
+    //设置通知的代理
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
+}
 
 #pragma mark menuAction
 
@@ -177,6 +201,11 @@
     [self updateMainMenu];
     [self applyConf];
 }
+
+- (IBAction)updateGFWList:(NSMenuItem *)sender {
+   
+}
+
 
 #pragma mark 设置界面UI
 -(void)setBarStatus
