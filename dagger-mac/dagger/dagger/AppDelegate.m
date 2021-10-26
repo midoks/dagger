@@ -53,7 +53,7 @@
     
     
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"通知中心";
+    notification.title = @"user notification";
     notification.informativeText = content;
     
     //设置通知的代理
