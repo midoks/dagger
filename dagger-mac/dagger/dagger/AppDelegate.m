@@ -203,7 +203,7 @@
 }
 
 - (IBAction)updateGFWList:(NSMenuItem *)sender {
-   
+    [PACUtils UpdatePACFromGFWList];
 }
 
 

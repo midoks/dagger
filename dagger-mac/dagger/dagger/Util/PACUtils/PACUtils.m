@@ -6,6 +6,7 @@
 //
 
 #import "PACUtils.h"
+#import "AFNetworking.h"
 
 @implementation PACUtils
 
@@ -115,6 +116,29 @@
     jsContent = [jsContent stringByReplacingOccurrencesOfString:@"__SOCKS5PORT__" withString:socks5Port];
     jsContent = [jsContent stringByReplacingOccurrencesOfString:@"__SOCKS5ADDR__" withString:socks5Address];
     [jsContent writeToFile:pacGFWJSPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
++(void)UpdatePACFromGFWList{
+    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+    NSString *gFWListURL = [shared objectForKey:@"GFWListURL"];
+    NSString *pacDir = [NSString stringWithFormat:@"%@/%s", NSHomeDirectory(), PAC_DEFAULT_DIR];
+    NSString *pacGFWJSPath = [NSString stringWithFormat:@"%@/%s",pacDir, PAC_FILE_PATH];
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",nil];
+
+     
+    [manager GET:gFWListURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  responseObject) {
+        
+        NSString *strGfw = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        [strGfw writeToFile:pacGFWJSPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        [self GeneratePACFile];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败:%@",error);
+    }];
+
 }
 
 
