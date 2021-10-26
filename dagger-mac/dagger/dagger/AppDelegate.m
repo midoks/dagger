@@ -11,10 +11,12 @@
 #import "Preferences.h"
 #import "PACUtils.h"
 #import "Servers.h"
+#import "UserRules.h"
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate>
 {
     NSWindowController *_preferenceWindow;
+    UserRules *_userRuleWindow;
     Servers *_serverConf;
 }
 
@@ -211,19 +213,19 @@
 }
 
 - (IBAction)editUserRulesForPAC:(NSMenuItem *)sender {
-    [PACUtils UpdatePACFromGFWList:^{
-        [self Toast:@"updated gfw file ok"];
-    } fail:^{
-        [self Toast:@"updated gfw file fail"];
-    }];
+    
+    [_userRuleWindow showWindow:nil];
+    [NSApp activateIgnoringOtherApps:YES];
+    [_userRuleWindow.window makeKeyAndOrderFront:sender];
+    
+    [ProxyConfHelper disableProxy];
+    [self applyConf];
 }
-
-
 
 #pragma mark 设置界面UI
 -(void)setBarStatus
 {
-    statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:23.0];
+    statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:24.0];
     statusBarItem.image = [NSImage imageNamed:@"dagger"];
     statusBarItem.alternateImage = [NSImage imageNamed:@"dagger"];
     statusBarItem.menu = statusBarItemMenu;
@@ -251,7 +253,6 @@
         @"AutoConfigureNetworkServices":@YES,
         @"ProxyExceptions": @"127.0.0.1, localhost, 192.168.0.0/16, 10.0.0.0/8, FE80::/64, ::1, FD00::/8",
     }];
-
 }
 
 -(void)initWindow
@@ -265,9 +266,9 @@
     
     _preferenceWindow = [[MASPreferencesWindowController alloc] initWithViewControllers:listVC title:@""];
     _preferenceWindow.window.level = NSFloatingWindowLevel;
-    
-    
+
     _serverConf = [[Servers alloc] init];
+    _userRuleWindow = [[UserRules alloc] init];
 }
 
 #pragma mark Servers

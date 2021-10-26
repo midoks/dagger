@@ -14,8 +14,8 @@
             filePath = "dagger/AppDelegate.m"
             startingColumnNumber = "5"
             endingColumnNumber = "5"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "-selectManualMode:"
             landmarkType = "7">
          </BreakpointContent>

@@ -46,6 +46,8 @@
 		82C2FC312727FBE5006A76CD /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC282727FBE1006A76CD /* AFURLRequestSerialization.m */; };
 		82C2FC322727FBE5006A76CD /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC2A2727FBE1006A76CD /* AFNetworkReachabilityManager.m */; };
 		82C2FC332727FBE5006A76CD /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC2B2727FBE2006A76CD /* AFSecurityPolicy.m */; };
+		82C2FC3C272816A3006A76CD /* UserRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC3A272816A3006A76CD /* UserRules.m */; };
+		82C2FC3D272816A3006A76CD /* UserRules.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC3B272816A3006A76CD /* UserRules.xib */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -154,6 +156,9 @@
 		82C2FC2C2727FBE2006A76CD /* AFCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCompatibilityMacros.h; sourceTree = "<group>"; };
 		82C2FC2D2727FBE2006A76CD /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		82C2FC3427280586006A76CD /* dagger.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = dagger.entitlements; sourceTree = "<group>"; };
+		82C2FC39272816A3006A76CD /* UserRules.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserRules.h; sourceTree = "<group>"; };
+		82C2FC3A272816A3006A76CD /* UserRules.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserRules.m; sourceTree = "<group>"; };
+		82C2FC3B272816A3006A76CD /* UserRules.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserRules.xib; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -330,6 +335,16 @@
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
+		82C2FC35272815B3006A76CD /* UserRules */ = {
+			isa = PBXGroup;
+			children = (
+				82C2FC39272816A3006A76CD /* UserRules.h */,
+				82C2FC3A272816A3006A76CD /* UserRules.m */,
+				82C2FC3B272816A3006A76CD /* UserRules.xib */,
+			);
+			path = UserRules;
+			sourceTree = "<group>";
+		};
 		82E844AE272542A400F3FF1F = {
 			isa = PBXGroup;
 			children = (
@@ -353,7 +368,7 @@
 		82E844B9272542A500F3FF1F /* dagger */ = {
 			isa = PBXGroup;
 			children = (
-				82C2FC3427280586006A76CD /* dagger.entitlements */,
+				82C2FC35272815B3006A76CD /* UserRules */,
 				823CC5C02725DBF200272DEC /* Servers */,
 				82E844F32725A3B400F3FF1F /* Util */,
 				82E844ED27254BAB00F3FF1F /* Preferences */,
@@ -366,6 +381,7 @@
 				82E844C2272542AE00F3FF1F /* main.m */,
 				82C2FC14272750E1006A76CD /* AppCommon.h */,
 				82C2FC15272750E1006A76CD /* AppCommon.m */,
+				82C2FC3427280586006A76CD /* dagger.entitlements */,
 			);
 			path = dagger;
 			sourceTree = "<group>";
@@ -565,6 +581,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C2FC3D272816A3006A76CD /* UserRules.xib in Resources */,
 				82C2FC0B2726D5F0006A76CD /* abp.js in Resources */,
 				82C2FBF92726BEE7006A76CD /* menu_p_icon.png in Resources */,
 				823CC5BF2725DAC300272DEC /* dagger-helper in Resources */,
@@ -617,6 +634,7 @@
 				823CC5F42725DDC000272DEC /* GCDWebServerURLEncodedFormRequest.m in Sources */,
 				823CC5F62725DDC000272DEC /* GCDWebServerDataRequest.m in Sources */,
 				823CC5F22725DDC000272DEC /* GCDWebServerDataResponse.m in Sources */,
+				82C2FC3C272816A3006A76CD /* UserRules.m in Sources */,
 				823CC5F32725DDC000272DEC /* GCDWebServerStreamedResponse.m in Sources */,
 				82C2FC302727FBE5006A76CD /* AFURLSessionManager.m in Sources */,
 				823CC5ED2725DDC000272DEC /* GCDWebServerFunctions.m in Sources */,
