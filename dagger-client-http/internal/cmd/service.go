@@ -137,10 +137,10 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	// link := "wss://v3.biqu.xyz/ws"
 
 	// fmt.Println(link)
-	fmt.Println("websocketLink:", websocketLink)
-	fmt.Println("username:", username)
-	fmt.Println("password:", password)
-	fmt.Println("listen:", listen)
+	// fmt.Println("websocketLink:", websocketLink)
+	// fmt.Println("username:", username)
+	// fmt.Println("password:", password)
+	// fmt.Println("listen:", listen)
 
 	wsConn, _, err = websocket.DefaultDialer.Dial(websocketLink, nil)
 	if err != nil {
@@ -154,6 +154,8 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 		Password:    password,
 		RequestTime: time.Now().Format("2006/1/2 15:04:05"),
 	}
+
+	fmt.Println(tmp)
 
 	err := wsConn.WriteJSON(tmp)
 	if err != nil {
