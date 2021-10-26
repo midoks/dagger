@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -27,6 +28,8 @@ func main() {
 	app.Commands = []cli.Command{
 		cmd.Service,
 	}
+
+	fmt.Println(os.Args)
 
 	if err := app.Run(os.Args); err != nil {
 		log.Printf("Failed to start application: %v", err)

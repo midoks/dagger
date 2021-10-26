@@ -167,14 +167,18 @@
     
     if (on) {
         if ([mode isEqualTo:@"auto"]){
+            [LaunchAgentsUtils startHttpProxy];
             [ProxyConfHelper enablePACProxy];
         } else if ([mode isEqualTo:@"global"]){
+            [LaunchAgentsUtils startHttpProxy];
             [ProxyConfHelper enableGlobalProxy];
         } else if ([mode isEqualTo:@"manual"]){
             [ProxyConfHelper disableProxy];
+            [LaunchAgentsUtils stopHttpProxy];
         }
     } else {
         [ProxyConfHelper disableProxy];
+        [LaunchAgentsUtils stopHttpProxy];
     }
 }
 
@@ -298,6 +302,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     [ProxyConfHelper disableProxy];
+    [LaunchAgentsUtils stopHttpProxy];
 }
 
 
