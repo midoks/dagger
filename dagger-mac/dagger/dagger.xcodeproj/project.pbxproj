@@ -49,8 +49,10 @@
 		82C2FC3C272816A3006A76CD /* UserRules.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC3A272816A3006A76CD /* UserRules.m */; };
 		82C2FC3D272816A3006A76CD /* UserRules.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC3B272816A3006A76CD /* UserRules.xib */; };
 		82C2FC4227286848006A76CD /* LaunchAgentsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 82C2FC4127286847006A76CD /* LaunchAgentsUtils.m */; };
-		82C2FC4427286B46006A76CD /* install_dagger_proxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4327286B46006A76CD /* install_dagger_proxy.sh */; };
-		82C2FC4627286B72006A76CD /* dagger-client-http in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4527286B72006A76CD /* dagger-client-http */; };
+		82C2FC4C27287165006A76CD /* dagger-client-http in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4827287165006A76CD /* dagger-client-http */; };
+		82C2FC4D27287165006A76CD /* stop_dagger_proxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4927287165006A76CD /* stop_dagger_proxy.sh */; };
+		82C2FC4E27287165006A76CD /* start_dagger_proxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4A27287165006A76CD /* start_dagger_proxy.sh */; };
+		82C2FC4F27287165006A76CD /* install_dagger_proxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = 82C2FC4B27287165006A76CD /* install_dagger_proxy.sh */; };
 		82E844BC272542A500F3FF1F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 82E844BB272542A500F3FF1F /* AppDelegate.m */; };
 		82E844BE272542AE00F3FF1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BD272542AE00F3FF1F /* Assets.xcassets */; };
 		82E844C1272542AE00F3FF1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82E844BF272542AE00F3FF1F /* MainMenu.xib */; };
@@ -164,8 +166,10 @@
 		82C2FC3B272816A3006A76CD /* UserRules.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserRules.xib; sourceTree = "<group>"; };
 		82C2FC4027286847006A76CD /* LaunchAgentsUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LaunchAgentsUtils.h; sourceTree = "<group>"; };
 		82C2FC4127286847006A76CD /* LaunchAgentsUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LaunchAgentsUtils.m; sourceTree = "<group>"; };
-		82C2FC4327286B46006A76CD /* install_dagger_proxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_dagger_proxy.sh; sourceTree = "<group>"; };
-		82C2FC4527286B72006A76CD /* dagger-client-http */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "dagger-client-http"; sourceTree = "<group>"; };
+		82C2FC4827287165006A76CD /* dagger-client-http */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "dagger-client-http"; sourceTree = "<group>"; };
+		82C2FC4927287165006A76CD /* stop_dagger_proxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = stop_dagger_proxy.sh; sourceTree = "<group>"; };
+		82C2FC4A27287165006A76CD /* start_dagger_proxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = start_dagger_proxy.sh; sourceTree = "<group>"; };
+		82C2FC4B27287165006A76CD /* install_dagger_proxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_dagger_proxy.sh; sourceTree = "<group>"; };
 		82E844B7272542A500F3FF1F /* dagger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E844BA272542A500F3FF1F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		82E844BB272542A500F3FF1F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -361,6 +365,17 @@
 			path = LaunchAgentsUtils;
 			sourceTree = "<group>";
 		};
+		82C2FC4727287165006A76CD /* proxy */ = {
+			isa = PBXGroup;
+			children = (
+				82C2FC4827287165006A76CD /* dagger-client-http */,
+				82C2FC4927287165006A76CD /* stop_dagger_proxy.sh */,
+				82C2FC4A27287165006A76CD /* start_dagger_proxy.sh */,
+				82C2FC4B27287165006A76CD /* install_dagger_proxy.sh */,
+			);
+			path = proxy;
+			sourceTree = "<group>";
+		};
 		82E844AE272542A400F3FF1F = {
 			isa = PBXGroup;
 			children = (
@@ -422,8 +437,7 @@
 		82E844E72725459600F3FF1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				82C2FC4527286B72006A76CD /* dagger-client-http */,
-				82C2FC4327286B46006A76CD /* install_dagger_proxy.sh */,
+				82C2FC4727287165006A76CD /* proxy */,
 				82C2FC1A2727644B006A76CD /* docs.png */,
 				82C2FC1B2727644B006A76CD /* docs@2x.png */,
 				82C2FC0A2726D5F0006A76CD /* abp.js */,
@@ -601,11 +615,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				82C2FC3D272816A3006A76CD /* UserRules.xib in Resources */,
+				82C2FC4C27287165006A76CD /* dagger-client-http in Resources */,
 				82C2FC0B2726D5F0006A76CD /* abp.js in Resources */,
 				82C2FBF92726BEE7006A76CD /* menu_p_icon.png in Resources */,
 				823CC5BF2725DAC300272DEC /* dagger-helper in Resources */,
+				82C2FC4D27287165006A76CD /* stop_dagger_proxy.sh in Resources */,
+				82C2FC4E27287165006A76CD /* start_dagger_proxy.sh in Resources */,
 				82C2FBF52726BE23006A76CD /* menu_g_icon.png in Resources */,
 				82C2FC1D2727644C006A76CD /* docs@2x.png in Resources */,
+				82C2FC4F27287165006A76CD /* install_dagger_proxy.sh in Resources */,
 				82C2FBFE2726BF40006A76CD /* menu_m_icon.png in Resources */,
 				82E844EC27254B8E00F3FF1F /* dagger@2x.png in Resources */,
 				82E8451B2725A53200F3FF1F /* PreferencesGeneral.xib in Resources */,
@@ -623,9 +641,7 @@
 				82C2FBFA2726BEE7006A76CD /* menu_p_icon@2x.png in Resources */,
 				82E845102725A3B900F3FF1F /* README.md in Resources */,
 				82E845202725A61A00F3FF1F /* PreferencesAdvanced.xib in Resources */,
-				82C2FC4427286B46006A76CD /* install_dagger_proxy.sh in Resources */,
 				82E8450E2725A3B900F3FF1F /* MASPreferencesWindow.xib in Resources */,
-				82C2FC4627286B72006A76CD /* dagger-client-http in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
