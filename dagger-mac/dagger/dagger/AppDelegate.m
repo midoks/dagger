@@ -210,6 +210,15 @@
     }];
 }
 
+- (IBAction)editUserRulesForPAC:(NSMenuItem *)sender {
+    [PACUtils UpdatePACFromGFWList:^{
+        [self Toast:@"updated gfw file ok"];
+    } fail:^{
+        [self Toast:@"updated gfw file fail"];
+    }];
+}
+
+
 
 #pragma mark 设置界面UI
 -(void)setBarStatus

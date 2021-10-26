@@ -167,6 +167,12 @@
                         <action selector="updateGFWList:" target="Voe-Tx-rLC" id="yd4-Wl-ZOG"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Edit User Rules For PAC..." id="eWm-1B-3M2">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="editUserRulesForPAC:" target="Voe-Tx-rLC" id="CAq-R6-2hj"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="xnw-jC-oES"/>
                 <menuItem title="Quit" keyEquivalent="q" id="1Hc-xu-Icb">
                     <connections>
@@ -174,7 +180,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-23" y="-36.5"/>
+            <point key="canvasLocation" x="-23" y="-25.5"/>
         </menu>
     </objects>
 </document>
