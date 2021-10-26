@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Servers : NSWindowController
 
 + (id)Instance;
++(NSMutableArray *)serverList;
++(void)set:(NSInteger )index value:(NSString *)value forKey:(NSString *)key;
 @end
 
 NS_ASSUME_NONNULL_END

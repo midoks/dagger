@@ -6,7 +6,6 @@
 //
 
 #import "Servers.h"
-#import "ServersModel.h"
 
 @interface Servers () <NSTableViewDataSource, NSTableViewDelegate>
 
@@ -124,6 +123,34 @@ static dispatch_once_t _instance_once;
     }
     
     [_tableView reloadData];
+}
+
++(NSMutableArray *)serverList{
+    NSString *serverPath = [AppCommon getServerPlist];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    if([fm fileExistsAtPath:serverPath]){
+        return  [[NSMutableArray alloc] initWithContentsOfFile:serverPath];
+    }
+    return [[NSMutableArray alloc] init];
+}
+
++(void)set:(NSInteger )index value:(NSString *)value forKey:(NSString *)key  {
+    NSString *serverPath = [AppCommon getServerPlist];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if([fm fileExistsAtPath:serverPath]){
+        NSMutableArray *li = [[NSMutableArray alloc] initWithContentsOfFile:serverPath];
+  
+        for (NSInteger i=0; i<[li count]; i++) {
+//            NSMutableDictionary *row = [li objectAtIndex:i];
+//            [row setObject:@"off" forKey:@"status"];
+            [[li objectAtIndex:i] setObject:@"off" forKey:@"status"];
+        }
+        
+        NSMutableDictionary *sm = [li objectAtIndex:index];
+        [sm setObject:value forKey:key];
+        [li writeToFile:serverPath atomically:YES];
+    }
 }
 
 #pragma mark tableView

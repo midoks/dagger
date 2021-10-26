@@ -26,6 +26,10 @@
 @property (weak) IBOutlet NSMenuItem *manualModeMenuItem;
 
 @property (weak) IBOutlet NSMenuItem *serverMenuItem;
+@property (weak) IBOutlet NSMenuItem *serverBeginSeparatorMenuItem;
+@property (weak) IBOutlet NSMenuItem *serverEndSeparatorMenuItem;
+
+
 
 
 @property (strong) IBOutlet NSWindow *window;
@@ -97,6 +101,36 @@
         [statusBarItem setAlternateImage:[NSImage imageNamed:@"dagger"]];
         [statusBarItem.image setTemplate:NO];
     }
+}
+
+-(void)updateServersMenu
+{
+    NSMenu *menu = _serverMenuItem.submenu;
+    NSInteger bIndex = [menu indexOfItem:_serverBeginSeparatorMenuItem]+1;
+    NSInteger eIndex = [menu indexOfItem:_serverEndSeparatorMenuItem]-1;
+
+    for (NSInteger mIndex = eIndex ; mIndex>=bIndex; mIndex--) {
+        [menu removeItemAtIndex:mIndex];
+    }
+    
+    NSMutableArray *slist  = [Servers serverList];
+    for (NSInteger i=0; i<[slist count]; i++) {
+        NSMutableDictionary *row = [slist objectAtIndex:i];
+        NSMenuItem *item = [[NSMenuItem alloc] init];
+        [item setTitle:[row valueForKey:@"remark"]];
+        [item setEnabled:YES];
+        item.tag = i;
+        item.state = [[row valueForKey:@"status"] isEqualTo:@"on"]?NSControlStateValueOn:NSControlStateValueOff;
+        
+        [item setAction:@selector(selectServer:)];
+        [menu insertItem:item atIndex:bIndex];
+    }
+}
+
+-(void)selectServer:(NSMenuItem*)sender{
+//    NSLog(@"selectServer");
+    [Servers set:sender.tag value:@"on" forKey:@"status"];
+    [self updateServersMenu];
 }
 
 -(void)applyConf{
@@ -174,7 +208,6 @@
         @"GFWListURL": @"https://cdn.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt",
         @"AutoConfigureNetworkServices":@YES,
         @"ProxyExceptions": @"127.0.0.1, localhost, 192.168.0.0/16, 10.0.0.0/8, FE80::/64, ::1, FD00::/8",
-        
     }];
 
 }
@@ -214,9 +247,9 @@
     [PACUtils install];
     
     
-    
     [self updateMainMenu];
     [self updateRunningModeMenu];
+    [self updateServersMenu];
     [self applyConf];
 }
 

@@ -137,7 +137,7 @@ GCDWebServer *webServer = nil;
     //start server here and then using the string next line
     //next two lines can open gcdwebserver and work around pac file
     NSString* PACFilePath = [self getPACFilePath];
-    NSLog(@"pc:%@",PACFilePath);
+//    NSLog(@"pc:%@",PACFilePath);
     [self startPACServer: PACFilePath];
     
     NSURL* url = [NSURL URLWithString: [self getHttpPACUrl]];
