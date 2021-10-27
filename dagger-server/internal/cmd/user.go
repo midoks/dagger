@@ -11,7 +11,7 @@ import (
 var User = cli.Command{
 	Name:        "user",
 	Usage:       "This Command Is User Management",
-	Description: `User management [add, delete, modify, query]`,
+	Description: `User management [add, delete, modify, query, list]`,
 	Action:      RunUser,
 	Flags: []cli.Flag{
 		stringFlag("method, m", "query", "add, delete, modify, query"),
@@ -28,6 +28,25 @@ func RunUser(c *cli.Context) error {
 	argsPassword := c.String("password")
 
 	if argsMethod == "query" {
+
+		if argsUsername == "" {
+			fmt.Println("user cannot be empty!")
+			return nil
+		}
+
+		u, err := db.UserGetByName(argsUsername)
+
+		if err == nil {
+			fmt.Println("-----------------------------------------------------------------")
+			fmt.Println("|user:", u.Name, "| password:", u.Password, "| status:", u.Status, "|")
+			fmt.Println("-----------------------------------------------------------------")
+		} else {
+			fmt.Println("no has user[", argsUsername, "] data!")
+		}
+
+	}
+
+	if argsMethod == "list" {
 		u, _ := db.UsersList()
 
 		if len(u) > 0 {
@@ -43,6 +62,17 @@ func RunUser(c *cli.Context) error {
 	}
 
 	if argsMethod == "add" {
+
+		if argsUsername == "" {
+			fmt.Println("user cannot be empty!")
+			return nil
+		}
+
+		if argsPassword == "" {
+			fmt.Println("user cannot be empty!")
+			return nil
+		}
+
 		err := db.UserAdd(argsUsername, argsPassword)
 		if err != nil {
 			fmt.Println(err)
@@ -61,6 +91,17 @@ func RunUser(c *cli.Context) error {
 	}
 
 	if argsMethod == "modify" {
+
+		if argsUsername == "" {
+			fmt.Println("user cannot be empty!")
+			return nil
+		}
+
+		if argsPassword == "" {
+			fmt.Println("user cannot be empty!")
+			return nil
+		}
+
 		err := db.UserMod(argsUsername, argsPassword)
 		if err != nil {
 			fmt.Println(err)

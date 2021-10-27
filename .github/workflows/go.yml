@@ -1,0 +1,25 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Build Dagger Server
+      run: cd dagger-server && go build -v ./...
+
+    - name: Build Dagger Client
+      run: cd dagger-client-http && go build -v ./...

@@ -19,6 +19,7 @@ import (
 	"github.com/urfave/cli"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
+	"github.com/midoks/dagger/dagger-server/internal/db"
 )
 
 var logger *go_logger.Logger
@@ -55,7 +56,7 @@ type SendInfo struct {
 	RequestTime string `json:"request_time"`
 }
 
-func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) {
+func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 
 	// Now, Hijack the writer to get the underlying net.Conn.
 	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
@@ -66,7 +67,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) {
 	dst, err := net.Dial("tcp", info.Link)
 	if err != nil {
 		log.Println("net.Dial:", info.Link, err)
-		return
+		return false
 	}
 	defer dst.Close()
 
@@ -100,7 +101,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) {
 
 	wg.Wait()
 
-	fmt.Println("oooo...", info.Link)
+	return true
 }
 
 //websocket实现
@@ -123,19 +124,29 @@ func websocketReqMethod(c *gin.Context) {
 		reqInfo := &SendInfo{}
 		json.Unmarshal(message, &reqInfo)
 
-		fmt.Println("receive[%v]:%s", mt, string(message))
 		userEnable := conf.GetString("user.enable", "1")
 		if userEnable == "1" {
-			fmt.Println("user acl!")
-			err = ws.WriteMessage(mt, []byte("user acl error!"))
-			fmt.Println("user acl:", err)
-			if err == nil {
-				break
-			}
-		} else {
 
+			if db.UserAclCheck(reqInfo.Username, reqInfo.Password) {
+				b := process(c, ws, reqInfo)
+				if b {
+					fmt.Println(reqInfo.Link, "done")
+				}
+			} else {
+				info := fmt.Sprintf("user[%s]:password[%s] acl fail", reqInfo.Username, reqInfo.Password)
+				logger.Errorf(info)
+				err = ws.WriteMessage(mt, []byte(info))
+				if err == nil {
+					break
+				}
+			}
+
+		} else {
 			logger.Infof("process[%s]:%d", reqInfo.Link, runtime.NumGoroutine())
-			process(c, ws, reqInfo)
+			b := process(c, ws, reqInfo)
+			if b {
+				fmt.Println(reqInfo.Link, "done")
+			}
 		}
 	}
 }

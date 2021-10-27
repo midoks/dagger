@@ -68,3 +68,16 @@ func UserMod(name, password string) error {
 	err = db.Model(&User{}).Where("name = ?", name).Update("password", password).Error
 	return err
 }
+
+func UserAclCheck(name, password string) bool {
+	u, err := UserGetByName(name)
+	if err != nil {
+		return false
+	}
+
+	if u.Password != password {
+		return false
+	}
+
+	return true
+}

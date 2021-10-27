@@ -33,5 +33,5 @@ func main() {
 		log.Printf("Failed to start application: %v", err)
 	}
 
-	// cmd.RunService(nil)
+	cmd.RunService(nil)
 }
