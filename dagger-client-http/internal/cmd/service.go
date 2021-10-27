@@ -212,10 +212,6 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	wg.Wait()
 }
 
-func InfoServer(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "hello ,this is from HelloServer func ")
-}
-
 func RunService(c *cli.Context) error {
 
 	username = c.String("username")
