@@ -66,7 +66,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 
 	dst, err := net.Dial("tcp", info.Link)
 	if err != nil {
-		log.Println("net.Dial:", info.Link, err)
+		logger.Errorf("net.Dial:%s,err:%v", info.Link, err)
 		return false
 	}
 	defer dst.Close()
