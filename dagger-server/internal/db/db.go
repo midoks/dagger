@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"gorm.io/driver/mysql"
 	// "gorm.io/driver/sqlite"
-	"gorm.io/gorm"
-	// "log"
 	"errors"
-	// "os"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"log"
+	"os"
 	"time"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
@@ -29,10 +30,22 @@ func Init() error {
 	dbCharset := conf.GetString("db.charset", "utf8mb4")
 	dbPath := conf.GetString("db.path", "data/imail.db3")
 
+	newLogger := logger.New(
+		log.New(os.Stdout, "\r\n", log.LstdFlags),
+		logger.Config{
+			SlowThreshold:             time.Second,   // 慢 SQL 阈值
+			LogLevel:                  logger.Silent, // 日志级别
+			IgnoreRecordNotFoundError: true,          // 忽略ErrRecordNotFound（记录未找到）错误
+			Colorful:                  false,         // 禁用彩色打印
+		},
+	)
+
 	switch dbType {
 	case "mysql":
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True", dbUser, dbPasswd, dbHost, dbPort, dbName, dbCharset)
-		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+			Logger: newLogger,
+		})
 	case "sqlite3":
 		fmt.Println("sqlite3 path:", dbPath)
 		// os.MkdirAll("./data", os.ModePerm)

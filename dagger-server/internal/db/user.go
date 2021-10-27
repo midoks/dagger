@@ -1,9 +1,7 @@
 package db
 
 import (
-	// "strings"
 	"errors"
-	"fmt"
 	"time"
 )
 
@@ -63,12 +61,10 @@ func UserDel(name string) error {
 func UserMod(name, password string) error {
 	var u User
 	err := db.First(&u, "name = ?", name).Error
-	fmt.Println(err)
 	if err != nil {
 		return errors.New("user not exists!")
 	}
 
 	err = db.Model(&User{}).Where("name = ?", name).Update("password", password).Error
-	fmt.Println(err)
 	return err
 }
