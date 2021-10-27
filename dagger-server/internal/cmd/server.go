@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"runtime"
 	"sync"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	go_logger "github.com/phachon/go-logger"
@@ -22,6 +21,8 @@ import (
 	"github.com/midoks/dagger/dagger-server/internal/conf"
 )
 
+var logger *go_logger.Logger
+
 var Service = cli.Command{
 	Name:        "service",
 	Usage:       "This command starts dagger services",
@@ -29,8 +30,6 @@ var Service = cli.Command{
 	Action:      RunService,
 	Flags:       []cli.Flag{},
 }
-
-var logger *go_logger.Logger
 
 func Md5Byte(buf []byte) string {
 	hash := md5.New()
@@ -124,9 +123,8 @@ func websocketReqMethod(c *gin.Context) {
 		reqInfo := &SendInfo{}
 		json.Unmarshal(message, &reqInfo)
 
-		fmt.Println("receive", mt, string(message))
-
-		log.Println("process", &c, &ws, runtime.NumGoroutine())
+		logger.Infof("receive:%v,%s", mt, string(message))
+		logger.Infof("process:%s,%d", string(message), runtime.NumGoroutine())
 
 		process(c, ws, reqInfo)
 
@@ -143,37 +141,10 @@ func websocketReqMethod(c *gin.Context) {
 	}
 }
 
-func initLogger() {
-	logger = go_logger.NewLogger()
-
-	// 文件输出配置
-	fileConfig := &go_logger.FileConfig{
-		Filename: "./logs/test.log", // 日志输出文件名，不自动存在
-		// 如果要将单独的日志分离为文件，请配置LealFrimeNem参数。
-		LevelFileName: map[int]string{
-			logger.LoggerLevel("error"): "./logs/error.log", // Error 级别日志被写入 error .log 文件
-			logger.LoggerLevel("info"):  "./logs/info.log",  // Info 级别日志被写入到 info.log 文件中
-			logger.LoggerLevel("debug"): "./logs/debug.log", // Debug 级别日志被写入到 debug.log 文件中
-		},
-		MaxSize:    1024 * 1024, // 文件最大值（KB），默认值0不限
-		MaxLine:    100000,      // 文件最大行数，默认 0 不限制
-		DateSlice:  "d",         // 文件根据日期切分， 支持 "Y" (年), "m" (月), "d" (日), "H" (时), 默认 "no"， 不切分
-		JsonFormat: false,       // 写入文件的数据是否 json 格式化
-		Format:     "",          // 如果写入文件的数据不 json 格式化，自定义日志格式
-	}
-	// 添加 file 为 logger 的一个输出
-	logger.Attach("file", go_logger.LOGGER_LEVEL_DEBUG, fileConfig)
-
-	logger.Infof("hello,world,now:%s", time.Now().Format("2006/1/2 15:04:05"))
-}
-
 func RunService(c *cli.Context) error {
-	conf.Load("conf/app.conf")
 
 	httpPort := conf.GetString("http.port", "12345")
 	httpPath := conf.GetString("http.path", "ws")
-
-	initLogger()
 
 	r := gin.Default()
 
