@@ -17,7 +17,7 @@
     NSString *homeDir = NSHomeDirectory();
     NSString *appSupportDir = [NSString  stringWithFormat:@"%@/%@", homeDir, APP_SUPPORT_DIR];
     NSString *httpProxy = [NSString  stringWithFormat:@"%@/%@", appSupportDir, @"dagger-client-http"];
-    if ((![fm fileExistsAtPath:appSupportDir]) || (![fm fileExistsAtPath:httpProxy])) {
+    if (![fm fileExistsAtPath:httpProxy]) {
         NSString *sh = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"install_dagger_proxy.sh"];
         NSLog(@"run install [%@] script: %@", @"dagger-client-http",sh);
         [AppCommon runSystemCommand:sh];
