@@ -28,3 +28,4 @@ dagger-mac/build/release
 dagger-mac/build/dagger.app
 *.dmg
 dagger-server/logs
+dagger-server/tmp
