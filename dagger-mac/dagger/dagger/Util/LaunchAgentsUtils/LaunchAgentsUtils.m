@@ -29,6 +29,7 @@
 
 
 +(void)startHttpProxy{
+    [self generateHttpLauchAgentPlist];
     
     NSString *sh = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"start_dagger_proxy.sh"];
     NSLog(@"start [%@]",sh);

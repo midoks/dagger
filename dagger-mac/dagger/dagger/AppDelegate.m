@@ -158,6 +158,8 @@
 //    NSLog(@"selectServer");
     [Servers set:sender.tag value:@"on" forKey:@"status"];
     [self updateServersMenu];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeConfigList" object:nil userInfo:nil];
 }
 
 -(void)applyConf{
@@ -305,10 +307,24 @@
     [_preferenceWindow showWindow:nil];
 }
 
+-(void)regNotifEvent{
+    // drag event
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeConfigList) name:@"changeConfigList" object:nil];
+}
+
+-(void)changeConfigList{
+    [ProxyConfHelper disableProxy];
+    [LaunchAgentsUtils stopHttpProxy];
+    
+    [self updateServersMenu];
+    [self applyConf];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self initConfig];
     [self initWindow];
     [self setBarStatus];
+    [self regNotifEvent];
     
     [ProxyConfHelper install];
     [PACUtils install];

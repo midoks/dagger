@@ -105,6 +105,9 @@ static dispatch_once_t _instance_once;
     
     [_list writeToFile:pathplist atomically:YES];
     [_tableView reloadData];
+    
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeConfigList" object:nil userInfo:nil];
 }
 
 - (IBAction)btnCancel:(id)sender
