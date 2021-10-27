@@ -30,3 +30,4 @@ dagger-mac/build/dagger.app
 dagger-server/logs
 dagger-server/tmp
 dagger-server/data
+dagger-server/dagger
