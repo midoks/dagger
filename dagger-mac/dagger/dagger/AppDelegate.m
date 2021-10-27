@@ -309,15 +309,17 @@
 
 -(void)regNotifEvent{
     // drag event
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeConfigList) name:@"changeConfigList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeConfigListEvent) name:@"changeConfigList" object:nil];
 }
 
--(void)changeConfigList{
+-(void)changeConfigListEvent{
     [ProxyConfHelper disableProxy];
     [LaunchAgentsUtils stopHttpProxy];
     
     [self updateServersMenu];
     [self applyConf];
+    
+    [self Toast:@"Update succeeded"];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
