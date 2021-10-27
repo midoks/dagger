@@ -3,13 +3,12 @@ package cmd
 // https://blog.twofei.com/794/
 
 import (
-	// "encoding/base64"
-	// "fmt"
 	"io"
 	"log"
 	"net"
 	"net/http"
 	"runtime"
+	"strings"
 	"sync"
 	"time"
 
@@ -51,6 +50,13 @@ func tunnel(w http.ResponseWriter, req *http.Request) {
 
 	// We handle CONNECT method only
 	if req.Method != http.MethodConnect {
+
+		if req.Method == "GET" {
+			target := strings.Replace(req.RequestURI, "http", "https", -1)
+			http.Redirect(w, req, target, http.StatusTemporaryRedirect)
+			return
+		}
+
 		log.Println(req.Method, req.RequestURI)
 		http.NotFound(w, req)
 		return
@@ -125,6 +131,13 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 
 	// We handle CONNECT method only
 	if req.Method != http.MethodConnect {
+
+		if req.Method == "GET" {
+			target := strings.Replace(req.RequestURI, "http", "https", -1)
+			http.Redirect(w, req, target, http.StatusTemporaryRedirect)
+			return
+		}
+
 		log.Println(req.Method, req.RequestURI)
 		http.NotFound(w, req)
 		return
