@@ -23,3 +23,4 @@ dagger-client/dagger-client.debug
 dagger-client-http/dagger-client
 dagger-client-http/.vscode/
 dagger-client-http/dagger-client-http
+dagger-mac/build/release.xcarchive

@@ -17,6 +17,8 @@ function build(){
 	echo "Building archive... please wait a minute"
     xcodebuild -project $ROOT_DIR/dagger/dagger.xcodeproj -config Release -scheme dagger -archivePath ${DAGGER_RELEASE} archive
 
+    echo "Exporting archive..."
+    xcodebuild -archivePath ${DAGGER_RELEASE} -exportArchive -exportPath ${DAGGER_RELEASE} -exportOptionsPlist ./build.plist
 
 
 }
