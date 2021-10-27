@@ -11,7 +11,7 @@ VERSION=0.0.1
 curPath=`pwd`
 rootPath=$(dirname "$curPath")
 
-LDFLAGS="-w -s"
+LDFLAGS=""
 PACK_NAME=dagger-server
 
 # go tool dist list
@@ -108,11 +108,11 @@ build_app(){
 golist=`go tool dist list`
 echo $golist
 
-# build_app linux amd64
-# build_app linux 386
-# build_app linux arm64
-# build_app linux arm
-# build_app darwin amd64
+build_app linux amd64
+build_app linux 386
+build_app linux arm64
+build_app linux arm
+build_app darwin amd64
 build_app windows 386
 build_app windows amd64
 
