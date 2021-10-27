@@ -109,10 +109,10 @@ golist=`go tool dist list`
 echo $golist
 
 build_app linux amd64
-build_app linux 386
-build_app linux arm64
-build_app linux arm
-build_app darwin amd64
-build_app windows 386
-build_app windows amd64
+# build_app linux 386
+# build_app linux arm64
+# build_app linux arm
+# build_app darwin amd64
+# build_app windows 386
+# build_app windows amd64
 
