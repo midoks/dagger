@@ -84,7 +84,7 @@ main() {
 	systemctl daemon-reload
 	service dagger restart
 
-	cd .. && ./dagger -v	
+	cd .. && ./dagger-server -v	
 	popd >/dev/null 2>&1
 }
 

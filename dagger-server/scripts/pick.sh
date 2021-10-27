@@ -29,13 +29,13 @@ echo $LDFLAGS
 build_app(){
 
 	if [ -f $rootPath/tmp/build/dagger ]; then
-		rm -rf $rootPath/tmp/build/dagger
-		rm -rf $rootPath/dagger
+		rm -rf $rootPath/tmp/build/dagger-server
+		rm -rf $rootPath/dagger-server
 	fi
 
 	if [ -f $rootPath/tmp/build/dagger.exe ]; then
-		rm -rf $rootPath/tmp/build/dagger.exe
-		rm -rf $rootPath/dagger.exe
+		rm -rf $rootPath/tmp/build/dagger-server.exe
+		rm -rf $rootPath/dagger-server.exe
 	fi
 
 	echo "build_app" $1 $2
@@ -57,7 +57,7 @@ build_app(){
 			export CXX=i686-w64-mingw32-g++
 		fi
 
-		cd $rootPath && go build -o dagger-server.exe  dagger.go
+		cd $rootPath && go build -v -ldflags "${LDFLAGS}" -o dagger-server.exe
 	fi
 
 	if [ $1 == "linux" ]; then
@@ -79,7 +79,7 @@ build_app(){
 			export CC=arm-linux-musleabi-gcc
 		fi
 
-		cd $rootPath && go build -ldflags "${LDFLAGS}" dagger.go 
+		cd $rootPath && go build -ldflags "${LDFLAGS}"
 	fi
 
 	if [ $1 == "darwin" ]; then
@@ -108,11 +108,11 @@ build_app(){
 golist=`go tool dist list`
 echo $golist
 
-build_app linux amd64
-build_app linux 386
-build_app linux arm64
-build_app linux arm
-build_app darwin amd64
+# build_app linux amd64
+# build_app linux 386
+# build_app linux arm64
+# build_app linux arm
+# build_app darwin amd64
 build_app windows 386
 build_app windows amd64
 
