@@ -227,7 +227,6 @@
     
     [[NSTask launchedTaskWithLaunchPath:@"/usr/bin/open" arguments:[NSArray arrayWithObjects:logPath, nil]] waitUntilExit];
     
-    
 }
 
 - (IBAction)updateGFWList:(NSMenuItem *)sender {
@@ -261,6 +260,7 @@
     
     
     [shared registerDefaults:@{
+        @"launchAtLogin":@NO,
         @"DaggerOn":@NO,
         @"DaggerMode":@"auto",
         @"LocalSocks5.ListenPort": @"1096",
@@ -291,6 +291,7 @@
     _preferenceWindow.window.level = NSFloatingWindowLevel;
 
     _serverConf = [[Servers alloc] init];
+    _serverConf.window.level = NSFloatingWindowLevel;
     _userRuleWindow = [[UserRules alloc] init];
 }
 
@@ -313,6 +314,7 @@
     [PACUtils install];
     [LaunchAgentsUtils install];
     
+    [PreferencesGeneral setLaunchAtLogin];
     
     [self updateMainMenu];
     [self updateRunningModeMenu];

@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PreferencesGeneral : NSViewController
 
++(void)setLaunchAtLogin;
 @end
 
 NS_ASSUME_NONNULL_END

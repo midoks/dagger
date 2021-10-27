@@ -36,6 +36,10 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="setLaunchAtLoginAction:" target="-2" id="ydK-sa-Vgf"/>
+                                <binding destination="eS9-ph-0iB" name="value" keyPath="values.launchAtLogin" id="Y1l-tv-lLb"/>
+                            </connections>
                         </button>
                         <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DbA-ap-Xsp">
                             <rect key="frame" x="16" y="50" width="454" height="45"/>
