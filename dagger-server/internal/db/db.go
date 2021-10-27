@@ -15,7 +15,7 @@ var (
 	err error
 )
 
-func Init() {
+func Init() error {
 	dbType := config.GetString("db.type", "sqlite3")
 	dbUser := config.GetString("db.user", "root")
 	dbPasswd := config.GetString("db.password", "root")
@@ -24,23 +24,35 @@ func Init() {
 
 	dbName := config.GetString("db.name", "imail")
 	dbCharset := config.GetString("db.charset", "utf8mb4")
+	dbPath := config.GetString("db.path", "data/imail.db3")
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True", dbUser, dbPasswd, dbHost, dbPort, dbName, dbCharset)
-	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	switch dbType {
+	case "mysql":
+		dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=True", dbUser, dbPwd, dbHost, dbName, dbCharset)
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	case "sqlite3":
+		os.MkdirAll("./data", os.ModePerm)
+		db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{SkipDefaultTransaction: true})
+		//&gorm.Config{SkipDefaultTransaction: true,}
+		// synchronous close
+		db.Exec("PRAGMA synchronous = OFF;")
+	default:
+		log.Errorf("database type not found")
+		return errors.New("database type not found")
+	}
 
 	if err != nil {
 		fmt.Println("init db err,link error:", err)
-		return
+		return err
 	}
 
 	fmt.Println("init db success!")
 
 	sqlDB, sqlErr := db.DB()
-	// SetMaxIdleConns 设置空闲连接池中连接的最大数量
 	sqlDB.SetMaxIdleConns(10)
-	// SetMaxOpenConns 设置打开数据库连接的最大数量。
 	sqlDB.SetMaxOpenConns(100)
-	// SetConnMaxLifetime 设置了连接可复用的最大时间。
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
 	if sqlErr != nil {
@@ -49,5 +61,5 @@ func Init() {
 	}
 
 	db.AutoMigrate(&User{})
-
+	return nil
 }
