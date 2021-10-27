@@ -20,7 +20,7 @@ func Load(path string) error {
 		return err
 	}
 
-	fmt.Println("config file init success!")
+	// fmt.Println("config file init success!")
 	return nil
 }
 

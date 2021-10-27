@@ -3,8 +3,11 @@ package db
 import (
 	"fmt"
 	"gorm.io/driver/mysql"
-	"gorm.io/driver/sqlite"
+	// "gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	// "log"
+	"errors"
+	// "os"
 	"time"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
@@ -16,30 +19,30 @@ var (
 )
 
 func Init() error {
-	dbType := config.GetString("db.type", "sqlite3")
-	dbUser := config.GetString("db.user", "root")
-	dbPasswd := config.GetString("db.password", "root")
-	dbHost := config.GetString("db.host", "127.0.0.1")
-	dbPort, _ := config.GetInt64("db.port", 3306)
+	dbType := conf.GetString("db.type", "sqlite3")
+	dbUser := conf.GetString("db.user", "root")
+	dbPasswd := conf.GetString("db.password", "root")
+	dbHost := conf.GetString("db.host", "127.0.0.1")
+	dbPort, _ := conf.GetInt64("db.port", 3306)
 
-	dbName := config.GetString("db.name", "imail")
-	dbCharset := config.GetString("db.charset", "utf8mb4")
-	dbPath := config.GetString("db.path", "data/imail.db3")
-
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True", dbUser, dbPasswd, dbHost, dbPort, dbName, dbCharset)
+	dbName := conf.GetString("db.name", "dagger")
+	dbCharset := conf.GetString("db.charset", "utf8mb4")
+	dbPath := conf.GetString("db.path", "data/imail.db3")
 
 	switch dbType {
 	case "mysql":
-		dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=True", dbUser, dbPwd, dbHost, dbName, dbCharset)
+		dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True", dbUser, dbPasswd, dbHost, dbPort, dbName, dbCharset)
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	case "sqlite3":
-		os.MkdirAll("./data", os.ModePerm)
-		db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{SkipDefaultTransaction: true})
-		//&gorm.Config{SkipDefaultTransaction: true,}
-		// synchronous close
-		db.Exec("PRAGMA synchronous = OFF;")
+		fmt.Println("sqlite3 path:", dbPath)
+		// os.MkdirAll("./data", os.ModePerm)
+
+		// db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{SkipDefaultTransaction: true})
+		// //&gorm.Config{SkipDefaultTransaction: true,}
+		// // synchronous close
+		// db.Exec("PRAGMA synchronous = OFF;")
 	default:
-		log.Errorf("database type not found")
+		fmt.Println("database type not found")
 		return errors.New("database type not found")
 	}
 
@@ -48,7 +51,7 @@ func Init() error {
 		return err
 	}
 
-	fmt.Println("init db success!")
+	// fmt.Println("init db success!")
 
 	sqlDB, sqlErr := db.DB()
 	sqlDB.SetMaxIdleConns(10)
@@ -57,7 +60,7 @@ func Init() error {
 
 	if sqlErr != nil {
 		fmt.Println(sqlErr)
-		return
+		return sqlErr
 	}
 
 	db.AutoMigrate(&User{})

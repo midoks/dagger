@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
@@ -65,11 +64,11 @@ func initLogger() {
 	// 添加 file 为 logger 的一个输出
 	logger.Attach("file", go_logger.LOGGER_LEVEL_DEBUG, fileConfig)
 
-	logger.Infof("hello,world,now:%s", time.Now().Format("2006/1/2 15:04:05"))
+	// logger.Infof("hello,world,now:%s", time.Now().Format("2006/1/2 15:04:05"))
 }
 
-func init() {
-	fmt.Println("cmd init")
+func Init() {
+	// fmt.Println("cmd init")
 	conf.Load("conf/app.conf")
 	initLogger()
 	db.Init()

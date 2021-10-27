@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -27,12 +26,12 @@ func main() {
 	app.Usage = "A simple http proxy service"
 	app.Commands = []cli.Command{
 		cmd.Service,
+		cmd.User,
 	}
 
-	fmt.Println(os.Args)
 	if err := app.Run(os.Args); err != nil {
 		log.Printf("Failed to start application: %v", err)
 	}
 
-	cmd.RunService(nil)
+	// cmd.RunService(nil)
 }

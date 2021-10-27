@@ -123,30 +123,31 @@ func websocketReqMethod(c *gin.Context) {
 		reqInfo := &SendInfo{}
 		json.Unmarshal(message, &reqInfo)
 
-		logger.Infof("receive:%v,%s", mt, string(message))
-		logger.Infof("process:%s,%d", string(message), runtime.NumGoroutine())
+		fmt.Println("receive[%v]:%s", mt, string(message))
+		userEnable := conf.GetString("user.enable", "1")
+		if userEnable == "1" {
+			fmt.Println("user acl!")
+			err = ws.WriteMessage(mt, []byte("user acl error!"))
+			fmt.Println("user acl:", err)
+			if err == nil {
+				break
+			}
+		} else {
 
-		process(c, ws, reqInfo)
-
-		break
-
-		// encodeR := base64.StdEncoding.EncodeToString([]byte(r))
-		// d, err := httpGet([]byte("https://www.ixigua.com"))
-		// fmt.Println(d, err)
-		//写入ws数据
-		// err = ws.WriteMessage(mt, []byte(r))
-		// if err != nil {
-		// 	break
-		// }
+			logger.Infof("process[%s]:%d", reqInfo.Link, runtime.NumGoroutine())
+			process(c, ws, reqInfo)
+		}
 	}
 }
 
 func RunService(c *cli.Context) error {
+	Init()
 
 	httpPort := conf.GetString("http.port", "12345")
 	httpPath := conf.GetString("http.path", "ws")
 
 	r := gin.Default()
+	gin.SetMode(gin.ReleaseMode)
 
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello World")
