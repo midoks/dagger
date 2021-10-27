@@ -27,3 +27,4 @@ dagger-mac/build/release.xcarchive
 dagger-mac/build/release
 dagger-mac/build/dagger.app
 *.dmg
+dagger-server/logs
