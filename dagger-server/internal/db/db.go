@@ -28,7 +28,7 @@ func Init() error {
 
 	dbName := conf.GetString("db.name", "dagger")
 	dbCharset := conf.GetString("db.charset", "utf8mb4")
-	dbPath := conf.GetString("db.path", "data/imail.db3")
+	dbPath := conf.GetString("db.path", "data/dagger.db3")
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),
