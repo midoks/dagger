@@ -4,7 +4,7 @@ package cmd
 
 import (
 	// "encoding/base64"
-	"fmt"
+	// "fmt"
 	"io"
 	"log"
 	"net"
@@ -154,8 +154,7 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 		Password:    password,
 		RequestTime: time.Now().Format("2006/1/2 15:04:05"),
 	}
-
-	fmt.Println(tmp)
+	// fmt.Println(tmp)
 
 	err := wsConn.WriteJSON(tmp)
 	if err != nil {
