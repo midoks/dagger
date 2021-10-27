@@ -1,10 +1,10 @@
 package db
 
 import (
+	"errors"
 	"fmt"
 	"gorm.io/driver/mysql"
-	// "gorm.io/driver/sqlite"
-	"errors"
+	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
@@ -48,12 +48,12 @@ func Init() error {
 		})
 	case "sqlite3":
 		fmt.Println("sqlite3 path:", dbPath)
-		// os.MkdirAll("./data", os.ModePerm)
+		os.MkdirAll("./data", os.ModePerm)
 
-		// db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{SkipDefaultTransaction: true})
-		// //&gorm.Config{SkipDefaultTransaction: true,}
+		db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{SkipDefaultTransaction: true})
+		// &gorm.Config{SkipDefaultTransaction: true,}
 		// // synchronous close
-		// db.Exec("PRAGMA synchronous = OFF;")
+		db.Exec("PRAGMA synchronous = OFF;")
 	default:
 		fmt.Println("database type not found")
 		return errors.New("database type not found")
