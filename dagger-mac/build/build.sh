@@ -29,7 +29,7 @@ function build(){
 
 function createDmgByAppdmg(){
 
-	umount "/Volumes/${APP_NAME}"
+	# umount "/Volumes/${APP_NAME}"
 
 	rm -rf ${BUILD_DIR}/${APP_NAME}.app ${BUILD_DIR}/${DMG_FINAL}
 	\cp -Rf "${DAGGER_RELEASE}/${APP_NAME}.app" "${BUILD_DIR}/${APP_NAME}.app"
@@ -38,7 +38,7 @@ function createDmgByAppdmg(){
 	echo ${BUILD_DIR}/appdmg.json
     appdmg appdmg.json ${DMG_FINAL}
 
-    umount "/Volumes/${APP_NAME}"
+    # umount "/Volumes/${APP_NAME}"
 }
 
 function makeDmg(){
