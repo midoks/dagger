@@ -30,6 +30,8 @@ var Service = cli.Command{
 	Flags:       []cli.Flag{},
 }
 
+var logger *go_logger.Logger
+
 func Md5Byte(buf []byte) string {
 	hash := md5.New()
 	hash.Write(buf)
@@ -115,7 +117,7 @@ func websocketReqMethod(c *gin.Context) {
 
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("read ws msg:", err, message)
+			logger.Errorf("read websocket msg: %s", err, message)
 			break
 		}
 
@@ -142,12 +144,11 @@ func websocketReqMethod(c *gin.Context) {
 }
 
 func initLogger() {
-	logger := go_logger.NewLogger()
-	logger.Errorf("hello,world,now:%s", time.Now().Format("2006/1/2 15:04:05"))
+	logger = go_logger.NewLogger()
 
 	// 文件输出配置
 	fileConfig := &go_logger.FileConfig{
-		Filename: "./test.log", // 日志输出文件名，不自动存在
+		Filename: "./logs/test.log", // 日志输出文件名，不自动存在
 		// 如果要将单独的日志分离为文件，请配置LealFrimeNem参数。
 		LevelFileName: map[int]string{
 			logger.LoggerLevel("error"): "./logs/error.log", // Error 级别日志被写入 error .log 文件
@@ -157,11 +158,13 @@ func initLogger() {
 		MaxSize:    1024 * 1024, // 文件最大值（KB），默认值0不限
 		MaxLine:    100000,      // 文件最大行数，默认 0 不限制
 		DateSlice:  "d",         // 文件根据日期切分， 支持 "Y" (年), "m" (月), "d" (日), "H" (时), 默认 "no"， 不切分
-		JsonFormat: true,        // 写入文件的数据是否 json 格式化
+		JsonFormat: false,       // 写入文件的数据是否 json 格式化
 		Format:     "",          // 如果写入文件的数据不 json 格式化，自定义日志格式
 	}
 	// 添加 file 为 logger 的一个输出
 	logger.Attach("file", go_logger.LOGGER_LEVEL_DEBUG, fileConfig)
+
+	logger.Infof("hello,world,now:%s", time.Now().Format("2006/1/2 15:04:05"))
 }
 
 func RunService(c *cli.Context) error {
