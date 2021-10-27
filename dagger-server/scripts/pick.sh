@@ -57,7 +57,7 @@ build_app(){
 			export CXX=i686-w64-mingw32-g++
 		fi
 
-		cd $rootPath && go build -o dagger.exe  dagger.go
+		cd $rootPath && go build -o dagger-server.exe  dagger.go
 	fi
 
 	if [ $1 == "linux" ]; then
