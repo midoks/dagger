@@ -24,3 +24,12 @@ location / {
    proxy_set_header Host $http_host;
 }
 ```
+
+# 用户模式
+```
+./dagger-server user -m add -u test -p test
+./dagger-server user -m delete -u test
+./dagger-server user -m mod -u test -p test
+./dagger-server user -m list
+./dagger-server user -m query -u test
+```
