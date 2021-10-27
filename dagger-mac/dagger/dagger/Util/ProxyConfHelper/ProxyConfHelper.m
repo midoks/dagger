@@ -176,14 +176,20 @@ GCDWebServer *webServer = nil;
 + (void)disableProxy {
     // 带上所有参数是为了判断是否原有代理设置是否由ssx-ng设置的。如果是用户手工设置的其他配置，则不进行清空。
     NSURL* url = [NSURL URLWithString: [self getHttpPACUrl]];
-    NSString* socks5ListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalSocks5.ListenAddress"];
-    NSUInteger port = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalSocks5.ListenPort"];
+//    NSString* socks5ListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalSocks5.ListenAddress"];
+//    NSUInteger port = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalSocks5.ListenPort"];
     
     NSMutableArray* args = [@[@"--mode", @"off"
                               , @"--pac-url", [url absoluteString]
-                              , @"--port", [NSString stringWithFormat:@"%lu", (unsigned long)port]
-                              , @"--socks-listen-address",socks5ListenAddress
                               ]mutableCopy];
+    
+    NSUInteger privoxyPort = [[NSUserDefaults standardUserDefaults]integerForKey:@"LocalHTTP.ListenPort"];
+    NSString* privoxyListenAddress = [[NSUserDefaults standardUserDefaults]stringForKey:@"LocalHTTP.ListenAddress"];
+    [args addObject:@"--privoxy-port"];
+    [args addObject:[NSString stringWithFormat:@"%lu", (unsigned long)privoxyPort]];
+    [args addObject:@"--privoxy-listen-address"];
+    [args addObject:privoxyListenAddress];
+    
     [self addArguments4ManualSpecifyNetworkServices:args];
     [self addArguments4ManualSpecifyProxyExceptions:args];
     [self callHelper:args];

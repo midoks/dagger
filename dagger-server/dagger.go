@@ -212,36 +212,21 @@ func network(c *gin.Context) {
 	}
 }
 
-//websocket实现
-func ping(c *gin.Context) {
-	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
-	if err != nil {
-		return
-	}
-	defer ws.Close()
-	for {
-		mt, _, err := ws.ReadMessage()
-		if err != nil {
-			break
-		}
-		err = ws.WriteMessage(mt, []byte("ok"))
-		if err != nil {
-			break
-		}
-	}
-}
-
 func main() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
+		c.String(200, "Hello World")
+	})
+
+	r.GET("/info", func(c *gin.Context) {
+		numG := runtime.NumGoroutine()
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"goroutine": numG,
 		})
 	})
 
 	r.GET("/network", network)
-	r.GET("/ping", ping)
 
 	r.Run(":12345")
 }
