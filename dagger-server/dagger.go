@@ -32,6 +32,4 @@ func main() {
 	if err := app.Run(os.Args); err != nil {
 		log.Printf("Failed to start application: %v", err)
 	}
-
-	cmd.RunService(nil)
 }
