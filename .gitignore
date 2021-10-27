@@ -24,3 +24,6 @@ dagger-client-http/dagger-client
 dagger-client-http/.vscode/
 dagger-client-http/dagger-client-http
 dagger-mac/build/release.xcarchive
+dagger-mac/build/release
+dagger-mac/build/dagger.app
+*.dmg
