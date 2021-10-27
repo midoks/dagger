@@ -27,7 +27,7 @@ app_path={APP_PATH}
 SERVICENAME="dagger"
 
 im_start(){
-    isStart=`ps -ef|grep 'dagger service' |grep -v grep|awk '{print $2}'`
+    isStart=`ps -ef|grep 'dagger-server service' |grep -v grep|awk '{print $2}'`
     if [ "$isStart" == '' ];then
         echo -e "Starting dagger... \c"
         cd $app_path && ./dagger-server service &
