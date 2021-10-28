@@ -37,6 +37,7 @@ var (
 	websocketLink   string
 	wsConn          *websocket.Conn
 	err             error
+	mu              *sync.Mutex
 )
 
 type SendInfo struct {
@@ -128,6 +129,8 @@ func tunnel(w http.ResponseWriter, req *http.Request) {
 }
 
 func tunnelWs(w http.ResponseWriter, req *http.Request) {
+	// mu.Lock()
+	// defer mu.Unlock()
 
 	// We handle CONNECT method only
 	if req.Method != http.MethodConnect {
@@ -170,6 +173,7 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	// fmt.Println(tmp)
 
 	err := wsConn.WriteJSON(tmp)
+
 	if err != nil {
 		log.Println("write:", err)
 		return
