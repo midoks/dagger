@@ -1,5 +1,5 @@
 # dagger-server
-websocket代理服务器 - 科学上网
+websocket代理服务器
 
 ### 自动安装
 ```

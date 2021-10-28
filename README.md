@@ -1,5 +1,5 @@
 # dagger
-websocket代理服务器
+websocket代理服务器 - 科学上网
 
 
 ### Mac客服端下载链接
