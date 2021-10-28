@@ -37,6 +37,12 @@ static dispatch_once_t _instance_once;
     return self;
 }
 
+-(void)windowWillLoad{
+    [super windowWillLoad];
+    if (_tableView){
+        [self reloadListData];
+    }
+}
 
 - (void)windowDidLoad {
     [super windowDidLoad];
@@ -48,6 +54,7 @@ static dispatch_once_t _instance_once;
     
     [self reloadListData];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadListData) name:@"changeConfigReload" object:nil];
 }
 
 

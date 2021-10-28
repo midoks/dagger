@@ -160,6 +160,7 @@
     [self updateServersMenu];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeConfigList" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"changeConfigReload" object:nil userInfo:nil];
 }
 
 -(void)applyConf{
