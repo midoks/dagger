@@ -90,6 +90,8 @@ build_app(){
 
 	cp -r $rootPath/scripts $rootPath/tmp/build
 	cp -r $rootPath/conf $rootPath/tmp/build
+	mkdir -p $rootPath/tmp/build/logs
+	echo "" > $rootPath/tmp/build/logs/README.md
 
 	cd $rootPath/tmp/build && xattr -c * && rm -rf ./*/.DS_Store && rm -rf ./*/*/.DS_Store
 
