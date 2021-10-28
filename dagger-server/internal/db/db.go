@@ -47,9 +47,8 @@ func Init() error {
 			Logger: newLogger,
 		})
 	case "sqlite3":
-		fmt.Println("sqlite3 path:", dbPath)
+		// fmt.Println("sqlite3 path:", dbPath)
 		os.MkdirAll("./data", os.ModePerm)
-
 		db, err = gorm.Open(sqlite.Open(dbPath), &gorm.Config{SkipDefaultTransaction: true})
 		// &gorm.Config{SkipDefaultTransaction: true,}
 		// // synchronous close
@@ -63,8 +62,6 @@ func Init() error {
 		fmt.Println("init db err,link error:", err)
 		return err
 	}
-
-	// fmt.Println("init db success!")
 
 	sqlDB, sqlErr := db.DB()
 	sqlDB.SetMaxIdleConns(10)

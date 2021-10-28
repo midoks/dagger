@@ -11,7 +11,7 @@ VERSION=0.0.1
 curPath=`pwd`
 rootPath=$(dirname "$curPath")
 
-LDFLAGS=""
+LDFLAGS="-w -s"
 PACK_NAME=dagger-server
 
 # go tool dist list
@@ -46,7 +46,7 @@ build_app(){
 	export CGO_ENABLED=1 GOOS=$1 GOARCH=$2
 	# export CGO_ENABLED=1 GOOS=linux GOARCH=amd64
 
-
+    export CGO_LDFLAGS="-static"
 	if [ $1 == "windows" ];then
 		
 		if [ $2 == "amd64" ]; then
@@ -62,7 +62,6 @@ build_app(){
 
 	if [ $1 == "linux" ]; then
 		export CC=x86_64-linux-musl-gcc
-		export CGO_LDFLAGS="-static"
 		if [ $2 == "amd64" ]; then
 			export CC=x86_64-linux-musl-gcc
 
@@ -110,10 +109,10 @@ golist=`go tool dist list`
 echo $golist
 
 build_app linux amd64
-# build_app linux 386
-# build_app linux arm64
-# build_app linux arm
-# build_app darwin amd64
-# build_app windows 386
-# build_app windows amd64
+build_app linux 386
+build_app linux arm64
+build_app linux arm
+build_app darwin amd64
+build_app windows 386
+build_app windows amd64
 

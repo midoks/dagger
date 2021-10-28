@@ -14,7 +14,7 @@ var User = cli.Command{
 	Description: `User management [add, delete, modify, query, list]`,
 	Action:      RunUser,
 	Flags: []cli.Flag{
-		stringFlag("method, m", "query", "add, delete, modify, query"),
+		stringFlag("method, m", "list", "add, delete, modify, query,list"),
 		stringFlag("username, u", "", "input username"),
 		stringFlag("password, p", "", "input password"),
 	},
