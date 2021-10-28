@@ -28,12 +28,12 @@ cd $rootPath
 echo $LDFLAGS
 build_app(){
 
-	if [ -f $rootPath/tmp/build/dagger ]; then
+	if [ -f $rootPath/tmp/build/dagger-server ]; then
 		rm -rf $rootPath/tmp/build/dagger-server
 		rm -rf $rootPath/dagger-server
 	fi
 
-	if [ -f $rootPath/tmp/build/dagger.exe ]; then
+	if [ -f $rootPath/tmp/build/dagger-server.exe ]; then
 		rm -rf $rootPath/tmp/build/dagger-server.exe
 		rm -rf $rootPath/dagger-server.exe
 	fi
