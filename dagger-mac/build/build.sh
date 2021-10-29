@@ -43,7 +43,7 @@ function createDmgByAppdmg(){
 
 function makeDmg(){
 
-	rm -fr ${DMG_FINAL} ${V2rayU_RELEASE}
+	rm -fr ${DMG_FINAL} ${DAGGER_RELEASE}
 	
 	build
 	createDmgByAppdmg
