@@ -48,6 +48,7 @@
 +(BOOL)generateHttpLauchAgentPlist{
     
     NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+    NSString *localHttpListenAddress = [shared objectForKey:@"LocalHTTP.ListenAddress"];
     NSString *localHttpListenPort = [shared objectForKey:@"LocalHTTP.ListenPort"];
     
     NSString *homeDir = NSHomeDirectory();
@@ -71,7 +72,7 @@
     }
     
     [arguments addObject:@"-p"];
-    [arguments addObject:[NSString stringWithFormat:@"localhost:%@",localHttpListenPort]];
+    [arguments addObject:[NSString stringWithFormat:@"%@:%@",localHttpListenAddress,localHttpListenPort]];
     
     if (dst){
         NSString *domain = [dst objectForKey:@"domain"];
