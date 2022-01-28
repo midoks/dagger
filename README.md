@@ -13,7 +13,7 @@ websocket代理服务器
 ```
 
 ### Mac客服端下载链接
-- 1.0[3.38 MB] - [dagger.dmg](https://github.com/midoks/dagger/releases/download/1.0.0/dagger.dmg)
+- 1.0[3.38 MB] - [dagger.dmg](https://github.com/midoks/dagger/releases/download/0.0.1/dagger.dmg)
 
 ### Mac客服端截图
 
