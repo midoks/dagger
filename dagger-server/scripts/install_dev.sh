@@ -25,7 +25,7 @@ rm -rf dagger
 go build ./
 
 
-cd $TAGRT_DIR/dagger/scripts
+cd $TAGRT_DIR/dagger/dagger-server/scripts
 
 sh make.sh
 
