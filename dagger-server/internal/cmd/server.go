@@ -118,7 +118,7 @@ func websocketReqMethod(c *gin.Context) {
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
 			logger.Errorf("read websocket msg: %v", err)
-			break
+			continue
 		}
 
 		reqInfo := &SendInfo{}
