@@ -145,7 +145,7 @@ func websocketReqMethod(c *gin.Context) {
 			logger.Infof("process[%s]:%d", reqInfo.Link, runtime.NumGoroutine())
 			b := process(c, ws, reqInfo)
 			if b {
-				fmt.Println(reqInfo.Link, "done", runtime.NumGoroutine())
+				logger.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
 			}
 		}
 	}
