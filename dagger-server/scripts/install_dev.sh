@@ -33,6 +33,6 @@ systemctl daemon-reload
 
 service dagger restart
 
-cd $TAGRT_DIR/dagger/dagger-server/dagger && ./dagger -v
+cd $TAGRT_DIR/dagger/dagger-server/dagger && ./dagger-server -v
 
 
