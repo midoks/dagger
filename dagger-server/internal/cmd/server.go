@@ -137,7 +137,7 @@ func websocketReqMethod(c *gin.Context) {
 				logger.Errorf(info)
 				err = ws.WriteMessage(mt, []byte(info))
 				if err == nil {
-					break
+					continue
 				}
 			}
 
