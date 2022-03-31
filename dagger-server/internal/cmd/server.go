@@ -131,14 +131,14 @@ func websocketReqMethod(c *gin.Context) {
 				b := process(c, ws, reqInfo)
 				if b {
 					logger.Infof("process[%s][uc-done]:%d", reqInfo.Link, runtime.NumGoroutine())
-					break
+					// break
 				}
 			} else {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", reqInfo.Username, reqInfo.Password)
 				logger.Errorf(info)
 				err = ws.WriteMessage(mt, []byte(info))
 				if err == nil {
-					break
+					// break
 				}
 			}
 
@@ -147,7 +147,7 @@ func websocketReqMethod(c *gin.Context) {
 			b := process(c, ws, reqInfo)
 			if b {
 				logger.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
-				break
+				// break
 			}
 		}
 	}

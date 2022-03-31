@@ -46,7 +46,13 @@ build_app(){
 	export CGO_ENABLED=1 GOOS=$1 GOARCH=$2
 	# export CGO_ENABLED=1 GOOS=linux GOARCH=amd64
 
-    export CGO_LDFLAGS="-static"
+
+	if [ $1 != "darwin" ];then
+		export CGO_ENABLED=1 GOOS=$1 GOARCH=$2
+		export CGO_LDFLAGS="-static"
+	fi
+
+    #export CGO_LDFLAGS="-static"
 	if [ $1 == "windows" ];then
 		
 		if [ $2 == "amd64" ]; then
