@@ -130,7 +130,8 @@ func websocketReqMethod(c *gin.Context) {
 			if db.UserAclCheck(reqInfo.Username, reqInfo.Password) {
 				b := process(c, ws, reqInfo)
 				if b {
-					fmt.Println(reqInfo.Link, "done")
+					logger.Infof("process[%s][uc-done]:%d", reqInfo.Link, runtime.NumGoroutine())
+					break
 				}
 			} else {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", reqInfo.Username, reqInfo.Password)
@@ -146,6 +147,7 @@ func websocketReqMethod(c *gin.Context) {
 			b := process(c, ws, reqInfo)
 			if b {
 				logger.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
+				break
 			}
 		}
 	}
