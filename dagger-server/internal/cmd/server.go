@@ -2,13 +2,13 @@ package cmd
 
 import (
 	// "encoding/base64"
+	// "log"
 	"bufio"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
 	"io"
-	"log"
 	"net"
 	"net/http"
 	"runtime"
@@ -60,18 +60,19 @@ type SendInfo struct {
 
 func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 
-	// Now, Hijack the writer to get the underlying net.Conn.
-	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
-	src := ws.UnderlyingConn()
-	reader := bufio.NewReader(src)
-	defer src.Close()
-
 	dst, err := net.Dial("tcp", info.Link)
 	if err != nil {
 		logger.Errorf("net.Dial:%s,err:%v", info.Link, err)
 		return false
 	}
+
 	defer dst.Close()
+
+	// Now, Hijack the writer to get the underlying net.Conn.
+	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
+	src := ws.UnderlyingConn()
+	reader := bufio.NewReader(src)
+	defer src.Close()
 
 	// src.SetDeadline(time.Now().Add(5 * time.Second))
 	// dst.SetDeadline(time.Now().Add(5 * time.Second))
@@ -87,7 +88,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 		if n := reader.Buffered(); n > 0 {
 			n64, err := io.CopyN(dst, src, int64(n))
 			if n64 != int64(n) || err != nil {
-				log.Println("io.CopyN:", n64, err)
+				logger.Errorf("io.CopyN:%d, err:%T", n64, err)
 				return
 			}
 		}
@@ -120,7 +121,7 @@ func websocketReqMethod(c *gin.Context) {
 
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			logger.Errorf("read websocket msg: %v", err)
+			logger.Errorf("read websocket msg error: %v", err)
 			break
 		}
 
