@@ -96,6 +96,8 @@ build_app(){
 
 	cp -r $rootPath/scripts $rootPath/tmp/build
 	cp -r $rootPath/conf $rootPath/tmp/build
+
+	sed 's/dev/prod/g' $rootPath/conf/app.conf > $rootPath/tmp/build/conf/app.conf
 	mkdir -p $rootPath/tmp/build/logs
 	echo "" > $rootPath/tmp/build/logs/README.md
 

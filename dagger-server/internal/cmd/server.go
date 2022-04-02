@@ -12,6 +12,7 @@ import (
 	"net"
 	"net/http"
 	"runtime"
+	"strings"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -20,6 +21,7 @@ import (
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
 	"github.com/midoks/dagger/dagger-server/internal/db"
+	"github.com/midoks/dagger/dagger-server/internal/debug"
 )
 
 var logger *go_logger.Logger
@@ -95,6 +97,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 
 	go func() {
 		defer wg.Done()
+
 		// Relay: dst -> src
 		io.Copy(src, dst)
 	}()
@@ -130,7 +133,7 @@ func websocketReqMethod(c *gin.Context) {
 			if db.UserAclCheck(reqInfo.Username, reqInfo.Password) {
 				b := process(c, ws, reqInfo)
 				if b {
-					logger.Infof("process[%s][uc-done]:%d", reqInfo.Link, runtime.NumGoroutine())
+					logger.Infof("process[%s][login-done]:%d", reqInfo.Link, runtime.NumGoroutine())
 					// break
 				}
 			} else {
@@ -147,7 +150,8 @@ func websocketReqMethod(c *gin.Context) {
 			b := process(c, ws, reqInfo)
 			if b {
 				logger.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
-				// break
+			} else {
+				logger.Errorf("process[%s][fali]:%d", reqInfo.Link, runtime.NumGoroutine())
 			}
 		}
 	}
@@ -172,6 +176,11 @@ func RunService(c *cli.Context) error {
 			"goroutine": numG,
 		})
 	})
+
+	runMode := conf.GetString("runmode", "dev")
+	if strings.EqualFold(runMode, "dev") {
+		go debug.Pprof()
+	}
 
 	hp := fmt.Sprintf("/%s", httpPath)
 	r.GET(hp, websocketReqMethod)
