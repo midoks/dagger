@@ -1,0 +1,19 @@
+title: zzz
+frequency: 3
+dirfilter:
+- tmp
+- .git
+- public
+- scripts
+- vendor
+- logs
+- templates
+ext:
+- go
+enablerun: true
+action:
+  before:
+  - find . -name ".DS_Store" -print -delete
+  after:
+  - ps -ef|grep 'dagger-client-http service'| grep -v grep | awk '{print $2}' | xargs kill -9  && ./dagger-client-http service &
+link: https://github.com/midoks/zzz

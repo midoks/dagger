@@ -3,7 +3,9 @@ package cmd
 // https://blog.twofei.com/794/
 
 import (
+	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -47,19 +49,123 @@ type SendInfo struct {
 	RequestTime string `json:"request_time"`
 }
 
-func tunnel(w http.ResponseWriter, req *http.Request) {
+//for server debug
+func GetHttpData(req *http.Request) (*http.Response, []byte, error) {
+
+	url := req.RequestURI
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, []byte{}, err
+	}
+
+	cks := req.Cookies()
+	for _, c := range cks {
+		req.AddCookie(c)
+	}
+
+	conn, err := client.Do(req)
+	if err != nil {
+		return conn, []byte{}, err
+	}
+
+	defer conn.Body.Close()
+	b, err := ioutil.ReadAll(conn.Body)
+	return conn, b, err
+}
+
+func PostHttpData(req *http.Request) (*http.Response, []byte, error) {
+
+	url := req.RequestURI
+	contentType := req.Header.Get("Content-Type")
+
+	if err := req.ParseForm(); err == nil {
+		fmt.Println("post value:", req.PostForm)
+		fmt.Println("post value:", req.Form)
+		fmt.Println("post value:", req.MultipartForm)
+	}
+
+	data := strings.NewReader(req.PostForm.Encode())
+
+	fmt.Println("string:", req.PostForm.Encode())
+	// data := strings.NewReader("user_name=admin&&password=123456")
+	conn, err := http.Post(url, contentType, data)
+	if err != nil {
+		return conn, []byte{}, err
+	}
+
+	defer conn.Body.Close()
+	b, err := ioutil.ReadAll(conn.Body)
+	return conn, b, err
+}
+
+func isJudgeHttp(w http.ResponseWriter, req *http.Request) bool {
 
 	// We handle CONNECT method only
 	if req.Method != http.MethodConnect {
-
 		if req.Method == "GET" {
 			target := strings.Replace(req.RequestURI, "http", "https", -1)
 			http.Redirect(w, req, target, http.StatusTemporaryRedirect)
-			return
+			return true
 		}
 
 		log.Println(req.Method, req.RequestURI)
 		http.NotFound(w, req)
+		return true
+	}
+	return false
+}
+
+func isJudgeHttpN(w http.ResponseWriter, req *http.Request) bool {
+	// We handle CONNECT method only
+	if req.Method != http.MethodConnect {
+		// fmt.Println("debug:", req.Method, req.RequestURI)
+		if req.Method == "GET" {
+			// target := strings.Replace(req.RequestURI, "http", "https", -1)
+			// http.Redirect(w, req, target, http.StatusTemporaryRedirect)
+			// w.Write(connectResponse)
+
+			resp, b, err := GetHttpData(req)
+			if err == nil {
+				w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
+				w.Header().Set("Accept-Ranges", resp.Header.Get("Accept-Ranges"))
+				w.Header().Set("Content-Encoding", resp.Header.Get("Content-Encoding"))
+				w.Header().Set("Vary", resp.Header.Get("Vary"))
+
+				cks := resp.Cookies()
+				for _, c := range cks {
+					http.SetCookie(w, c)
+				}
+				w.Write(b)
+			}
+			return true
+		}
+
+		if req.Method == "POST" {
+			resp, b, err := PostHttpData(req)
+			if err == nil {
+				w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
+				w.Header().Set("Accept-Ranges", resp.Header.Get("Accept-Ranges"))
+				w.Header().Set("Content-Encoding", resp.Header.Get("Content-Encoding"))
+				w.Header().Set("Vary", resp.Header.Get("Vary"))
+
+				w.Write(b)
+			}
+			return true
+		}
+
+		log.Println(req.Method, req.RequestURI)
+		http.NotFound(w, req)
+		return true
+	}
+	return false
+}
+
+func tunnel(w http.ResponseWriter, req *http.Request) {
+
+	// We handle CONNECT method only
+	if isJudgeHttp(w, req) {
 		return
 	}
 
@@ -133,16 +239,7 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	// defer mu.Unlock()
 
 	// We handle CONNECT method only
-	if req.Method != http.MethodConnect {
-
-		if req.Method == "GET" {
-			target := strings.Replace(req.RequestURI, "http", "https", -1)
-			http.Redirect(w, req, target, http.StatusTemporaryRedirect)
-			return
-		}
-
-		log.Println(req.Method, req.RequestURI)
-		http.NotFound(w, req)
+	if isJudgeHttp(w, req) {
 		return
 	}
 
