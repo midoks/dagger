@@ -30,7 +30,7 @@ im_start(){
     isStart=`ps -ef|grep 'dagger-server service' |grep -v grep|awk '{print $2}'`
     if [ "$isStart" == '' ];then
         echo -e "Starting dagger... \c"
-        cd $app_path && ./dagger-server service &
+        cd $app_path && daemon "${app_path}/dagger-server service &"
         isStart=""
         while [[ "$isStart" == "" ]];
         do
