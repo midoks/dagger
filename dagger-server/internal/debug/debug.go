@@ -49,7 +49,7 @@ func Pprof() {
 	go func() {
 		//Close GC
 
-		debug.SetGCPercent(-1)
+		debug.SetGCPercent(100)
 
 		http.HandleFunc("/go_nums", func(w http.ResponseWriter, r *http.Request) {
 			num := strconv.FormatInt(int64(runtime.NumGoroutine()), 10)
