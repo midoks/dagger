@@ -34,3 +34,4 @@ dagger-server/dagger
 dagger-server/custom
 
 dagger/.*.sh
+tmp
