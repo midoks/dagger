@@ -3,13 +3,14 @@ package db
 import (
 	"errors"
 	"fmt"
+	"log"
+	"os"
+	"time"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log"
-	"os"
-	"time"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
 )
@@ -20,15 +21,15 @@ var (
 )
 
 func Init() error {
-	dbType := conf.GetString("db.type", "sqlite3")
-	dbUser := conf.GetString("db.user", "root")
-	dbPasswd := conf.GetString("db.password", "root")
-	dbHost := conf.GetString("db.host", "127.0.0.1")
-	dbPort, _ := conf.GetInt64("db.port", 3306)
+	dbType := conf.Database.Type
+	dbUser := conf.Database.User
+	dbPasswd := conf.Database.Password
+	dbHost := conf.Database.Host
+	dbPort := conf.Database.Port
 
-	dbName := conf.GetString("db.name", "dagger")
-	dbCharset := conf.GetString("db.charset", "utf8mb4")
-	dbPath := conf.GetString("db.path", "data/dagger.db3")
+	dbName := conf.Database.Name
+	dbCharset := conf.Database.Charset
+	dbPath := conf.Database.Path
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags),

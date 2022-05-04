@@ -1,13 +1,10 @@
 package cmd
 
 import (
-	// "encoding/base64"
-	// "log"
 	"bufio"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/websocket"
 	"io"
 	"net"
 	"net/http"
@@ -16,15 +13,14 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	go_logger "github.com/phachon/go-logger"
+	"github.com/gorilla/websocket"
 	"github.com/urfave/cli"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
 	"github.com/midoks/dagger/dagger-server/internal/db"
 	"github.com/midoks/dagger/dagger-server/internal/debug"
+	"github.com/midoks/dagger/dagger-server/internal/log"
 )
-
-var logger *go_logger.Logger
 
 var Service = cli.Command{
 	Name:        "service",
@@ -62,7 +58,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 
 	dst, err := net.Dial("tcp", info.Link)
 	if err != nil {
-		logger.Errorf("net.Dial:%s,err:%v", info.Link, err)
+		log.Errorf("net.Dial:%s,err:%v", info.Link, err)
 		return false
 	}
 
@@ -88,7 +84,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 		if n := reader.Buffered(); n > 0 {
 			n64, err := io.CopyN(dst, src, int64(n))
 			if n64 != int64(n) || err != nil {
-				logger.Errorf("io.CopyN:%d, err:%T", n64, err)
+				log.Errorf("io.CopyN:%d, err:%T", n64, err)
 				return
 			}
 		}
@@ -121,25 +117,25 @@ func websocketReqMethod(c *gin.Context) {
 
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			logger.Errorf("read websocket msg error: %v", err)
+			log.Errorf("read websocket msg error: %v", err)
 			break
 		}
 
 		reqInfo := &SendInfo{}
 		json.Unmarshal(message, &reqInfo)
 
-		userEnable := conf.GetString("user.enable", "1")
-		if userEnable == "1" {
+		userEnable := conf.User.Enable
+		if userEnable {
 
 			if db.UserAclCheck(reqInfo.Username, reqInfo.Password) {
 				b := process(c, ws, reqInfo)
 				if b {
-					logger.Infof("process[%s][login-done]:%d", reqInfo.Link, runtime.NumGoroutine())
+					log.Infof("process[%s][login-done]:%d", reqInfo.Link, runtime.NumGoroutine())
 					// break
 				}
 			} else {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", reqInfo.Username, reqInfo.Password)
-				logger.Errorf(info)
+				log.Errorf(info)
 				err = ws.WriteMessage(mt, []byte(info))
 				if err == nil {
 					// break
@@ -147,25 +143,24 @@ func websocketReqMethod(c *gin.Context) {
 			}
 
 		} else {
-			logger.Infof("process[%s]:%d", reqInfo.Link, runtime.NumGoroutine())
+			log.Infof("process[%s]:%d", reqInfo.Link, runtime.NumGoroutine())
 			b := process(c, ws, reqInfo)
 			if b {
-				logger.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
+				log.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
 			} else {
-				logger.Errorf("process[%s][fali]:%d", reqInfo.Link, runtime.NumGoroutine())
+				log.Errorf("process[%s][fali]:%d", reqInfo.Link, runtime.NumGoroutine())
 			}
 		}
 	}
 }
 
 func RunService(c *cli.Context) error {
-	Init()
 
-	httpPort := conf.GetString("http.port", "12345")
-	httpPath := conf.GetString("http.path", "ws")
+	httpPort := conf.Http.Port
+	httpPath := conf.Http.Path
 
 	r := gin.Default()
-	gin.SetMode(gin.ReleaseMode)
+	// r.SetMode(gin.ReleaseMode)
 
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "Hello World")
@@ -178,7 +173,7 @@ func RunService(c *cli.Context) error {
 		})
 	})
 
-	runMode := conf.GetString("runmode", "dev")
+	runMode := conf.App.RunMode
 	if strings.EqualFold(runMode, "dev") {
 		go debug.Pprof()
 	}
@@ -186,6 +181,6 @@ func RunService(c *cli.Context) error {
 	hp := fmt.Sprintf("/%s", httpPath)
 	r.GET(hp, websocketReqMethod)
 
-	r.Run(fmt.Sprintf(":%s", httpPort))
+	r.Run(fmt.Sprintf(":%d", httpPort))
 	return nil
 }

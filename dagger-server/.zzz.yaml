@@ -4,6 +4,7 @@ dirfilter:
 - tmp
 - .git
 - public
+- assets
 - scripts
 - vendor
 - logs
@@ -14,6 +15,11 @@ enablerun: true
 action:
   before:
   - find . -name ".DS_Store" -print -delete
+  - go generate internal/assets/conf/conf.go
+  - go mod tidy
+  - go mod vendor
   after:
-  - ps -ef|grep 'dagger-server service'| grep -v grep | awk '{print $2}' | xargs kill -9  && ./dagger-server service &
+  - ./dagger-server service &
+  exit:
+  - ps -ef|grep 'dagger-server service'| grep -v grep | awk '{print $2}' | xargs kill -9
 link: https://github.com/midoks/zzz

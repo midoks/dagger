@@ -21,7 +21,6 @@ var User = cli.Command{
 }
 
 func RunUser(c *cli.Context) error {
-	Init()
 
 	argsMethod := c.String("method")
 	argsUsername := c.String("username")

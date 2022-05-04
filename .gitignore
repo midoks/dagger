@@ -31,3 +31,5 @@ dagger-server/logs
 dagger-server/tmp
 dagger-server/data
 dagger-server/dagger
+dagger-server/custom
+
