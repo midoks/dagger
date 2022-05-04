@@ -125,7 +125,7 @@ func websocketReqMethod(c *gin.Context) {
 
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			log.Errorf("read websocket msg error: %v", err)
+			log.Errorf("read websocket msg error: %v:%d", err, runtime.NumGoroutine())
 			break
 		}
 
@@ -144,14 +144,12 @@ func websocketReqMethod(c *gin.Context) {
 
 		// fmt.Println(link)
 		if conf.User.Enable {
-
 			if db.UserAclCheck(username, password) {
 				b := process(c, ws, link)
 				if b {
 					log.Infof("process[%s][login-done]:%d", link, runtime.NumGoroutine())
 				} else {
 					log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
-					break
 				}
 			} else {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
@@ -160,16 +158,15 @@ func websocketReqMethod(c *gin.Context) {
 			}
 
 		} else {
-
 			log.Infof("process[%s]:%d", link, runtime.NumGoroutine())
 			b := process(c, ws, link)
 			if b {
 				log.Infof("process[%s][done]:%d", link, runtime.NumGoroutine())
 			} else {
 				log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
-				break
 			}
 		}
+		break
 	}
 }
 
