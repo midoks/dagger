@@ -126,7 +126,7 @@ func websocketReqMethod(c *gin.Context) {
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
 			log.Errorf("read websocket msg error: %v", err)
-			continue
+			break
 		}
 
 		var p fastjson.Parser
