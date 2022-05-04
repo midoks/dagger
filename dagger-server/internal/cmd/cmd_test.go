@@ -30,6 +30,7 @@ func init() {
 	fmt.Println("mock")
 }
 
+// go test -bench=BenchmarkServerWS -benchmem -benchtime=1s -memprofile mem.out
 // go test -bench=BenchmarkServerWS -benchmem -benchtime=1s
 func BenchmarkServerWS(b *testing.B) {
 	router := gin.New()
