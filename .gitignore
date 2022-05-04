@@ -33,3 +33,4 @@ dagger-server/data
 dagger-server/dagger
 dagger-server/custom
 
+dagger/.*.sh
