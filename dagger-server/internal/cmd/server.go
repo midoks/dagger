@@ -142,31 +142,23 @@ func websocketReqMethod(c *gin.Context) {
 		username := BytesToString(v.GetStringBytes("username"))
 		password := BytesToString(v.GetStringBytes("password"))
 
-		log.Infof("process[%s]:%d", link, runtime.NumGoroutine())
+		log.Infof("P[%s]:%d", link, runtime.NumGoroutine())
 		startTime := time.Now()
 		if conf.User.Enable {
-			if db.UserAclCheck(username, password) {
-				b := process(c, ws, link)
-				if b {
-					log.Infof("process[%s][login-done]:%d", link, runtime.NumGoroutine())
-				} else {
-					log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
-				}
-			} else {
+			if !db.UserAclCheck(username, password) {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
 				log.Errorf(info)
 				ws.WriteMessage(mt, []byte(info))
+				break
 			}
+		}
 
+		b := process(c, ws, link)
+		tcTime := time.Since(startTime)
+		if b {
+			log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
 		} else {
-			b := process(c, ws, link)
-			tcTime := time.Since(startTime)
-			fmt.Printf("time cost = %v\n", tcTime)
-			if b {
-				log.Infof("process[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
-			} else {
-				log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
-			}
+			log.Errorf("P[%s][fali]:%d", link, runtime.NumGoroutine())
 		}
 		break
 	}
