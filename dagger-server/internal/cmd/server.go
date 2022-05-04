@@ -3,7 +3,6 @@ package cmd
 import (
 	"bufio"
 	"crypto/md5"
-	// "encoding/json"
 	"fmt"
 	"io"
 	"net"
@@ -11,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 	"unsafe"
 
 	"github.com/gin-gonic/gin"
@@ -142,7 +142,8 @@ func websocketReqMethod(c *gin.Context) {
 		username := BytesToString(v.GetStringBytes("username"))
 		password := BytesToString(v.GetStringBytes("password"))
 
-		// fmt.Println(link)
+		log.Infof("process[%s]:%d", link, runtime.NumGoroutine())
+		startTime := time.Now()
 		if conf.User.Enable {
 			if db.UserAclCheck(username, password) {
 				b := process(c, ws, link)
@@ -158,10 +159,11 @@ func websocketReqMethod(c *gin.Context) {
 			}
 
 		} else {
-			log.Infof("process[%s]:%d", link, runtime.NumGoroutine())
 			b := process(c, ws, link)
+			tcTime := time.Since(startTime)
+			fmt.Printf("time cost = %v\n", tcTime)
 			if b {
-				log.Infof("process[%s][done]:%d", link, runtime.NumGoroutine())
+				log.Infof("process[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
 			} else {
 				log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
 			}
