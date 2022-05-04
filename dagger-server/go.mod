@@ -9,6 +9,7 @@ require (
 	github.com/phachon/go-logger v0.0.0-20191215032019-86e4227f71ea
 	github.com/pkg/errors v0.9.1
 	github.com/urfave/cli v1.22.5
+	github.com/valyala/fastjson v1.6.3
 	gopkg.in/ini.v1 v1.66.4
 	gorm.io/driver/mysql v1.1.2
 	gorm.io/driver/sqlite v1.2.0

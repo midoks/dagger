@@ -3,7 +3,7 @@ package cmd
 import (
 	"bufio"
 	"crypto/md5"
-	"encoding/json"
+	// "encoding/json"
 	"fmt"
 	"io"
 	"net"
@@ -11,10 +11,12 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"unsafe"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"github.com/urfave/cli"
+	"github.com/valyala/fastjson"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
 	"github.com/midoks/dagger/dagger-server/internal/db"
@@ -40,6 +42,11 @@ func Md5(s string) string {
 	return Md5Byte([]byte(s))
 }
 
+// Byte to string, only read-only
+func BytesToString(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
+}
+
 //websocket
 var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
@@ -54,11 +61,11 @@ type SendInfo struct {
 	RequestTime string `json:"request_time"`
 }
 
-func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
+func process(c *gin.Context, ws *websocket.Conn, link string) bool {
 
-	dst, err := net.Dial("tcp", info.Link)
+	dst, err := net.Dial("tcp", link)
 	if err != nil {
-		log.Errorf("net.Dial:%s,err:%v", info.Link, err)
+		log.Errorf("net.Dial:%s,err:%v", link, err)
 		return false
 	}
 
@@ -119,25 +126,35 @@ func websocketReqMethod(c *gin.Context) {
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
 			log.Errorf("read websocket msg error: %v", err)
-			break
+			continue
 		}
 
-		reqInfo := &SendInfo{}
-		json.Unmarshal(message, &reqInfo)
+		var p fastjson.Parser
 
-		fmt.Println(message)
+		reqMsg := BytesToString(message)
+		v, err := p.Parse(reqMsg)
+		if err != nil {
+			log.Errorf("cannot parse json: %s", err)
+			continue
+		}
+
+		link := BytesToString(v.GetStringBytes("link"))
+		username := BytesToString(v.GetStringBytes("username"))
+		password := BytesToString(v.GetStringBytes("password"))
+
+		fmt.Println(link)
 
 		userEnable := conf.User.Enable
 		if userEnable {
 
-			if db.UserAclCheck(reqInfo.Username, reqInfo.Password) {
-				b := process(c, ws, reqInfo)
+			if db.UserAclCheck(username, password) {
+				b := process(c, ws, link)
 				if b {
-					log.Infof("process[%s][login-done]:%d", reqInfo.Link, runtime.NumGoroutine())
+					log.Infof("process[%s][login-done]:%d", link, runtime.NumGoroutine())
 					// break
 				}
 			} else {
-				info := fmt.Sprintf("user[%s]:password[%s] acl fail", reqInfo.Username, reqInfo.Password)
+				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
 				log.Errorf(info)
 				err = ws.WriteMessage(mt, []byte(info))
 				if err == nil {
@@ -146,12 +163,12 @@ func websocketReqMethod(c *gin.Context) {
 			}
 
 		} else {
-			log.Infof("process[%s]:%d", reqInfo.Link, runtime.NumGoroutine())
-			b := process(c, ws, reqInfo)
+			log.Infof("process[%s]:%d", link, runtime.NumGoroutine())
+			b := process(c, ws, link)
 			if b {
-				log.Infof("process[%s][done]:%d", reqInfo.Link, runtime.NumGoroutine())
+				log.Infof("process[%s][done]:%d", link, runtime.NumGoroutine())
 			} else {
-				log.Errorf("process[%s][fali]:%d", reqInfo.Link, runtime.NumGoroutine())
+				log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
 			}
 		}
 	}
