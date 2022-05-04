@@ -106,6 +106,7 @@ func process(c *gin.Context, ws *websocket.Conn, info *SendInfo) bool {
 
 //websocket实现
 func websocketReqMethod(c *gin.Context) {
+
 	//升级get请求为webSocket协议
 	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
@@ -123,6 +124,8 @@ func websocketReqMethod(c *gin.Context) {
 
 		reqInfo := &SendInfo{}
 		json.Unmarshal(message, &reqInfo)
+
+		fmt.Println(message)
 
 		userEnable := conf.User.Enable
 		if userEnable {
