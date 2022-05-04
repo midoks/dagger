@@ -135,7 +135,7 @@ func websocketReqMethod(c *gin.Context) {
 		v, err := p.Parse(reqMessage)
 		if err != nil {
 			log.Errorf("cannot parse json: %s", err)
-			continue
+			break
 		}
 
 		link := BytesToString(v.GetStringBytes("link"))
@@ -151,6 +151,7 @@ func websocketReqMethod(c *gin.Context) {
 					log.Infof("process[%s][login-done]:%d", link, runtime.NumGoroutine())
 				} else {
 					log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
+					break
 				}
 			} else {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
@@ -166,6 +167,7 @@ func websocketReqMethod(c *gin.Context) {
 				log.Infof("process[%s][done]:%d", link, runtime.NumGoroutine())
 			} else {
 				log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
+				break
 			}
 		}
 	}
