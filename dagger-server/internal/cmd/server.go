@@ -54,13 +54,6 @@ var upGrader = websocket.Upgrader{
 	},
 }
 
-type SendInfo struct {
-	Link        string `json:"link"`
-	Username    string `json:"username"`
-	Password    string `json:"password"`
-	RequestTime string `json:"request_time"`
-}
-
 func process(c *gin.Context, ws *websocket.Conn, link string) bool {
 
 	dst, err := net.Dial("tcp", link)

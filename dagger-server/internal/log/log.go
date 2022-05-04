@@ -2,6 +2,7 @@ package log
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/midoks/dagger/dagger-server/internal/conf"
@@ -23,6 +24,8 @@ func Init() {
 	}
 
 	logPath := fmt.Sprintf("%s", conf.Log.RootPath)
+
+	os.MkdirAll(logPath, os.ModePerm)
 	fileConfig := &go_logger.FileConfig{
 		Filename: fmt.Sprintf("%s/%s", logPath, logFileName),
 		LevelFileName: map[int]string{
