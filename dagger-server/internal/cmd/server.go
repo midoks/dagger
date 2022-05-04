@@ -131,8 +131,8 @@ func websocketReqMethod(c *gin.Context) {
 
 		var p fastjson.Parser
 
-		reqMsg := BytesToString(message)
-		v, err := p.Parse(reqMsg)
+		reqMessage := BytesToString(message)
+		v, err := p.Parse(reqMessage)
 		if err != nil {
 			log.Errorf("cannot parse json: %s", err)
 			continue
@@ -142,27 +142,24 @@ func websocketReqMethod(c *gin.Context) {
 		username := BytesToString(v.GetStringBytes("username"))
 		password := BytesToString(v.GetStringBytes("password"))
 
-		fmt.Println(link)
-
-		userEnable := conf.User.Enable
-		if userEnable {
+		// fmt.Println(link)
+		if conf.User.Enable {
 
 			if db.UserAclCheck(username, password) {
 				b := process(c, ws, link)
 				if b {
 					log.Infof("process[%s][login-done]:%d", link, runtime.NumGoroutine())
-					// break
+				} else {
+					log.Errorf("process[%s][fali]:%d", link, runtime.NumGoroutine())
 				}
 			} else {
 				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
 				log.Errorf(info)
-				err = ws.WriteMessage(mt, []byte(info))
-				if err == nil {
-					// break
-				}
+				ws.WriteMessage(mt, []byte(info))
 			}
 
 		} else {
+
 			log.Infof("process[%s]:%d", link, runtime.NumGoroutine())
 			b := process(c, ws, link)
 			if b {
