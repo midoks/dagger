@@ -1,1 +1,1 @@
-/usr/local/Cellar/curl/7.79.1_1/bin/curl --proxy 127.0.0.1:1097 http://192.168.1.7:1080/
+/usr/local/Cellar/curl/7.79.1_1/bin/curl --proxy 127.0.0.1:1096 https://www.cachecha.com

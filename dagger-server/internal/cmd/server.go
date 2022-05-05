@@ -54,7 +54,8 @@ var upGrader = websocket.Upgrader{
 	},
 }
 
-func process(c *gin.Context, ws *websocket.Conn, link string) bool {
+//Simple Process
+func process2(c *gin.Context, ws *websocket.Conn, link string) bool {
 
 	dst, err := net.Dial("tcp", link)
 	if err != nil {
@@ -64,11 +65,53 @@ func process(c *gin.Context, ws *websocket.Conn, link string) bool {
 
 	defer dst.Close()
 
-	// Now, Hijack the writer to get the underlying net.Conn.
-	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
 	src := ws.UnderlyingConn()
 	reader := bufio.NewReader(src)
 	defer src.Close()
+	// src.SetDeadline(time.Now().Add(5 * time.Second))
+	// dst.SetDeadline(time.Now().Add(5 * time.Second))
+
+	wg := &sync.WaitGroup{}
+	wg.Add(2)
+
+	go func() {
+		defer wg.Done()
+
+		// The returned bufio.Reader may contain unprocessed buffered data from the client.
+		// Copy them to dst so we can use src directly.
+		if n := reader.Buffered(); n > 0 {
+			n64, err := io.CopyN(dst, src, int64(n))
+			if n64 != int64(n) || err != nil {
+				log.Errorf("io.CopyN:%d, err:%T", n64, err)
+				return
+			}
+		}
+		// Relay: src -> dst
+		io.Copy(dst, src)
+	}()
+
+	go func() {
+		defer wg.Done()
+
+		// Relay: dst -> src
+		io.Copy(src, dst)
+	}()
+
+	wg.Wait()
+
+	return true
+}
+
+//Simple Process
+func process(c *gin.Context, src net.Conn, reader *bufio.Reader, link string) bool {
+
+	dst, err := net.Dial("tcp", link)
+	if err != nil {
+		log.Errorf("net.Dial:%s,err:%v", link, err)
+		return false
+	}
+
+	defer dst.Close()
 
 	// src.SetDeadline(time.Now().Add(5 * time.Second))
 	// dst.SetDeadline(time.Now().Add(5 * time.Second))
@@ -104,6 +147,21 @@ func process(c *gin.Context, ws *websocket.Conn, link string) bool {
 	return true
 }
 
+func checkConn(conn net.Conn) (net.Conn, error) {
+	conn.SetReadDeadline(time.Now().Add(5 * time.Second))
+	var one = []byte{}
+	_, err := conn.Read(one)
+	if err != nil {
+		return conn, err
+	}
+	if err == io.EOF {
+		return conn, err
+	}
+	var zero time.Time
+	conn.SetReadDeadline(zero)
+	return conn, nil
+}
+
 //websocket实现
 func websocketReqMethod(c *gin.Context) {
 
@@ -113,6 +171,23 @@ func websocketReqMethod(c *gin.Context) {
 		return
 	}
 	defer ws.Close()
+
+	// Now, Hijack the writer to get the underlying net.Conn.
+	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
+	src := ws.UnderlyingConn()
+	reader := bufio.NewReader(src)
+	defer src.Close()
+
+	go func() {
+
+		for {
+			_, err := checkConn(src)
+			if err != nil {
+				break
+			}
+			time.Sleep(time.Second * 5)
+		}
+	}()
 
 	for {
 
@@ -146,7 +221,7 @@ func websocketReqMethod(c *gin.Context) {
 			}
 		}
 
-		b := process(c, ws, link)
+		b := process(c, src, reader, link)
 		tcTime := time.Since(startTime)
 		if b {
 			log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
