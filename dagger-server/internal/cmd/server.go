@@ -173,48 +173,47 @@ func websocketReqMethod(c *gin.Context) {
 	}
 	defer ws.Close()
 
-	go func() {
-		for {
-			mt, message, err := ws.ReadMessage()
-			if err != nil {
-				log.Errorf("read websocket msg error: %v:%d", err, runtime.NumGoroutine())
-				break
-			}
-
-			var p fastjson.Parser
-
-			reqMessage := BytesToString(message)
-			v, err := p.Parse(reqMessage)
-			if err != nil {
-				log.Errorf("cannot parse json: %s", err)
-				break
-			}
-
-			link := BytesToString(v.GetStringBytes("link"))
-			username := BytesToString(v.GetStringBytes("username"))
-			password := BytesToString(v.GetStringBytes("password"))
-
-			log.Infof("P[%s]:%d", link, runtime.NumGoroutine())
-			startTime := time.Now()
-			if conf.User.Enable {
-				if !db.UserAclCheck(username, password) {
-					info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
-					log.Errorf(info)
-					ws.WriteMessage(mt, []byte(info))
-					break
-				}
-			}
-
-			b := process(c, ws, link)
-			tcTime := time.Since(startTime)
-			if b {
-				log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
-			} else {
-				log.Errorf("P[%s][fali]:%d", link, runtime.NumGoroutine())
-			}
+	for {
+		mt, message, err := ws.ReadMessage()
+		if err != nil {
+			log.Errorf("read websocket msg error: %v:%d", err, runtime.NumGoroutine())
 			break
 		}
-	}()
+
+		var p fastjson.Parser
+
+		reqMessage := BytesToString(message)
+		v, err := p.Parse(reqMessage)
+		if err != nil {
+			log.Errorf("cannot parse json: %s", err)
+			break
+		}
+
+		link := BytesToString(v.GetStringBytes("link"))
+		username := BytesToString(v.GetStringBytes("username"))
+		password := BytesToString(v.GetStringBytes("password"))
+
+		log.Infof("P[%s]:%d", link, runtime.NumGoroutine())
+		startTime := time.Now()
+		if conf.User.Enable {
+			if !db.UserAclCheck(username, password) {
+				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
+				log.Errorf(info)
+				ws.WriteMessage(mt, []byte(info))
+				break
+			}
+		}
+
+		b := process(c, ws, link)
+		tcTime := time.Since(startTime)
+		if b {
+			log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
+		} else {
+			log.Errorf("P[%s][fali]:%d", link, runtime.NumGoroutine())
+		}
+		break
+	}
+
 }
 
 func RunService(c *cli.Context) error {
