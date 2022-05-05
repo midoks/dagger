@@ -55,7 +55,7 @@ var upGrader = websocket.Upgrader{
 }
 
 //Simple Process
-func process2(c *gin.Context, ws *websocket.Conn, link string) bool {
+func process(c *gin.Context, ws *websocket.Conn, link string) bool {
 
 	dst, err := net.Dial("tcp", link)
 	if err != nil {
@@ -68,8 +68,9 @@ func process2(c *gin.Context, ws *websocket.Conn, link string) bool {
 	src := ws.UnderlyingConn()
 	reader := bufio.NewReader(src)
 	defer src.Close()
-	// src.SetDeadline(time.Now().Add(5 * time.Second))
-	// dst.SetDeadline(time.Now().Add(5 * time.Second))
+
+	src.SetDeadline(time.Now().Add(600 * time.Second))
+	dst.SetDeadline(time.Now().Add(600 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
@@ -103,7 +104,7 @@ func process2(c *gin.Context, ws *websocket.Conn, link string) bool {
 }
 
 //Simple Process
-func process(c *gin.Context, src net.Conn, reader *bufio.Reader, link string) bool {
+func process2(c *gin.Context, src net.Conn, reader *bufio.Reader, link string) bool {
 
 	dst, err := net.Dial("tcp", link)
 	if err != nil {
@@ -172,64 +173,48 @@ func websocketReqMethod(c *gin.Context) {
 	}
 	defer ws.Close()
 
-	// Now, Hijack the writer to get the underlying net.Conn.
-	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
-	src := ws.UnderlyingConn()
-	reader := bufio.NewReader(src)
-	defer src.Close()
-
 	go func() {
-
 		for {
-			_, err := checkConn(src)
+			mt, message, err := ws.ReadMessage()
 			if err != nil {
+				log.Errorf("read websocket msg error: %v:%d", err, runtime.NumGoroutine())
 				break
 			}
-			time.Sleep(time.Second * 10)
+
+			var p fastjson.Parser
+
+			reqMessage := BytesToString(message)
+			v, err := p.Parse(reqMessage)
+			if err != nil {
+				log.Errorf("cannot parse json: %s", err)
+				break
+			}
+
+			link := BytesToString(v.GetStringBytes("link"))
+			username := BytesToString(v.GetStringBytes("username"))
+			password := BytesToString(v.GetStringBytes("password"))
+
+			log.Infof("P[%s]:%d", link, runtime.NumGoroutine())
+			startTime := time.Now()
+			if conf.User.Enable {
+				if !db.UserAclCheck(username, password) {
+					info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
+					log.Errorf(info)
+					ws.WriteMessage(mt, []byte(info))
+					break
+				}
+			}
+
+			b := process(c, ws, link)
+			tcTime := time.Since(startTime)
+			if b {
+				log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
+			} else {
+				log.Errorf("P[%s][fali]:%d", link, runtime.NumGoroutine())
+			}
+			break
 		}
 	}()
-
-	for {
-
-		mt, message, err := ws.ReadMessage()
-		if err != nil {
-			log.Errorf("read websocket msg error: %v:%d", err, runtime.NumGoroutine())
-			break
-		}
-
-		var p fastjson.Parser
-
-		reqMessage := BytesToString(message)
-		v, err := p.Parse(reqMessage)
-		if err != nil {
-			log.Errorf("cannot parse json: %s", err)
-			break
-		}
-
-		link := BytesToString(v.GetStringBytes("link"))
-		username := BytesToString(v.GetStringBytes("username"))
-		password := BytesToString(v.GetStringBytes("password"))
-
-		log.Infof("P[%s]:%d", link, runtime.NumGoroutine())
-		startTime := time.Now()
-		if conf.User.Enable {
-			if !db.UserAclCheck(username, password) {
-				info := fmt.Sprintf("user[%s]:password[%s] acl fail", username, password)
-				log.Errorf(info)
-				ws.WriteMessage(mt, []byte(info))
-				break
-			}
-		}
-
-		b := process(c, src, reader, link)
-		tcTime := time.Since(startTime)
-		if b {
-			log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())
-		} else {
-			log.Errorf("P[%s][fali]:%d", link, runtime.NumGoroutine())
-		}
-		break
-	}
 }
 
 func RunService(c *cli.Context) error {
