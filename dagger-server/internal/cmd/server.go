@@ -148,7 +148,7 @@ func process(c *gin.Context, src net.Conn, reader *bufio.Reader, link string) bo
 }
 
 func checkConn(conn net.Conn) (net.Conn, error) {
-	conn.SetReadDeadline(time.Now().Add(5 * time.Second))
+	conn.SetReadDeadline(time.Now().Add(10 * time.Second))
 	var one = []byte{}
 	_, err := conn.Read(one)
 	if err != nil {
@@ -185,7 +185,7 @@ func websocketReqMethod(c *gin.Context) {
 			if err != nil {
 				break
 			}
-			time.Sleep(time.Second * 5)
+			time.Sleep(time.Second * 10)
 		}
 	}()
 
