@@ -10,7 +10,7 @@ import (
 	"github.com/midoks/dagger/dagger-server/internal/conf"
 )
 
-const Version = "0.0.3"
+const Version = "0.0.4"
 const AppName = "dagger-server"
 
 func init() {
