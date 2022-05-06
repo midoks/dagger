@@ -33,6 +33,7 @@ func autoMakeCustomConf(customConf string) error {
 
 	cfg.Section("http").Key("http_port").SetValue("12345")
 	cfg.Section("http").Key("path").SetValue("network")
+	cfg.Section("http").Key("timeout").SetValue("60")
 
 	cfg.Section("security").Key("install_lock").SetValue("true")
 	secretKey := tools.RandString(15)

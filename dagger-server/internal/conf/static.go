@@ -19,8 +19,9 @@ var (
 
 	// http settings
 	Http struct {
-		Port int    `ini:"port"`
-		Path string `ini:"path"`
+		Port    int    `ini:"port"`
+		Path    string `ini:"path"`
+		Timeout int
 	}
 
 	User struct {
