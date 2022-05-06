@@ -21,7 +21,7 @@ var (
 	Http struct {
 		Port    int    `ini:"port"`
 		Path    string `ini:"path"`
-		Timeout int
+		Timeout int    `ini:"timeout"`
 	}
 
 	User struct {
