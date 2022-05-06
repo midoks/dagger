@@ -18,8 +18,8 @@ action:
   - go generate internal/assets/conf/conf.go
   - go mod tidy
   - go mod vendor
-  - ps -ef|grep 'dagger-server service'| grep -v grep | awk '{print $2}' | xargs kill -9
   after:
+  - ps -ef|grep 'dagger-server service'| grep -v grep | awk '{print $2}' | xargs kill -9
   - ./dagger-server service &
   exit:
   - ps -ef|grep 'dagger-server service'| grep -v grep | awk '{print $2}' | xargs kill -9

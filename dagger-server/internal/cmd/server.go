@@ -47,6 +47,13 @@ func BytesToString(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
 
+//String to byte, only read-only
+func StringToBytes(str string) []byte {
+	x := (*[2]uintptr)(unsafe.Pointer(&str))
+	b := [3]uintptr{x[0], x[1], x[1]}
+	return *(*[]byte)(unsafe.Pointer(&b))
+}
+
 //websocket
 var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
@@ -55,11 +62,13 @@ var upGrader = websocket.Upgrader{
 }
 
 //Simple Process
-func process(c *gin.Context, ws *websocket.Conn, link string) bool {
+func process(c *gin.Context, mt int, ws *websocket.Conn, link string) bool {
 
-	dst, err := net.Dial("tcp", link)
+	dst, err := net.DialTimeout("tcp", link, time.Second)
 	if err != nil {
-		log.Errorf("net.Dial:%s,err:%v", link, err)
+		info := fmt.Sprintf("net.DialTimeout: %s, error: %v", link, err)
+		log.Errorf(info)
+		ws.WriteMessage(mt, StringToBytes(info))
 		return false
 	}
 
@@ -204,7 +213,7 @@ func websocketReqMethod(c *gin.Context) {
 			}
 		}
 
-		b := process(c, ws, link)
+		b := process(c, mt, ws, link)
 		tcTime := time.Since(startTime)
 		if b {
 			log.Infof("P[%s][done][%v]:%d", link, tcTime, runtime.NumGoroutine())

@@ -6,7 +6,7 @@ import (
 	_ "net/http/pprof"
 	"os"
 	"runtime"
-	"runtime/debug"
+	// "runtime/debug"
 	"runtime/trace"
 	"strconv"
 )
@@ -49,7 +49,7 @@ func Pprof() {
 	go func() {
 		//Close GC
 
-		debug.SetGCPercent(100)
+		// debug.SetGCPercent(100)
 
 		http.HandleFunc("/go_nums", func(w http.ResponseWriter, r *http.Request) {
 			num := strconv.FormatInt(int64(runtime.NumGoroutine()), 10)
