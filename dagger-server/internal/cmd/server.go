@@ -78,8 +78,9 @@ func process(c *gin.Context, mt int, ws *websocket.Conn, link string) bool {
 	reader := bufio.NewReader(src)
 	defer src.Close()
 
-	src.SetDeadline(time.Now().Add(conf.Http.Timeout * time.Second))
-	dst.SetDeadline(time.Now().Add(conf.Http.Timeout * time.Second))
+	deadTime := conf.Http.Timeout
+	src.SetDeadline(time.Now().Add(time.Duration(deadTime) * time.Second))
+	dst.SetDeadline(time.Now().Add(time.Duration(deadTime) * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
