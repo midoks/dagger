@@ -7,7 +7,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 # brew install mingw-w64
 # sudo port install mingw-w64
 
-VERSION=0.0.4
+VERSION=0.0.5
 curPath=`pwd`
 rootPath=$(dirname "$curPath")
 
@@ -95,9 +95,10 @@ build_app(){
 	
 
 	cp -r $rootPath/scripts $rootPath/tmp/build
-	cp -r $rootPath/conf $rootPath/tmp/build
 
-	sed 's/dev/prod/g' $rootPath/conf/app.conf > $rootPath/tmp/build/conf/app.conf
+	# cp -r $rootPath/conf $rootPath/tmp/build
+	# sed 's/dev/prod/g' $rootPath/conf/app.conf > $rootPath/tmp/build/conf/app.conf
+
 	mkdir -p $rootPath/tmp/build/logs
 	echo "" > $rootPath/tmp/build/logs/README.md
 

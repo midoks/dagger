@@ -242,6 +242,7 @@ func RunService(c *cli.Context) error {
 		numG := runtime.NumGoroutine()
 		c.JSON(200, gin.H{
 			"goroutine": numG,
+			"node":      conf.App.Node,
 		})
 	})
 

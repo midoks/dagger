@@ -9,6 +9,7 @@ var (
 		Name    string
 		RunUser string
 		RunMode string
+		Node    string
 	}
 
 	// log
