@@ -28,6 +28,7 @@ func autoMakeCustomConf(customConf string) error {
 
 	cfg.Section("").Key("app_name").SetValue("dagger")
 	cfg.Section("").Key("run_mode").SetValue("prod")
+	cfg.Section("").Key("node").SetValue("0")
 
 	cfg.Section("user").Key("enable").SetValue("0")
 
