@@ -26,6 +26,7 @@ func autoMakeCustomConf(customConf string) error {
 		}
 	}
 
+	//init cfg
 	cfg.Section("").Key("app_name").SetValue("dagger")
 	cfg.Section("").Key("run_mode").SetValue("prod")
 	cfg.Section("").Key("node").SetValue("0")
