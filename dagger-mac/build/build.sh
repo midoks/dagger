@@ -11,6 +11,8 @@ DAGGER_RELEASE=${BUILD_DIR}/release
 DMG_FINAL="${APP_NAME}.dmg"
 
 
+# npm install -g appdmg
+
 
 
 function build(){
