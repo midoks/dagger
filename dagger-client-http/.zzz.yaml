@@ -14,6 +14,11 @@ enablerun: true
 action:
   before:
   - find . -name ".DS_Store" -print -delete
+  - go mod tidy
+  - go mod vendor
   after:
-  - ps -ef|grep 'dagger-client-http service'| grep -v grep | awk '{print $2}' | xargs kill -9  && ./dagger-client-http service &
+  - ps -ef|grep 'dagger-client-http service -p 0.0.0.0:1098'| grep -v grep | awk '{print $2}' | xargs kill -9
+  - ./dagger-client-http service -p 0.0.0.0:1098 -w "wss://v2.biqu.xyz/network wss://v3.biqu.xyz/network wss://v4.biqu.xyz/network" &
+  exit:
+  - - ps -ef|grep 'dagger-client-http service -p 0.0.0.0:1098'| grep -v grep | awk '{print $2}' | xargs kill -9
 link: https://github.com/midoks/zzz

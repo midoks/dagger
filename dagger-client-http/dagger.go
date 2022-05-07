@@ -11,7 +11,7 @@ import (
 	"github.com/midoks/dagger/dagger-client-http/internal/conf"
 )
 
-const Version = "0.0.1"
+const Version = "0.0.2"
 const AppName = "dagger-client-http"
 
 func init() {

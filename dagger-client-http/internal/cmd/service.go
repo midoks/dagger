@@ -7,6 +7,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net"
 	"net/http"
 	"runtime"
@@ -234,6 +235,16 @@ func tunnel(w http.ResponseWriter, req *http.Request) {
 	wg.Wait()
 }
 
+func getRandWs() (string, bool) {
+	wsArr := strings.Split(websocketLink, " ")
+	if len(wsArr) > 0 {
+		r := rand.Intn(len(wsArr))
+		// log.Println("ws list len:", len(wsArr), r)
+		return wsArr[r], true
+	}
+	return "", false
+}
+
 func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	// mu.Lock()
 	// defer mu.Unlock()
@@ -243,8 +254,14 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	randWs, ok := getRandWs()
+	if !ok {
+		return
+	}
+
+	startTime := time.Now()
 	// The host:port pair.
-	log.Println("url:", req.RequestURI, runtime.NumGoroutine())
+	log.Println(randWs, "U:", req.RequestURI, "P:", runtime.NumGoroutine())
 
 	// link := "ws://127.0.0.1:12345/network"
 	// link := "wss://v3.biqu.xyz/ws"
@@ -255,7 +272,7 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	// fmt.Println("password:", password)
 	// fmt.Println("listen:", listen)
 
-	wsConn, _, err = websocket.DefaultDialer.Dial(websocketLink, nil)
+	wsConn, _, err = websocket.DefaultDialer.Dial(randWs, nil)
 	if err != nil {
 		log.Println("ws dial:", err)
 		return
@@ -292,8 +309,8 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	}
 	defer src.Close()
 
-	// src.SetDeadline(time.Now().Add(5 * time.Second))
-	// dst.SetDeadline(time.Now().Add(5 * time.Second))
+	src.SetDeadline(time.Now().Add(600 * time.Second))
+	dst.SetDeadline(time.Now().Add(600 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
@@ -323,6 +340,10 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	}()
 
 	wg.Wait()
+
+	tcTime := time.Since(startTime)
+
+	log.Println(randWs, "U:", req.RequestURI, "P:", runtime.NumGoroutine(), "C:", tcTime)
 }
 
 func RunService(c *cli.Context) error {
@@ -331,6 +352,8 @@ func RunService(c *cli.Context) error {
 	password = c.String("password")
 	listen = c.String("port")
 	websocketLink = c.String("websocket")
+
+	fmt.Println("ws:", websocketLink)
 
 	if websocketLink == "" {
 
