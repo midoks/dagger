@@ -63,25 +63,33 @@
     NSMutableArray *arguments = [@[daggerHttp, @"service"]mutableCopy];
     
     NSMutableArray *list = [Servers serverList];
+    
+
+    
+    NSString *wsLink = @"";
     NSDictionary *dst = nil;
     for (NSDictionary *i in list){
         if([[i objectForKey:@"status"] isEqualTo:@"on"]){
             dst = i;
-            break;
+            NSString *domain = [dst objectForKey:@"domain"];
+            NSString *path = [dst objectForKey:@"path"];
+            
+            NSString *tmp = [NSString stringWithFormat:@"%@/%@",domain, path];
+            wsLink = [NSString stringWithFormat:@"%@ %@", wsLink,tmp];
         }
     }
     
     [arguments addObject:@"-p"];
     [arguments addObject:[NSString stringWithFormat:@"%@:%@",localHttpListenAddress,localHttpListenPort]];
     
+    
+    
+    wsLink = [wsLink stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//    wsLink = [NSString stringWithFormat:@"\"%@\"", wsLink];
     if (dst){
-        NSString *domain = [dst objectForKey:@"domain"];
-        NSString *path = [dst objectForKey:@"path"];
-        NSString *wsLink = [NSString stringWithFormat:@"%@/%@",domain, path];
         
         [arguments addObject:@"-w"];
         [arguments addObject:wsLink];
-        
         
         NSString *username = [dst objectForKey:@"username"];
         if ([username isNotEqualTo:@""]){

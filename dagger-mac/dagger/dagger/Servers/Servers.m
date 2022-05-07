@@ -151,11 +151,9 @@ static dispatch_once_t _instance_once;
     if([fm fileExistsAtPath:serverPath]){
         NSMutableArray *li = [[NSMutableArray alloc] initWithContentsOfFile:serverPath];
   
-        for (NSInteger i=0; i<[li count]; i++) {
-//            NSMutableDictionary *row = [li objectAtIndex:i];
-//            [row setObject:@"off" forKey:@"status"];
-            [[li objectAtIndex:i] setObject:@"off" forKey:@"status"];
-        }
+//        for (NSInteger i=0; i<[li count]; i++) {
+//            [[li objectAtIndex:i] setObject:@"off" forKey:@"status"];
+//        }
         
         NSMutableDictionary *sm = [li objectAtIndex:index];
         [sm setObject:value forKey:key];

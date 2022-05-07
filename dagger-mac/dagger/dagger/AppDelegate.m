@@ -32,9 +32,6 @@
 @property (weak) IBOutlet NSMenuItem *serverBeginSeparatorMenuItem;
 @property (weak) IBOutlet NSMenuItem *serverEndSeparatorMenuItem;
 
-
-
-
 @property (strong) IBOutlet NSWindow *window;
 @end
 
@@ -155,8 +152,13 @@
 }
 
 -(void)selectServer:(NSMenuItem*)sender{
-//    NSLog(@"selectServer");
-    [Servers set:sender.tag value:@"on" forKey:@"status"];
+    if (sender.state)
+    {
+        [Servers set:sender.tag value:@"off" forKey:@"status"];
+    }else{
+        [Servers set:sender.tag value:@"on" forKey:@"status"];
+    }
+    
     [self updateServersMenu];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changeConfigList" object:nil userInfo:nil];
