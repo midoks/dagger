@@ -309,8 +309,8 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	}
 	defer src.Close()
 
-	src.SetDeadline(time.Now().Add(600 * time.Second))
-	dst.SetDeadline(time.Now().Add(600 * time.Second))
+	// src.SetDeadline(time.Now().Add(600 * time.Second))
+	// dst.SetDeadline(time.Now().Add(600 * time.Second))
 
 	wg := &sync.WaitGroup{}
 	wg.Add(2)
