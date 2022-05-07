@@ -353,8 +353,6 @@ func RunService(c *cli.Context) error {
 	listen = c.String("port")
 	websocketLink = c.String("websocket")
 
-	fmt.Println("ws:", websocketLink)
-
 	if websocketLink == "" {
 
 		//本地监听 -> 本地请求数据
