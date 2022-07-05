@@ -82,6 +82,7 @@ main() {
 	bash make.sh
 
 	systemctl daemon-reload
+	service enable dagger
 	service dagger restart
 
 	cd .. && ./dagger-server -v	
