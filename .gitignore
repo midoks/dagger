@@ -35,3 +35,5 @@ dagger-server/custom
 
 .*.sh
 tmp
+dagger-cf/vendor
+dagger-cf/dagger-cf

@@ -1,0 +1,25 @@
+title: zzz
+frequency: 3
+dirfilter:
+- tmp
+- .git
+- public
+- scripts
+- vendor
+- logs
+- templates
+ext:
+- go
+enablerun: true
+action:
+  before:
+  - find . -name ".DS_Store" -print -delete
+  - go mod tidy
+  - go mod vendor
+  after:
+  - ./dagger-cf run -u "www.cachecha.com"
+  - ./dagger-cf run -u "v2.biqu.xyz"
+  - ./dagger-cf service -u "v4.biqu.xyz"
+  exit:
+  - echo "ddd"
+link: https://github.com/midoks/zzz
