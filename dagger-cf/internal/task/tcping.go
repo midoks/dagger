@@ -205,6 +205,8 @@ func (p *Ping) tcping(ip *net.IPAddr) (bool, time.Duration) {
 		fullAddress = fmt.Sprintf("[%s]:%d", ip.String(), TCPPort)
 	}
 	conn, err := net.DialTimeout("tcp", fullAddress, tcpConnectTimeout)
+
+	fmt.Println(ip.IP.String(), err)
 	if err != nil {
 		return false, 0
 	}

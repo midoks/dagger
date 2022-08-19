@@ -14,9 +14,9 @@
             filePath = "dagger/AppDelegate.m"
             startingColumnNumber = "5"
             endingColumnNumber = "5"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "-selectManualMode:"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "-selectPACMode:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

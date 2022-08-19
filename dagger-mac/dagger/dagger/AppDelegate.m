@@ -29,6 +29,7 @@
 @property (weak) IBOutlet NSMenuItem *manualModeMenuItem;
 
 @property (weak) IBOutlet NSMenuItem *serverMenuItem;
+@property (weak) IBOutlet NSMenuItem *speedTestMenuItem;
 @property (weak) IBOutlet NSMenuItem *serverBeginSeparatorMenuItem;
 @property (weak) IBOutlet NSMenuItem *serverEndSeparatorMenuItem;
 
@@ -126,6 +127,76 @@
         [statusBarItem.image setTemplate:NO];
     }
 }
+-(void)setCfIpHost
+{
+    
+    [ProxyConfHelper setCfIpClean:@"v.x" callback:^(NSString * msg) {
+        NSLog(@"clean:%@",msg);
+    }];
+
+    NSMutableArray *slist  = [Servers serverList];
+    for (NSInteger i=[slist count]-1; i>=0; i--) {
+
+        NSMutableDictionary *row = [slist objectAtIndex:i];
+        NSControlStateValue state = [[row valueForKey:@"status"] isEqualTo:@"on"]?NSControlStateValueOn:NSControlStateValueOff;
+        if (state == NSControlStateValueOn){
+            NSString *domain = [row valueForKey:@"domain"];
+            domain = [domain stringByReplacingOccurrencesOfString:@"ws://" withString:@""];
+            domain = [domain stringByReplacingOccurrencesOfString:@"wss://" withString:@""];
+
+            [self Toast:[NSString stringWithFormat:@"%@ cf ip choose begin", domain]];
+            [ProxyConfHelper setCfIpPreference:domain
+                                   callback:^(NSString * msg) {
+                [self Toast:[NSString stringWithFormat:@"%@ cf ip choose %@", domain, msg]];
+            }];
+        }
+    }
+
+}
+
+
+-(void)updateServersMenuAtSpeedTest
+{
+    NSMenu *menu = _serverMenuItem.submenu;
+    NSInteger bIndex = [menu indexOfItem:_serverBeginSeparatorMenuItem]+1;
+    NSInteger eIndex = [menu indexOfItem:_serverEndSeparatorMenuItem]-1;
+
+    for (NSInteger mIndex = eIndex ; mIndex>=bIndex; mIndex--) {
+        [menu removeItemAtIndex:mIndex];
+    }
+    
+    NSMutableArray *slist  = [Servers serverList];
+    for (NSInteger i=[slist count]-1; i>=0; i--) {
+        
+        NSMutableDictionary *row = [slist objectAtIndex:i];
+        NSMenuItem *item = [[NSMenuItem alloc] init];
+        
+        NSControlStateValue state = [[row valueForKey:@"status"] isEqualTo:@"on"]?NSControlStateValueOn:NSControlStateValueOff;
+        if (state == NSControlStateValueOn){
+            NSString *domain = [row valueForKey:@"domain"];
+            domain = [domain stringByReplacingOccurrencesOfString:@"ws://" withString:@""];
+            domain = [domain stringByReplacingOccurrencesOfString:@"wss://" withString:@""];
+    
+            [self Toast:[NSString stringWithFormat:@"%@ update begin ping", domain]];
+            [ProxyConfHelper getCFSpeedTest:domain
+                                   callback:^(NSString * msg) {
+                NSString *remark = [NSString stringWithFormat:@"%@\t\t - %@", [row valueForKey:@"remark"], msg];
+            
+                [self Toast:[NSString stringWithFormat:@"%@ ping %@", domain, msg]];
+                [[menu itemAtIndex:bIndex+i] setTitle:remark];
+            }];
+        }
+        
+        NSString *remark = [row valueForKey:@"remark"];
+        [item setTitle:remark];
+        [item setEnabled:YES];
+        item.tag = i;
+        item.state = state;
+
+        [item setAction:@selector(selectServer:)];
+        [menu insertItem:item atIndex:bIndex];
+    }
+}
 
 -(void)updateServersMenu
 {
@@ -138,7 +209,7 @@
     }
     
     NSMutableArray *slist  = [Servers serverList];
-    for (NSInteger i=0; i<[slist count]; i++) {
+    for (NSInteger i=[slist count]-1; i>=0; i--) {
         NSMutableDictionary *row = [slist objectAtIndex:i];
         NSMenuItem *item = [[NSMenuItem alloc] init];
         [item setTitle:[row valueForKey:@"remark"]];
@@ -303,6 +374,20 @@
 #pragma mark Servers
 - (IBAction)setServers:(id)sender {
     [_serverConf showWindow:nil];
+}
+
+- (IBAction)speedTest:(NSMenuItem *)sender {
+    [sender.menu setAutoenablesItems:NO];
+    [self updateServersMenuAtSpeedTest];
+    return;
+}
+
+- (IBAction)cfIpPreference:(NSMenuItem *)sender {
+    [sender.menu setAutoenablesItems:NO];
+    [self setCfIpHost];
+    
+//    [sender setState:(NSControlStateValue)];
+    return;
 }
 
 #pragma mark Preferences

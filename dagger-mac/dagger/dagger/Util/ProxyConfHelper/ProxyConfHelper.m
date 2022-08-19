@@ -7,7 +7,10 @@
 
 #import "ProxyConfHelper.h"
 
+#define kDaggerDir @"/Library/Application Support/dagger"
 #define kDaggerHelper @"/Library/Application Support/dagger/dagger-helper"
+#define kDaggerCF @"/Library/Application Support/dagger/dagger-cf"
+
 
 
 @implementation ProxyConfHelper
@@ -44,6 +47,19 @@ GCDWebServer *webServer = nil;
 + (void)install {
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:kDaggerHelper] || ![self isVersionOk]) {
+        NSString *helperPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"install_helper.sh"];
+        NSLog(@"run install script: %@", helperPath);
+        NSDictionary *error;
+        NSString *script = [NSString stringWithFormat:@"do shell script \"/bin/bash \\\"%@\\\"\" with administrator privileges", helperPath];
+        NSAppleScript *appleScript = [[NSAppleScript new] initWithSource:script];
+        if ([appleScript executeAndReturnError:&error]) {
+            NSLog(@"installation success");
+        } else {
+            NSLog(@"installation failure: %@", error);
+        }
+    }
+    
+    if (![fm fileExistsAtPath:kDaggerCF]) {
         NSString *helperPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"install_helper.sh"];
         NSLog(@"run install script: %@", helperPath);
         NSDictionary *error;
@@ -94,6 +110,84 @@ GCDWebServer *webServer = nil;
     if (string.length > 0) {
         NSLog(@"%@", string);
     }
+}
+
+
++ (void)callCFHelper:(NSArray*) arguments callback:(void(^)(NSString *)) callback {
+    NSTask *task;
+    task = [[NSTask alloc] init];
+    [task setLaunchPath:kDaggerCF];
+
+    // this log is very important
+    NSLog(@"run dagger cf: %@", kDaggerCF);
+    NSLog(@"run dagger cf args: %@", arguments);
+    [task setArguments:arguments];
+
+    NSPipe *stdoutpipe;
+    stdoutpipe = [NSPipe pipe];
+    [task setStandardOutput:stdoutpipe];
+
+    NSPipe *stderrpipe;
+    stderrpipe = [NSPipe pipe];
+    [task setStandardError:stderrpipe];
+
+    NSFileHandle *file;
+    file = [stdoutpipe fileHandleForReading];
+
+    [task launch];
+
+    NSData *data;
+    data = [file readDataToEndOfFile];
+
+    NSString *string;
+    string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (string.length > 0) {
+        callback(string);
+    }
+
+    file = [stderrpipe fileHandleForReading];
+    data = [file readDataToEndOfFile];
+    string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (string.length > 0) {
+        callback(string);
+    }
+}
+
+#pragma mark 延迟执行
++(void)delayedRun:(void(^)(void)) callback
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        callback();
+    });
+}
+
++ (void)getCFSpeedTest:(NSString *)domain callback:(void(^)(NSString *)) callback{
+    [ProxyConfHelper delayedRun:^{
+        NSMutableArray *args = [@[@"run", @"-u", domain]mutableCopy];
+        [self callCFHelper:args callback:^(NSString * msg) {
+            callback(msg);
+        }];
+    }];
+}
+
++ (void)setCfIpClean:(NSString *)domain callback:(void(^)(NSString *)) callback{
+    [ProxyConfHelper delayedRun:^{
+        NSString *ipv4 = [NSString stringWithFormat:@"%@/ip.txt",kDaggerDir];
+        NSMutableArray *args = [@[@"service", @"-to_host", @"clean", @"-ipv4", ipv4, @"-u", domain]mutableCopy];
+        [self callCFHelper:args callback:^(NSString * msg) {
+            callback(msg);
+        }];
+    }];
+}
+
++ (void)setCfIpPreference:(NSString *)domain callback:(void(^)(NSString *)) callback{
+    [ProxyConfHelper delayedRun:^{
+        NSString *ipv4 = [NSString stringWithFormat:@"%@/ip.txt",kDaggerDir];
+        NSMutableArray *args = [@[@"service", @"-to_host", @"yes", @"-ipv4", ipv4, @"-u", domain]mutableCopy];
+        [self callCFHelper:args callback:^(NSString * msg) {
+            callback(msg);
+        }];
+    }];
 }
 
 + (void)addArguments4ManualSpecifyNetworkServices:(NSMutableArray*) args {

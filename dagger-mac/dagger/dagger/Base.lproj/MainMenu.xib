@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -21,6 +21,7 @@
                 <outlet property="serverBeginSeparatorMenuItem" destination="FOw-i3-fAS" id="s3H-fs-Bup"/>
                 <outlet property="serverEndSeparatorMenuItem" destination="oRY-Cs-QGh" id="ffo-ep-oqD"/>
                 <outlet property="serverMenuItem" destination="eSi-vl-Kpv" id="O1K-0g-cja"/>
+                <outlet property="speedTestMenuItem" destination="Dtu-DC-OoP" id="RSK-bG-mzl"/>
                 <outlet property="statusBarItemMenu" destination="jGf-73-M16" id="HGK-ZA-WJ2"/>
                 <outlet property="toggleRunningMenuItem" destination="aUP-Bi-8RK" id="0VT-Of-ovf"/>
             </connections>
@@ -147,6 +148,18 @@
                                     <action selector="setServers:" target="Voe-Tx-rLC" id="vn9-mc-O5g"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="CF IP Preference" id="lbN-eW-9o3">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="cfIpPreference:" target="Voe-Tx-rLC" id="hBC-qx-RAz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Speed Test" id="Dtu-DC-OoP">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="speedTest:" target="Voe-Tx-rLC" id="wXO-8f-ci1"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="FOw-i3-fAS"/>
                             <menuItem isSeparatorItem="YES" id="oRY-Cs-QGh"/>
                         </items>
@@ -169,6 +182,9 @@
                     <connections>
                         <action selector="updateGFWList:" target="Voe-Tx-rLC" id="yd4-Wl-ZOG"/>
                     </connections>
+                </menuItem>
+                <menuItem title="Update CF IP List" id="66Y-Vg-7nz">
+                    <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Edit User Rules For PAC..." id="eWm-1B-3M2">
                     <modifierMask key="keyEquivalentModifierMask"/>

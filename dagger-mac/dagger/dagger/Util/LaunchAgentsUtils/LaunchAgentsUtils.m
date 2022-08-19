@@ -24,6 +24,14 @@
         NSLog(@"installation [%@] success", @"dagger-client-http");
     }
     
+//    NSString *cf = [NSString  stringWithFormat:@"%@/%@", appSupportDir, @"dagger-cf"];
+//    if (![fm fileExistsAtPath:cf]) {
+//        NSString *cf_sh = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"install_dagger_cf.sh"];
+//        NSLog(@"run install [%@] script: %@", @"dagger-cf",cf_sh);
+//        [AppCommon runSystemCommand:cf_sh];
+//        NSLog(@"installation [%@] success", @"dagger-cf");
+//    }
+    
     [self generateHttpLauchAgentPlist];
 }
 

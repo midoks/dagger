@@ -18,6 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)disableProxy;
 + (void)enableExternalPACProxy;
 + (void)startMonitorPAC;
+
+
++ (void)getCFSpeedTest:(NSString *)domain callback:(void(^)(NSString *)) callback;
++ (void)setCfIpClean:(NSString *)domain callback:(void(^)(NSString *)) callback;
++ (void)setCfIpPreference:(NSString *)domain callback:(void(^)(NSString *)) callback;
 @end
 
 NS_ASSUME_NONNULL_END
