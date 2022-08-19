@@ -90,25 +90,23 @@ func RunService(c *cli.Context) error {
 	max_tl := c.Int("max_tl")
 	to_host := c.String("to_host")
 
+	if url == "" {
+		return nil
+	}
+
 	task.URL = url
 	task.InputMaxDelay = time.Duration(max_tl) * time.Millisecond
 
-	if to_host != "" {
-		if url == "" {
-			return nil
-		}
+	if strings.EqualFold(to_host, "yes") {
+		t := task.NewPing()
+		pingData := t.Run().FilterDelay()
+		ip := pingData[0].IP.String()
 
-		if strings.EqualFold(to_host, "yes") {
-			t := task.NewPing()
-			pingData := t.Run().FilterDelay()
-			ip := pingData[0].IP.String()
-
-			err := writeHost(ip, url)
-			if err != nil {
-				fmt.Println(ip, url, err)
-			} else {
-				fmt.Println(ip, url)
-			}
+		err := writeHost(ip, url)
+		if err != nil {
+			fmt.Println(ip, url, err)
+		} else {
+			fmt.Println(ip, url)
 		}
 	}
 
