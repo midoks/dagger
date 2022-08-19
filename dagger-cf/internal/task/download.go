@@ -16,7 +16,7 @@ import (
 const (
 	bufferSize                     = 1024
 	defaultURL                     = "https://www.cachecha.com"
-	defaultTimeout                 = 10 * time.Second
+	defaultTimeout                 = 1 * time.Second
 	defaultDisableDownload         = false
 	defaultTestNum                 = 10
 	defaultMinSpeed        float64 = 0.0

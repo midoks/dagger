@@ -5,6 +5,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"regexp"
 	"strings"
@@ -21,6 +22,7 @@ var Service = cli.Command{
 	Action:      RunService,
 	Flags: []cli.Flag{
 		stringFlag("url, u", "", "Custom Configuration URL"),
+		stringFlag("ipv4, v4", "", "Custom Configuration IPV4"),
 		stringFlag("to_host, th", "no", "Custom Configuration Set Host yes|no|clean, default:no"),
 		intFlag("max_tl, ml", 200, "Average delay upper limit; Only output IP with lower than the specified average delay, which can be matched with other upper / lower limits; (default 9999 MS)"),
 	},
@@ -48,25 +50,20 @@ func readHostFile() (string, error) {
 }
 
 func writeHostFile(content string) error {
-	file, err := os.OpenFile(defaultHost, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-	_, err = file.Write([]byte(content))
-	return err
+	ioutil.WriteFile(defaultHost, []byte(content), os.ModePerm)
+	return nil
 }
 
 func writeHost(ip, domain string) error {
-	content, err := readHostFile()
+	// content, err := readHostFile()
 
-	if err != nil {
-		return err
-	}
+	// if err != nil {
+	// 	return err
+	// }
 
-	w := fmt.Sprintf("%s\t\t%s\t%s", ip, domain, signKey)
-	result := fmt.Sprintf("%s\n%s\n", content, w)
-	return writeHostFile(result)
+	w := fmt.Sprintf("\n%s\t\t%s\t%s", ip, domain, signKey)
+	// result := fmt.Sprintf("%s\n%s\n", content, w)
+	return writeHostFile(w)
 }
 
 func clearHost() error {
@@ -81,6 +78,8 @@ func clearHost() error {
 	}
 
 	w = strings.TrimSpace(w)
+
+	fmt.Println(w)
 	return writeHostFile(w)
 }
 
@@ -89,15 +88,16 @@ func RunService(c *cli.Context) error {
 	url := c.String("url")
 	max_tl := c.Int("max_tl")
 	to_host := c.String("to_host")
-
-	if url == "" {
-		return nil
-	}
+	ipv4 := c.String("ipv4")
 
 	task.URL = url
 	task.InputMaxDelay = time.Duration(max_tl) * time.Millisecond
 
-	if strings.EqualFold(to_host, "yes") {
+	if ipv4 != "" {
+		task.IPFile = ipv4
+	}
+
+	if url != "" && strings.EqualFold(to_host, "yes") {
 		t := task.NewPing()
 		pingData := t.Run().FilterDelay()
 		ip := pingData[0].IP.String()

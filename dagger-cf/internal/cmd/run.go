@@ -18,6 +18,7 @@ var Run = cli.Command{
 }
 
 func RunRun(c *cli.Context) error {
+
 	url := c.String("url")
 	delay := task.New().UrlSpeed(url)
 	fmt.Println(delay)

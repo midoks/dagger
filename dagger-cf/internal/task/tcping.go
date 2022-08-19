@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	tcpConnectTimeout = time.Second * 1
+	tcpConnectTimeout = time.Second * 3
 	maxRoutine        = 1000
 	defaultRoutines   = 200
 	defaultPort       = 443
@@ -139,11 +139,9 @@ func checkPingDefault() {
 }
 
 func New() *Ping {
-	ips := loadIPRanges()
 	return &Ping{
 		wg:      &sync.WaitGroup{},
 		m:       &sync.Mutex{},
-		ips:     ips,
 		control: make(chan bool, Routines),
 	}
 }
@@ -185,6 +183,7 @@ func (p *Ping) UrlSpeed(url string) time.Duration {
 		return time.Duration(0)
 	}
 	recv, totalDlay := p.checkConnection(addr)
+	// fmt.Println(recv, totalDlay, url, addr.IP.String())
 	if recv == 0 {
 		return time.Duration(0)
 	}
