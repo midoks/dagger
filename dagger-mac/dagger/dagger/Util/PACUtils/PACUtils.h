@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)install;
 +(void)GeneratePACFile;
 +(void)UpdatePACFromGFWList:(void(^)(void))success fail:(void(^)(void))fail;
++(void)UpdateCFIPAddr:(void(^)(void))success fail:(void(^)(void))fail;
 @end
 
 NS_ASSUME_NONNULL_END

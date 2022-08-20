@@ -127,24 +127,17 @@
     [jsContent writeToFile:pacGFWJSPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
 }
 
-+(void)UpdatePACFromGFWList:(void(^)(void))success fail:(void(^)(void))fail{
-    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
-    NSString *gFWListURL = [shared objectForKey:@"GFWListURL"];
-    NSString *pacDir = [NSString stringWithFormat:@"%@/%s", NSHomeDirectory(), PAC_DEFAULT_DIR];
-    NSString *pacGFWJSPath = [NSString stringWithFormat:@"%@/%s",pacDir, PAC_FILE_PATH];
-    
-    
++(void)UpdateCFIPAddr:(void(^)(void))success fail:(void(^)(void))fail{    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",nil];
 
-     
-    [manager GET:gFWListURL parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  responseObject) {
+    NSString *ip_txt = @"https://cdn.jsdelivr.net/gh/midoks/dagger@latest/dagger-cf/ip.txt";
+    NSString *dst = @"/Library/Application Support/dagger/ip.txt";
+    [manager GET:ip_txt parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  responseObject) {
         
         NSString *strGfw = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        [strGfw writeToFile:pacGFWJSPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-        [self GeneratePACFile];
-        
+        [strGfw writeToFile:dst atomically:YES encoding:NSUTF8StringEncoding error:nil];
         success();
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 //        NSLog(@"请求失败:%@",error);

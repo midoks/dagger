@@ -18,7 +18,7 @@ action:
   - go mod vendor
   after:
   - ./dagger-cf run -u "www.cachecha.com"
-  - ./dagger-cf service -u "m3u8.cachecha.com"
+  - ./dagger-cf service -u "v4.biqu.xyz|v2.biqu.xyz" -to_host yes
   exit:
   - echo "ddd"
 link: https://github.com/midoks/zzz

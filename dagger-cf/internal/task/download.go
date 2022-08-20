@@ -6,16 +6,16 @@ import (
 	"io"
 	"net"
 	"net/http"
-	// "sort"
+	"sort"
 	"time"
 
 	"github.com/VividCortex/ewma"
-	// "github.com/midoks/dagger/dagger-cf/internal/utils"
+	"github.com/midoks/dagger/dagger-cf/internal/utils"
 )
 
 const (
 	bufferSize                     = 1024
-	defaultURL                     = "https://www.cachecha.com"
+	defaultURL                     = "https://cf.xiu2.xyz/url"
 	defaultTimeout                 = 1 * time.Second
 	defaultDisableDownload         = false
 	defaultTestNum                 = 10
@@ -49,45 +49,45 @@ func checkDownloadDefault() {
 	}
 }
 
-// func TestDownloadSpeed(ipSet utils.PingDelaySet) (speedSet utils.DownloadSpeedSet) {
-// 	checkDownloadDefault()
-// 	if Disable {
-// 		return utils.DownloadSpeedSet(ipSet)
-// 	}
-// 	if len(ipSet) <= 0 { // IP数组长度(IP数量) 大于 0 时才会继续下载测速
-// 		fmt.Println("\n[信息] 延迟测速结果 IP 数量为 0，跳过下载测速。")
-// 		return
-// 	}
-// 	testNum := TestCount
-// 	if len(ipSet) < TestCount || MinSpeed > 0 { // 如果IP数组长度(IP数量) 小于下载测速数量（-dn），则次数修正为IP数
-// 		testNum = len(ipSet)
-// 	}
-// 	if testNum < TestCount {
-// 		TestCount = testNum
-// 	}
+func TestDownloadSpeed(ipSet PingDelaySet) (speedSet DownloadSpeedSet) {
+	checkDownloadDefault()
+	if Disable {
+		return DownloadSpeedSet(ipSet)
+	}
+	if len(ipSet) <= 0 { // IP数组长度(IP数量) 大于 0 时才会继续下载测速
+		fmt.Println("\n[信息] 延迟测速结果 IP 数量为 0，跳过下载测速。")
+		return
+	}
+	testNum := TestCount
+	if len(ipSet) < TestCount || MinSpeed > 0 { // 如果IP数组长度(IP数量) 小于下载测速数量（-dn），则次数修正为IP数
+		testNum = len(ipSet)
+	}
+	if testNum < TestCount {
+		TestCount = testNum
+	}
 
-// 	fmt.Printf("开始下载测速（下载速度下限：%.2f MB/s，下载测速数量：%d，下载测速队列：%d）：\n", MinSpeed, TestCount, testNum)
-// 	bar := utils.NewBar(TestCount)
-// 	for i := 0; i < testNum; i++ {
-// 		speed := downloadHandler(ipSet[i].IP)
-// 		ipSet[i].DownloadSpeed = speed
-// 		// 在每个 IP 下载测速后，以 [下载速度下限] 条件过滤结果
-// 		if speed >= MinSpeed*1024*1024 {
-// 			bar.Grow(1)
-// 			speedSet = append(speedSet, ipSet[i]) // 高于下载速度下限时，添加到新数组中
-// 			if len(speedSet) == TestCount {       // 凑够满足条件的 IP 时（下载测速数量 -dn），就跳出循环
-// 				break
-// 			}
-// 		}
-// 	}
-// 	bar.Done()
-// 	if len(speedSet) == 0 { // 没有符合速度限制的数据，返回所有测试数据
-// 		speedSet = utils.DownloadSpeedSet(ipSet)
-// 	}
-// 	// 按速度排序
-// 	sort.Sort(speedSet)
-// 	return
-// }
+	fmt.Printf("开始下载测速（下载速度下限：%.2f MB/s，下载测速数量：%d，下载测速队列：%d）：\n", MinSpeed, TestCount, testNum)
+	bar := utils.NewBar(TestCount)
+	for i := 0; i < testNum; i++ {
+		speed := downloadHandler(ipSet[i].IP)
+		ipSet[i].DownloadSpeed = speed
+		// 在每个 IP 下载测速后，以 [下载速度下限] 条件过滤结果
+		if speed >= MinSpeed*1024*1024 {
+			bar.Grow(1)
+			speedSet = append(speedSet, ipSet[i]) // 高于下载速度下限时，添加到新数组中
+			if len(speedSet) == TestCount {       // 凑够满足条件的 IP 时（下载测速数量 -dn），就跳出循环
+				break
+			}
+		}
+	}
+	bar.Done()
+	if len(speedSet) == 0 { // 没有符合速度限制的数据，返回所有测试数据
+		speedSet = DownloadSpeedSet(ipSet)
+	}
+	// 按速度排序
+	sort.Sort(speedSet)
+	return
+}
 
 func getDialContext(ip *net.IPAddr) func(ctx context.Context, network, address string) (net.Conn, error) {
 	fakeSourceAddr := ip.String() + ":" + fmt.Sprintf("%d", TCPPort)

@@ -15,6 +15,7 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="autoModeMenuItem" destination="pHg-5l-rfb" id="uIl-Qz-U0H"/>
+                <outlet property="cfIpMenuItem" destination="lbN-eW-9o3" id="eiA-y9-7np"/>
                 <outlet property="globalModeMenuItem" destination="VyQ-uM-58f" id="KiW-T0-D61"/>
                 <outlet property="manualModeMenuItem" destination="UZW-9u-bfn" id="1FE-Zc-bMN"/>
                 <outlet property="runningStatusMenuItem" destination="pRC-Xd-uez" id="oYs-5a-Ym6"/>
@@ -185,6 +186,9 @@
                 </menuItem>
                 <menuItem title="Update CF IP List" id="66Y-Vg-7nz">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="updateCFIP:" target="Voe-Tx-rLC" id="MNg-cz-ABU"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Edit User Rules For PAC..." id="eWm-1B-3M2">
                     <modifierMask key="keyEquivalentModifierMask"/>

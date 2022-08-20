@@ -17,6 +17,7 @@ const (
 	defaultRoutines   = 200
 	defaultPort       = 443
 	defaultPingTimes  = 4
+	defaultOutput     = "result.csv"
 )
 
 var (
@@ -33,6 +34,7 @@ const (
 var (
 	InputMaxDelay = maxDelay
 	InputMinDelay = minDelay
+	Output        = defaultOutput
 	PrintNum      = 10
 )
 
@@ -56,6 +58,24 @@ type CloudflareIPData struct {
 	*PingData
 	recvRate      float32
 	DownloadSpeed float64
+}
+
+// 是否打印测试结果
+func NoPrintResult() bool {
+	return PrintNum == 0
+}
+
+func convertToString(data []CloudflareIPData) [][]string {
+	result := make([][]string, 0)
+	for _, v := range data {
+		result = append(result, v.toString())
+	}
+	return result
+}
+
+// 是否输出到文件
+func noOutput() bool {
+	return Output == "" || Output == " "
 }
 
 func (cf *CloudflareIPData) getRecvRate() float32 {
@@ -119,11 +139,38 @@ func (s DownloadSpeedSet) Len() int {
 }
 
 func (s DownloadSpeedSet) Less(i, j int) bool {
-	return s[i].DownloadSpeed > s[j].DownloadSpeed
+	return s[i].Received > s[j].Received
 }
 
 func (s DownloadSpeedSet) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
+}
+
+func (s DownloadSpeedSet) Print(ipv6 bool) {
+	if NoPrintResult() {
+		return
+	}
+	if len(s) <= 0 { // IP数组长度(IP数量) 大于 0 时继续
+		fmt.Println("\n[信息] 完整测速结果 IP 数量为 0，跳过输出结果。")
+		return
+	}
+	dateString := convertToString(s) // 转为多维数组 [][]String
+	if len(dateString) < PrintNum {  // 如果IP数组长度(IP数量) 小于  打印次数，则次数改为IP数量
+		PrintNum = len(dateString)
+	}
+	headFormat := "%-16s%-5s%-5s%-5s%-6s%-11s\n"
+	dataFormat := "%-18s%-8s%-8s%-8s%-10s%-15s\n"
+	if ipv6 { // IPv6 太长了，所以需要调整一下间隔
+		headFormat = "%-40s%-5s%-5s%-5s%-6s%-11s\n"
+		dataFormat = "%-42s%-8s%-8s%-8s%-10s%-15s\n"
+	}
+	fmt.Printf(headFormat, "IP 地址", "已发送", "已接收", "丢包率", "平均延迟", "下载速度 (MB/s)")
+	for i := 0; i < PrintNum; i++ {
+		fmt.Printf(dataFormat, dateString[i][0], dateString[i][1], dateString[i][2], dateString[i][3], dateString[i][4], dateString[i][5])
+	}
+	if !noOutput() {
+		fmt.Printf("\n完整测速结果已写入 %v 文件，可使用记事本/表格软件查看。\n", Output)
+	}
 }
 
 func checkPingDefault() {
@@ -205,8 +252,7 @@ func (p *Ping) tcping(ip *net.IPAddr) (bool, time.Duration) {
 		fullAddress = fmt.Sprintf("[%s]:%d", ip.String(), TCPPort)
 	}
 	conn, err := net.DialTimeout("tcp", fullAddress, tcpConnectTimeout)
-
-	fmt.Println(ip.IP.String(), err)
+	// fmt.Println(ip.IP.String(), err)
 	if err != nil {
 		return false, 0
 	}

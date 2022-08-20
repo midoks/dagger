@@ -29,6 +29,7 @@
 @property (weak) IBOutlet NSMenuItem *manualModeMenuItem;
 
 @property (weak) IBOutlet NSMenuItem *serverMenuItem;
+@property (weak) IBOutlet NSMenuItem *cfIpMenuItem;
 @property (weak) IBOutlet NSMenuItem *speedTestMenuItem;
 @property (weak) IBOutlet NSMenuItem *serverBeginSeparatorMenuItem;
 @property (weak) IBOutlet NSMenuItem *serverEndSeparatorMenuItem;
@@ -127,31 +128,61 @@
         [statusBarItem.image setTemplate:NO];
     }
 }
+
+-(void) updateCfIpMenu
+{
+    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+    bool yes = [shared boolForKey:@"DaggerCfIP"];
+    
+    NSControlStateValue state = yes?NSControlStateValueOn:NSControlStateValueOff;
+    _cfIpMenuItem.state = state;
+}
+
 -(void)setCfIpHost
 {
-    
-    [ProxyConfHelper setCfIpClean:@"v.x" callback:^(NSString * msg) {
-        NSLog(@"clean:%@",msg);
-    }];
-
-    NSMutableArray *slist  = [Servers serverList];
-    for (NSInteger i=[slist count]-1; i>=0; i--) {
-
-        NSMutableDictionary *row = [slist objectAtIndex:i];
-        NSControlStateValue state = [[row valueForKey:@"status"] isEqualTo:@"on"]?NSControlStateValueOn:NSControlStateValueOff;
-        if (state == NSControlStateValueOn){
-            NSString *domain = [row valueForKey:@"domain"];
-            domain = [domain stringByReplacingOccurrencesOfString:@"ws://" withString:@""];
-            domain = [domain stringByReplacingOccurrencesOfString:@"wss://" withString:@""];
-
-            [self Toast:[NSString stringWithFormat:@"%@ cf ip choose begin", domain]];
-            [ProxyConfHelper setCfIpPreference:domain
+    NSUserDefaults *shared = [NSUserDefaults standardUserDefaults];
+    bool yes = [shared boolForKey:@"DaggerCfIP"];
+    if (yes){
+        [shared setBool:NO forKey:@"DaggerCfIP"];
+        [ProxyConfHelper setCfIpClean:@"v.x" callback:^(NSString * msg) {
+            NSLog(@"clean:%@",msg);
+            
+        }];
+        _cfIpMenuItem.state = NSControlStateValueOff;
+    } else{
+        [shared setBool:YES forKey:@"DaggerCfIP"];
+        _cfIpMenuItem.state = NSControlStateValueOn;
+       
+        
+        NSMutableArray *slist  = [Servers serverList];
+        int oncount = 0;
+        NSString * req_domain = @"\"";
+        for (NSInteger i=[slist count]-1; i>=0; i--) {
+            NSMutableDictionary *row = [slist objectAtIndex:i];
+            NSControlStateValue state = [[row valueForKey:@"status"] isEqualTo:@"on"]?NSControlStateValueOn:NSControlStateValueOff;
+            if (state == NSControlStateValueOn){
+                oncount += 1;
+                
+                NSString *domain = [row valueForKey:@"domain"];
+                domain = [domain stringByReplacingOccurrencesOfString:@"ws://" withString:@""];
+                domain = [domain stringByReplacingOccurrencesOfString:@"wss://" withString:@""];
+                req_domain = [NSString stringWithFormat:@"%@|%@", req_domain,domain];
+            }
+        }
+        req_domain = [NSString stringWithFormat:@"%@\"", req_domain];
+        
+        if (oncount > 0){
+            [ProxyConfHelper setCfIpClean:@"v.x" callback:^(NSString * msg) {
+                NSLog(@"clean:%@",msg);
+            }];
+            
+            [self Toast:[NSString stringWithFormat:@"cf ip choose begin...,It will take a long time"]];
+            [ProxyConfHelper setCfIpPreference:req_domain
                                    callback:^(NSString * msg) {
-                [self Toast:[NSString stringWithFormat:@"%@ cf ip choose %@", domain, msg]];
+                [self Toast:[NSString stringWithFormat:@"cf ip choose ok"]];
             }];
         }
     }
-
 }
 
 
@@ -313,6 +344,14 @@
     }];
 }
 
+- (IBAction)updateCFIP:(NSMenuItem *)sender {
+    [PACUtils UpdateCFIPAddr:^{
+        [self Toast:@"updated cf ip ok"];
+    } fail:^{
+        [self Toast:@"updated cf ip fail"];
+    }];
+}
+
 - (IBAction)editUserRulesForPAC:(NSMenuItem *)sender {
     
     [_userRuleWindow showWindow:nil];
@@ -338,6 +377,7 @@
     [shared registerDefaults:@{
         @"launchAtLogin":@NO,
         @"DaggerOn":@NO,
+        @"DaggerCfIP":@NO,
         @"DaggerMode":@"auto",
         @"LocalSocks5.ListenPort": @"1096",
         @"LocalSocks5.ListenAddress": @"127.0.0.1",
@@ -383,10 +423,13 @@
 }
 
 - (IBAction)cfIpPreference:(NSMenuItem *)sender {
-    [sender.menu setAutoenablesItems:NO];
-    [self setCfIpHost];
-    
-//    [sender setState:(NSControlStateValue)];
+    [ProxyConfHelper checkCFIP:^(NSString * msg) {
+        if ([msg isEqualToString:@""]){
+            [self setCfIpHost];
+        } else{
+            [self Toast:@"dagger cf ip running!"];
+        }
+    }];
     return;
 }
 
@@ -425,6 +468,7 @@
     [self updateMainMenu];
     [self updateRunningModeMenu];
     [self updateServersMenu];
+    [self updateCfIpMenu];
     [self applyConf];
 }
 

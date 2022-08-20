@@ -49,21 +49,33 @@ func readHostFile() (string, error) {
 	return string(content), nil
 }
 
+func writeHostAppendFile(content string) error {
+	file, err := os.OpenFile(defaultHost, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	_, err = file.Write([]byte(content))
+	return err
+}
+
 func writeHostFile(content string) error {
 	ioutil.WriteFile(defaultHost, []byte(content), os.ModePerm)
 	return nil
 }
 
 func writeHost(ip, domain string) error {
-	// content, err := readHostFile()
-
-	// if err != nil {
-	// 	return err
-	// }
-
 	w := fmt.Sprintf("\n%s\t\t%s\t%s", ip, domain, signKey)
-	// result := fmt.Sprintf("%s\n%s\n", content, w)
 	return writeHostFile(w)
+}
+
+func writeHostAppend(ip, domain string) error {
+	w := fmt.Sprintf("\n%s\t\t%s\t%s", ip, domain, signKey)
+	return writeHostAppendFile(w)
+}
+
+func writeHostAppendN() error {
+	return writeHostAppendFile("\n")
 }
 
 func clearHost() error {
@@ -92,7 +104,6 @@ func RunService(c *cli.Context) error {
 
 	task.URL = url
 	task.InputMaxDelay = time.Duration(max_tl) * time.Millisecond
-
 	if ipv4 != "" {
 		task.IPFile = ipv4
 	}
@@ -100,14 +111,25 @@ func RunService(c *cli.Context) error {
 	if url != "" && strings.EqualFold(to_host, "yes") {
 		t := task.NewPing()
 		pingData := t.Run().FilterDelay()
-		ip := pingData[0].IP.String()
 
-		err := writeHost(ip, url)
-		if err != nil {
-			fmt.Println(ip, url, err)
-		} else {
-			fmt.Println(ip, url)
+		speedData := task.TestDownloadSpeed(pingData)
+		speedData.Print(task.IPv6)
+
+		ip := speedData[0].IP.String()
+		// ip := "127.0.0.1"
+		url = strings.Trim(url, "\"")
+		url = strings.Trim(url, "|")
+		hlist := strings.Split(url, "|")
+		clearHost()
+		for _, url_val := range hlist {
+			err := writeHostAppend(ip, url_val)
+			if err != nil {
+				fmt.Println(ip, url_val, err)
+			} else {
+				fmt.Println(ip, url_val)
+			}
 		}
+		writeHostAppendN()
 	}
 
 	if strings.EqualFold(to_host, "clean") {

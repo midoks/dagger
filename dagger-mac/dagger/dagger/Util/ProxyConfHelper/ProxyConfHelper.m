@@ -153,12 +153,61 @@ GCDWebServer *webServer = nil;
     }
 }
 
+
++ (void)callCMDHelper:(NSArray*) arguments callback:(void(^)(NSString *)) callback {
+    NSTask *task;
+    task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/bin/sh"];
+
+    // this log is very important
+    NSLog(@"run dagger cf: %@", @"/bin/sh");
+    NSLog(@"run dagger cf args: %@", arguments);
+    [task setArguments:arguments];
+
+    NSPipe *stdoutpipe;
+    stdoutpipe = [NSPipe pipe];
+    [task setStandardOutput:stdoutpipe];
+
+    NSPipe *stderrpipe;
+    stderrpipe = [NSPipe pipe];
+    [task setStandardError:stderrpipe];
+
+    NSFileHandle *file;
+    file = [stdoutpipe fileHandleForReading];
+
+    [task launch];
+
+    NSData *data;
+    data = [file readDataToEndOfFile];
+
+    NSString *string;
+    string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    callback(string);
+ 
+
+    file = [stderrpipe fileHandleForReading];
+    data = [file readDataToEndOfFile];
+    string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (string.length > 0) {
+        callback(string);
+    }
+}
+
 #pragma mark 延迟执行
 +(void)delayedRun:(void(^)(void)) callback
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         callback();
     });
+}
+
++ (void)checkCFIP:(void(^)(NSString *)) callback{
+    [ProxyConfHelper delayedRun:^{
+        NSMutableArray *args = [@[@"-c",@"ps -ef|grep dagger-cf|grep -v grep"]mutableCopy];
+        [self callCMDHelper:args callback:^(NSString * msg) {
+            callback(msg);
+        }];
+    }];
 }
 
 + (void)getCFSpeedTest:(NSString *)domain callback:(void(^)(NSString *)) callback{
@@ -169,6 +218,7 @@ GCDWebServer *webServer = nil;
         }];
     }];
 }
+
 
 + (void)setCfIpClean:(NSString *)domain callback:(void(^)(NSString *)) callback{
     [ProxyConfHelper delayedRun:^{
