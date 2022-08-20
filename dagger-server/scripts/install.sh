@@ -9,9 +9,8 @@ check_go_environment() {
 
 load_vars() {
 	OS=$(uname | tr '[:upper:]' '[:lower:]')
-
-	VERSION=$(get_latest_release "midoks/dagger")
-
+	# VERSION=$(get_latest_release "midoks/dagger")
+	VERSION="0.0.5"
 	TARGET_DIR="/usr/local/dagger"
 }
 
