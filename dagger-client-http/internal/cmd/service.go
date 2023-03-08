@@ -3,6 +3,7 @@ package cmd
 // https://blog.twofei.com/794/
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -346,12 +347,116 @@ func tunnelWs(w http.ResponseWriter, req *http.Request) {
 	log.Println(randWs, "U:", req.RequestURI, "P:", runtime.NumGoroutine(), "C:", tcTime)
 }
 
+func doneSock5(conn net.Conn, err error) error {
+	if err != nil {
+		return err
+	}
+
+	randWs, ok := getRandWs()
+	if !ok {
+		return nil
+	}
+
+	startTime := time.Now()
+	// The host:port pair.
+	log.Println("socket5", randWs, "P:", runtime.NumGoroutine())
+
+	wsConn, _, err = websocket.DefaultDialer.Dial(randWs, nil)
+	if err != nil {
+		log.Println("ws dial error:", err)
+		return err
+	}
+
+	tmp := SendInfo{
+		Link:        "...",
+		Username:    username,
+		Password:    password,
+		RequestTime: time.Now().Format("2006/1/2 15:04:05"),
+	}
+	// fmt.Println(tmp)
+
+	wsConn.WriteJSON(tmp)
+
+	// Connect to Remote.
+	dst := wsConn.UnderlyingConn()
+	defer dst.Close()
+	defer conn.Close()
+
+	// Upon success, we respond a 200 status code to client.
+	// w.Write(connectResponse)
+
+	// Now, Hijack the writer to get the underlying net.Conn.
+	// Which can be either *tcp.Conn, for HTTP, or *tls.Conn, for HTTPS.
+
+	// src, bio, err := w.(http.Hijacker).Hijack()
+	// if err != nil {
+	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
+	// 	return
+	// }
+	// defer src.Close()
+
+	bio := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
+
+	wg := &sync.WaitGroup{}
+	wg.Add(2)
+
+	go func() {
+		defer wg.Done()
+
+		// The returned bufio.Reader may contain unprocessed buffered data from the client.
+		// Copy them to dst so we can use src directly.
+
+		// fmt.Println("conn.Reader.Buffered():", conn.Reader.Buffered())
+		if n := bio.Reader.Buffered(); n > 0 {
+			n64, err := io.CopyN(dst, conn, int64(n))
+			if n64 != int64(n) || err != nil {
+				log.Println("io.CopyN:", n64, err)
+				return
+			}
+		}
+
+		// Relay: src -> dst
+		io.Copy(dst, conn)
+	}()
+
+	go func() {
+		defer wg.Done()
+
+		// Relay: dst -> src
+		io.Copy(conn, dst)
+	}()
+
+	wg.Wait()
+
+	tcTime := time.Since(startTime)
+
+	log.Println("socket5", randWs, "P:", runtime.NumGoroutine(), "C:", tcTime)
+
+	return nil
+}
+
+func RunSock5(port int) error {
+	l, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", port))
+	if err != nil {
+		log.Println("listen socket5 error:", err)
+		return err
+	}
+
+	for {
+		conn, err := l.Accept()
+		go doneSock5(conn, err)
+	}
+	return nil
+}
+
 func RunService(c *cli.Context) error {
 
 	username = c.String("username")
 	password = c.String("password")
 	listen = c.String("port")
 	websocketLink = c.String("websocket")
+
+	// go RunSock5(1060)
 
 	if websocketLink == "" {
 
