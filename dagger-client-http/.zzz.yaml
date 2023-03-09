@@ -18,7 +18,7 @@ action:
   - go mod vendor
   after:
   - ps -ef|grep 'dagger-client-http service -p 0.0.0.0:1198'| grep -v grep | awk '{print $2}' | xargs kill -9
-  - ./dagger-client-http service -p 0.0.0.0:1198 -w "wss://v2.biqu.xyz/network wss://v3.biqu.xyz/network wss://v4.biqu.xyz/network" &
+  # - ./dagger-client-http service -p 0.0.0.0:1198 -w "wss://v8.cachecha.com/network" &
   exit:
   - ps -ef|grep 'dagger-client-http service -p 0.0.0.0:1198'| grep -v grep | awk '{print $2}' | xargs kill -9
 link: https://github.com/midoks/zzz
